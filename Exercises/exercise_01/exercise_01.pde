@@ -9,8 +9,8 @@ final color CLICK_FILL_COLOR = color(100, 100, 250);
 final color BACKGROUND_COLOR = color(250, 150, 150);
 //declaring stroke coulour pinkish (mostly red, a bit of green, a bit of blue). Final signifying that the stroke will no change colours.
 final color STROKE_COLOR = color(250, 150, 150);
-//declaring that circle is size 50 (both the width and the height). Final signifying that the circle will not change size. Int signifying that the value is a number.
-final int CIRCLE_SIZE = 50;
+//CHANGED: TOOK AWAY VARIABLE CIRCLE SIZE.
+
 
 //declaring the variables processing will need to use. 
 //circleX is the location of the circle on the x-axis.
@@ -21,6 +21,8 @@ int circleY;
 int circleVX;
 //circleVY is the speed at which the circle moves on the y-axis.
 int circleVY;
+//CHANGE: ADDED currenCircleSize variable. currentCircleSize is the variable that tell the circle to change size. The circle has a width and a height of 20 pixels.
+int currentCircleSize = 20;
 
 //setup is declaring what we want to happen at the start of the program and signifying what the made up functions mean. The empty parathenses means the function has no parameters. The curly bracket means we are about to tell processing what to do with the setup function. Void is declaring that these funcitons return no value.
 void setup() {
@@ -34,6 +36,7 @@ void setup() {
   circleVX = CIRCLE_SPEED;
   //declaring that the speed at which the circle will move at on the y-axis is 7.
   circleVY = CIRCLE_SPEED;
+
   
   //declaring that the stroke colour is pinkish. 
   stroke(STROKE_COLOR);
@@ -46,8 +49,10 @@ void setup() {
 
 //declaring the draw function is telling processing what we want to happen every frame of the program. The empty parathenses means the function has no parameters. The curly bracket means we are about to tell processing what to do with the draw function.
 void draw() {
-  //declaring that if it is true the distance between the mouse and the circle's postition is smaller than 25 pixels (which is half of the size of the circle) then... (the curly brackets tell us what is going to happen if this is true)
-    if (dist(mouseX, mouseY, circleX, circleY) < CIRCLE_SIZE/2) {
+  //CHANGE: added this line to make the program draw a circle that gets bigger and bigger at the speed of 4.
+  currentCircleSize=currentCircleSize+4;
+  //CHANGE: declaring that if it is true the distance between the mouse and the circle's postition is smaller than the current size of the circle then... (the curly brackets tell us what is going to happen if this is true)
+    if (dist(mouseX, mouseY, circleX, circleY) < currentCircleSize/2) {
     //then the fill of the circle when the mouse if over it will be blue (as blue is the colour of the click_fill_coulour variable)
       fill(CLICK_FILL_COLOR);
       //declaring that the program is done telling processing what to draw if this first line of code is true.
@@ -58,20 +63,20 @@ void draw() {
     fill(NO_CLICK_FILL_COLOR);
     //declaring that we are done telling processing what to draw if the first line of code in the draw function isn't true.
   }
-  //declaring that the ellipse will be drawn at 320 on the x axis and 240 on the y axis and will have a width of 50 and a height of 50.
-  ellipse(circleX, circleY, CIRCLE_SIZE, CIRCLE_SIZE);
+  //CHANGE declaring that the ellipse will be drawn at 320 on the x axis and 240 on the y axis and will have a width of 20 and a height of 20.
+  ellipse(circleX, circleY, currentCircleSize, currentCircleSize);
   //declaring that the ellipse moves at speed of 7 on the x axis.
   circleX += circleVX;
   //declaring that the ellipse moves at speed of 7 on the y axis.
   circleY += circleVY;
-  //declaring that if it is true that the location of the circle on the x axis plus 25 pixels is bigger than the width of the screen OR if it is true that the location of the circle on the x axis minus 25 is smaller than the point 0 on either the x or y axis( basically IF the circle has gone off the screen on the horizontal axis) , THEN
-  if (circleX + CIRCLE_SIZE/2 > width || circleX - CIRCLE_SIZE/2 < 0) {
+  //CHANGE declaring that if it is true that the location of the circle on the x axis plus the current size of the circle OR if it is true that the location of the circle on the x axis minus the current size of the circle is smaller than the point 0 on either the x or y axis( basically IF the circle has gone off the screen on the horizontal axis) , THEN
+  if (circleX + currentCircleSize/2 > width || circleX - currentCircleSize/2 < 0) {
     //velosity is reversed
     circleVX = -circleVX;
     //declaring we are done telling processing what to do if this condition is true
   }
-  //like above, declaring that if it is true that the circle has gone off screen on the y axis THEN
-  if (circleY + CIRCLE_SIZE/2 > height || circleY - CIRCLE_SIZE/2 < 0) {
+  //CHANGE like above, declaring that if it is true that the circle has gone off screen on the y axis THEN
+  if (circleY + currentCircleSize/2 > height || circleY - currentCircleSize/2 < 0) {
     //the velosity  is reversed
     circleVY = -circleVY;
     //declaring that we are done telling processing wha to do if this condition is true
