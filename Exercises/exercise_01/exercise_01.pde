@@ -23,6 +23,8 @@ int circleVX;
 int circleVY;
 //CHANGE: ADDED currenCircleSize variable. currentCircleSize is the variable that tell the circle to change size. The circle has a width and a height of 20 pixels.
 int currentCircleSize = 20;
+//CHANGED added variable sizeSpeed, which is the speed at which the circle grows.
+int sizeSpeed=1;
 
 //setup is declaring what we want to happen at the start of the program and signifying what the made up functions mean. The empty parathenses means the function has no parameters. The curly bracket means we are about to tell processing what to do with the setup function. Void is declaring that these funcitons return no value.
 void setup() {
@@ -49,8 +51,8 @@ void setup() {
 
 //declaring the draw function is telling processing what we want to happen every frame of the program. The empty parathenses means the function has no parameters. The curly bracket means we are about to tell processing what to do with the draw function.
 void draw() {
-  //CHANGE: added this line to make the program draw a circle that gets bigger and bigger at the speed of 4.
-  currentCircleSize=currentCircleSize+4;
+  //CHANGE: added this line to make the program draw a circle that gets bigger and bigger at the speed of 1.
+  currentCircleSize=currentCircleSize+sizeSpeed;
   //CHANGE: declaring that if it is true the distance between the mouse and the circle's postition is smaller than the current size of the circle then... (the curly brackets tell us what is going to happen if this is true)
     if (dist(mouseX, mouseY, circleX, circleY) < currentCircleSize/2) {
     //then the fill of the circle when the mouse if over it will be blue (as blue is the colour of the click_fill_coulour variable)
@@ -79,8 +81,14 @@ void draw() {
   if (circleY + currentCircleSize/2 > height || circleY - currentCircleSize/2 < 0) {
     //the velosity  is reversed
     circleVY = -circleVY;
-    //declaring that we are done telling processing wha to do if this condition is true
+    //declaring that we are done telling processing what to do if this condition is true
   }
+  //CHANGED:added the conditional that if current circle size is bigger than 50 OR smaller then 10, then 
+  if (currentCircleSize> 50 || currentCircleSize < 10) {
+    //the circle changes size to get bigger or smaller. 
+    sizeSpeed= -sizeSpeed;
+    //CHANGED declaring that we are done telling processing what to do if this condition is true
+    }
   //declaring that we are done telling processing what to draw.
 }
 
