@@ -1,9 +1,9 @@
 //This section defines the properties of the variables
 //declaring circle speed and assigning this variable the value 7. Int signifying that the value is a number.Final signifing that the speed cannot change.
 final int CIRCLE_SPEED = 7;
-//declaring of fill color red-ish for circle if you don't click. Final signifying that the colour cannot change.
+//declaring of fill color red-ish for circle if you don't have your mouse on it. Final signifying that the colour cannot change.
 final color NO_CLICK_FILL_COLOR = color(250, 100, 100);
-//declaring fill colour blue for circle that you're clicking on. Final signifying that the colour cannot change.
+//declaring fill colour blue for circle when youre mouse is on it. Final signifying that the colour cannot change.
 final color CLICK_FILL_COLOR = color(100, 100, 250);
 //declaring background color pinkish (mostly red, a bit of green, a bit of blue). Final signifying that the background colour will not change.
 final color BACKGROUND_COLOR = color(250, 150, 150);
@@ -35,11 +35,11 @@ void setup() {
   //declaring that the speed at which the circle will move at on the y-axis is 7.
   circleVY = CIRCLE_SPEED;
   
-  //declaring that the stroke colour is redish. (?)
+  //declaring that the stroke colour is pinkish. 
   stroke(STROKE_COLOR);
-  //declaring that the fill of the circle is redish when one doesn't click.
+  //declaring that the fill of the circle is redish when one's mouse isn't on the circle.
   fill(NO_CLICK_FILL_COLOR);
-  //declaring that the background is pinkish. (?)
+  //declaring that the background is pinkish. 
   background(BACKGROUND_COLOR);
   //declaring that we are done telling processing what to do with the setup function.
 }
@@ -48,11 +48,11 @@ void setup() {
 void draw() {
   //declaring that if it is true the distance between the mouse and the circle's postition is smaller than 25 pixels (which is half of the size of the circle) then... (the curly brackets tell us what is going to happen if this is true)
     if (dist(mouseX, mouseY, circleX, circleY) < CIRCLE_SIZE/2) {
-    //then the fill of the circle when you click it willbe blue (as blue is the colour of the click_fill_coulour variable)
+    //then the fill of the circle when the mouse if over it will be blue (as blue is the colour of the click_fill_coulour variable)
       fill(CLICK_FILL_COLOR);
       //declaring that the program is done telling processing what to draw if this first line of code is true.
   }
-  //else signifies that if the first line of code is not true, something else will happen. The curly bracket signifies we are about to tell Processing what will happen if the first line of code is not true.
+  //else signifies that if the first line of code is not true, something else will happen. The curly bracket signifies we are about to tell Processing what will happen if the first line of code (the first condition) is not true.
   else {
     //declaring that if the circle will remain red-ish, as this is the no_click_fill_color.
     fill(NO_CLICK_FILL_COLOR);
