@@ -12,6 +12,16 @@ int staticSizeMax = 3;
 //declaring that the colour of the static spots will be light gray.
 color staticColor = color(200);
 
+/*CHANGED: added new variables in order to add orange static */
+//1000 static specks
+int newNumStatic=1000;
+//minumum size of static is 1
+int newStaticSizeMin=1;
+//maximum size of static is 6
+int newStaticSizeMax=5;
+//colour of new static is orange
+color newStaticColor= color(255,100,0);
+
 
 /* declaring the variables processing will need to use to create the paddle (white rectangle) at the bottom of the screen.*/
 int paddleX;
@@ -67,6 +77,9 @@ void draw() {
 
 /*calling these functions in the draw functions tells processing that these functions will have to happen every frame.*/
   drawStatic();
+  
+  //CHANGED: called newDrawStatic function 
+newDrawStatic();
 
   updatePaddle();
   updateBall();
@@ -88,7 +101,25 @@ void drawStatic() {
    float staticSize = random(staticSizeMin,staticSizeMax);
    fill(staticColor);
    rect(x,y,staticSize,staticSize);
-  }
+   
+   }
+}
+
+/*CHANGED: declaring the newdrawStatic function tells processing what to do every frame with the NEW ORANGE static specks */
+void newDrawStatic() {
+  //calling "for" function is telling processing to do a sequence of repetitions until certain actions are done a set number of times.
+  // i=0 is declaring that at the start of the loop, the variable i has a value of 0. i< numStatic is declaring the condition for this loop: if the variable i has a integer value under 1000 (so maximum is 999), then the loop keeps going. If the variable i has the value above 999, the loop ends. i++ tells processing to add 1 to the variable i at the end of each loop. The opening curly bracket announces we are about to tell processing what action we want to do over and over in the loop.
+  for (int i = 0; i < newNumStatic; i++) {
+   //the random function will give x a random floating point between the point 0 on the x-axis and the width of the screen.
+    float x = random(0,width);
+   //the random function will give y a random floating point between the point 0 on the y-axis and the height of the screen.
+   float y = random(0,height);
+   //the size of the new static orange spots with be a random floating number between 1 and 3. 
+   float newStaticSize = random(newStaticSizeMin,newStaticSizeMax);
+   fill(newStaticColor);
+   rect(x,y,newStaticSize,newStaticSize);
+   
+   }
 }
 
 //the updatePaddle function tells processing what actions to do with the paddle.
