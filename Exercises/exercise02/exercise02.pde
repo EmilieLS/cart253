@@ -26,8 +26,11 @@ color paddleColor = color(255);
 /*declaration of the variables processing will need to create the "ball" (the white square) that moves around the screen.*/
 int ballX;
 int ballY;
+//speed at which the ball moves on the x-axis.
 int ballVX;
+//speed at which the ball moves on the y-axis.
 int ballVY;
+//speed at which the ball moves is 5.
 int ballSpeed = 5;
 int ballSize = 16;
 color ballColor = color(255);
@@ -37,7 +40,7 @@ void setup() {
   //size of screen
   size(640, 480);
   
-/*calling these functions in the setup function will be used to tell processing where the paddle and the ball at the start of the program.*/
+/*calling these functions in the setup function will be used to tell processing where the paddle and thse ball at the start of the program.*/
   setupPaddle();
   setupBall();
 }
@@ -103,6 +106,7 @@ void updateBall() {
   //the location of the ball on the x-axis is equal to the location of the paddle on the x-axis plus the speed at which the ball travels on the y-axis.
   ballY += ballVY;
   
+  
   /* calling functions that tell processing what to do what to do when the ball hits the paddle, hits the wall of the screen, and hits the bottom of the screen.*/
   handleBallHitPaddle();
   handleBallHitWall();
@@ -141,6 +145,20 @@ void handleBallHitPaddle() {
     ballY = paddleY - paddleHeight/2 - ballSize/2;
     //velosity is reversed  
     ballVY = -ballVY;
+    //CHANGED the ballspeed to 11 (5+6)
+    ballSpeed = ballSpeed+6;
+    //CHANGED: inserted a conditional to make sure the ball would bounce back up after hitting the paddle instead of possibly running off the screen.
+    //if the velocity is reversed (if the ball is moving left, in other words), THEN
+    if(ballVY<0){
+      //CHANGED: the speed at which the ball moves on the Y axis is changed to -11.
+      ballVY = -ballSpeed;
+    }
+    //CHANGED: if this conditional is false, THEN
+    else
+    {
+      //CHANGED: the ball will travel at the speed of 11.
+      ballVY =ballSpeed;
+    }
   }
 }
 
