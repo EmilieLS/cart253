@@ -132,9 +132,10 @@ void updatePaddle() {
 
 //the updateBall function tells processing what actions to do with the ball every frame.
 void updateBall() {
-  // the location of the ball on the x-axis is equal to the location of the paddle on the x-axis plus the speed at which the ball travels on the x-axis..          
+  /*Corrected errors in commenting*/
+  // the location of the ball on the x-axis is equal to the location of the ball on the x-axis plus the speed at which the ball travels on the x-axis..          
   ballX += ballVX;
-  //the location of the ball on the x-axis is equal to the location of the paddle on the x-axis plus the speed at which the ball travels on the y-axis.
+  //the location of the ball on the x-axis is equal to the location of the ball on the x-axis plus the speed at which the ball travels on the y-axis.
   ballY += ballVY;
   
   
@@ -166,6 +167,14 @@ void drawBall() {
   fill(ballColor);
   //drawing the ball at the location of ballX and ballY at that moment, and with have a width of 16 and a height of 16.
   rect(ballX, ballY, ballSize, ballSize);
+  
+  /*CHANGED:added ellipses that follow the ball!*/
+  //calling "for" function is telling processing to do a sequence of repetitions until certain actions are done a set number of times.
+  // i=0 is declaring that at the start of the loop, the variable i has a value of 0. i< 10 is declaring the condition for this loop: if the variable i has a integer value under 10, then the loop keeps going. Every loop, 10 balls will appear. i++ tells processing to add 1 to the variable i at the end of each loop. The opening curly bracket announces we are about to tell processing what action we want to do over and over in the loop.
+  for (int i = 0; i < 10; i++) {
+    //drawing ellipses around where the original ball is, size 30.
+  ellipse(ballX+random(-180,180), ballY+random(-180,180),30,30);
+}
 }
 
 //defining the function that tells processing what to do when the ball hits the paddle.
