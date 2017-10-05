@@ -73,8 +73,22 @@ void setupBall() {
 /*calling the draw function, thus telling processing what we want to happen every frame of the program.  */ 
 void draw() {
   //background in under the draw function because we don't want the gray dots, ball, and paddle to leave their trace on the screen.
-  background(backgroundColor);
-
+  /*Made background red when ball in in bottom half of screen and blue when in top half of screen*/
+  //if it is true that the location of the ball on the y-axis is bigger than half the height of the screen (so in the bottom half of the screen), then...
+    if(ballY>height/2){
+      //background will be red
+  background(255,10,10);
+  }
+  //if the above condition is not true then...
+  else
+    {
+      //the background will be blue.
+  background(10,10,255);
+}
+  
+  
+  
+  
 /*calling these functions in the draw functions tells processing that these functions will have to happen every frame.*/
   drawStatic();
   
