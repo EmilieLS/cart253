@@ -4,6 +4,7 @@
 //declaring variable backgroundcolour and declaring it will be black.
 color backgroundColor = color(0);
 
+
 /*declaring properties of the static spots that appear and disappear.*/
 //declaring that there are 1000 static spots.
 int numStatic = 1000;
@@ -152,12 +153,28 @@ void updateBall() {
   //the location of the ball on the x-axis is equal to the location of the ball on the x-axis plus the speed at which the ball travels on the y-axis.
   ballY += ballVY;
   
+
   
   /* calling functions that tell processing what to do what to do when the ball hits the paddle, hits the wall of the screen, and hits the bottom of the screen.*/
   handleBallHitPaddle();
   handleBallHitWall();
   handleBallOffBottom();
+  //CHANGE: called a new function
+  colourOfBall();
+  
 }
+/*telling processing what we want to do with this function which will change the colour of the ball*/
+void colourOfBall(){
+  //if it is true that the location of the ball on the x-axis is bigger that half the width if the screen, then...
+  if (ballX>width/2){
+    //the ball will be green
+     ballColor=color(10,255,10);
+    }
+    //if the above conidtion is not true, then
+    else
+    //the colour of the ball will be orange.
+    ballColor=color(200,200,10);
+    }
 
 // defining the function to draw the paddle which will be drawn every frame.
 void drawPaddle() {
