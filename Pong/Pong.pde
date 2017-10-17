@@ -15,11 +15,17 @@ Paddle rightPaddle;
 Ball ball;
 
 // The distance from the edge of the window a paddle should be
-int PADDLE_INSET = 8;
+int PADDLE_INSET = 40;
 
 // The background colour during play (black)
 color backgroundColor = color(0);
 
+//CHANGED: initializing variable "image"
+PImage img;
+
+//CHANGED: defining new variable of score
+int rightplayerscore=0;
+int leftplayerscore=0;
 
 // setup()
 //
@@ -29,12 +35,14 @@ void setup() {
   // Set the size
   size(640, 480);
 
+//added nature image to background (what is this called?)
+   img = loadImage("nature.jpg");
   // Create the paddles on either side of the screen. 
   // Use PADDLE_INSET to to position them on x, position them both at centre on y
   // Also pass through the two keys used to control 'up' and 'down' respectively
   // NOTE: On a mac you can run into trouble if you use keys that create that popup of
   // different accented characters in text editors (so avoid those if you're changing this)
-  leftPaddle = new Paddle(PADDLE_INSET, height/2, '1', 'q');
+  leftPaddle = new Paddle(0, height/2, '1', 'q');
   rightPaddle = new Paddle(width - PADDLE_INSET, height/2, '0', 'p');
 
   // Create the ball at the centre of the screen
@@ -48,19 +56,47 @@ void setup() {
 
 void draw() {
   // Fill the background each frame so we have animation
+  
   background(backgroundColor);
+  
+//CHANGED: added nature image to background
+//added transparency
+  tint(255, 255 - (rightplayerscore*15) - (leftplayerscore*15));
+  image(img, 0, 0);
+  tint(255,255);
+
+//CHANGED: made score appear in middle top of screen
+textSize(32);
+text(rightplayerscore,330,30); 
+
+
+textSize(32);
+text(leftplayerscore,270,30); 
+fill(0, 102, 153);
 
   // Update the paddles and ball by calling their update methods
   leftPaddle.update();
   rightPaddle.update();
   ball.update();
+  
 
   // Check if the ball has collided with either paddle
   ball.collide(leftPaddle);
   ball.collide(rightPaddle);
 
   // Check if the ball has gone off the screen
-  if (ball.isOffScreen()) {
+  //changed if statement
+  if (ball.isOffScreen()=="OFF LEFT") {
+    //added score 
+    rightplayerscore=rightplayerscore+1;
+    // If it has, reset the ball
+    ball.reset();
+  }
+  
+  //
+   if (ball.isOffScreen()=="OFF RIGHT") {
+    //added score 
+    leftplayerscore=leftplayerscore+1;
     // If it has, reset the ball
     ball.reset();
   }

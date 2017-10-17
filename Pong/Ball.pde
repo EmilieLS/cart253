@@ -4,12 +4,16 @@
 // of the top and bottom, and can detect collision with a paddle and bounce off that.
 
 class Ball {
-
+  
+  //initializing varibale image (image of money). (?)
+PImage img = loadImage("money.jpg");
   /////////////// Properties ///////////////
 
   // Default values for speed and size
   int SPEED = 5;
-  int SIZE = 16;
+  
+  //CHANGED
+  int SIZE = 25;
 
   // The location of the ball
   int x;
@@ -80,10 +84,19 @@ class Ball {
   // something like an int (e.g. 0 = not off, 1 = off left, 2 = off right)
   // or a String (e.g. "ON SCREEN", "OFF LEFT", "OFF RIGHT")
   
-  boolean isOffScreen() {
-    return (x + SIZE/2 < 0 || x - SIZE/2 > width);
-  }
-
+  //boolean isOffScreen() {
+    //return (x + SIZE/2 < 0 || x - SIZE/2 > width);
+  //}
+  
+  String isOffScreen() {
+    if (x + SIZE/2 < 0){
+    return "OFF LEFT";}
+    else if (x - SIZE/2 > width){
+    return "OFF RIGHT";}
+    else {
+      return "ON SCREEN";
+    }
+}
   // collide(Paddle paddle)
   //
   // Checks whether this ball is colliding with the paddle passed as an argument
@@ -122,7 +135,9 @@ class Ball {
     fill(ballColor);
     rectMode(CENTER);
 
+//CHANGED: displayed the ball as an image of money
     // Draw the ball
-    rect(x, y, SIZE, SIZE);
+    tint (255,255);
+    image(img,x,y,SIZE,SIZE);
   }
 }

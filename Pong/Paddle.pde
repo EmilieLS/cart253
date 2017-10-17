@@ -7,10 +7,16 @@ class Paddle {
 
   /////////////// Properties ///////////////
 
+//CHANGED: defining new variable image for left paddle
+PImage img = loadImage("america.jpg");
+
+
+
   // Default values for speed and size
   int SPEED = 5;
   int HEIGHT = 70;
-  int WIDTH = 16;
+  //CHANGED: made width of paddle bigger
+  int WIDTH = 40;
 
   // The position and velocity of the paddle (note that vx isn't really used right now)
   int x;
@@ -69,8 +75,9 @@ class Paddle {
     fill(paddleColor);
     rectMode(CENTER);
     
-    // Draw the paddle as a rectangle
-    rect(x, y, WIDTH, HEIGHT);
+    //CHANGED: draw paddle as america image
+    tint(255,255);
+    image(img,x,y,WIDTH,HEIGHT);
   }
 
   // keyPressed()
