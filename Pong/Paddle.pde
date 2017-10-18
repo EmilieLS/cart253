@@ -8,7 +8,7 @@ class Paddle {
   /////////////// Properties ///////////////
 
 //CHANGED: defining new variable image for left paddle
-PImage img = loadImage("america.jpg");
+PImage img = loadImage("alien.jpg");
 
 
 
@@ -16,7 +16,7 @@ PImage img = loadImage("america.jpg");
   int SPEED = 5;
   int HEIGHT = 70;
   //CHANGED: made width of paddle bigger
-  int WIDTH = 40;
+  int WIDTH = 70;
 
   // The position and velocity of the paddle (note that vx isn't really used right now)
   int x;
@@ -59,10 +59,10 @@ PImage img = loadImage("america.jpg");
   void update() {
     // Update position with velocity (to move the paddle)
     x += vx;
-    y += vy;
+    //y += vy;
 
     // Constrain the paddle's y position to be in the window
-    y = constrain(y,0 + HEIGHT/2,height - HEIGHT/2);
+    //y = constrain(y,0 + HEIGHT/2,height - HEIGHT/2);
   }
 
   // display()
@@ -75,7 +75,7 @@ PImage img = loadImage("america.jpg");
     fill(paddleColor);
     rectMode(CENTER);
     
-    //CHANGED: draw paddle as america image
+    //CHANGED: draw paddle as alien image
     tint(255,255);
     image(img,x,y,WIDTH,HEIGHT);
   }
@@ -87,12 +87,13 @@ PImage img = loadImage("america.jpg");
   void keyPressed() {
     // Check if the key is our up key
     if (key == upKey) {
-      // If so we want a negative y velocity
-      vy = -SPEED;
+      //CHANGED: If so we want the paddle to have a negative y velocity and move 15 pixels upwards each time we press the upkey
+      y -= 15;
     } // Otherwise check if the key is our down key 
     else if (key == downKey) {
-      // If so we want a positive y velocity
-      vy = SPEED;
+      //CHANGED: if so we want a positive y velocity, but moving 15 pixels down each time we press the key
+      y += 15;
+      
     }
   }
 
@@ -104,11 +105,11 @@ PImage img = loadImage("america.jpg");
     // Check if the key is our up key and the paddle is moving up
     if (key == upKey && vy < 0) {
       // If so it should stop
-      vy = 0;
+      //vy = 0;
     } // Otherwise check if the key is our down key and paddle is moving down 
     else if (key == downKey && vy > 0) {
       // If so it should stop
-      vy = 0;
+      //vy = 0;
     }
   }
 }

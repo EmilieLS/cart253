@@ -5,15 +5,16 @@
 
 class Ball {
   
-  //initializing varibale image (image of money). (?)
-PImage img = loadImage("money.jpg");
+  //initializing image of the ball (apple)
+PImage img = loadImage("apple.jpg");
   /////////////// Properties ///////////////
 
   // Default values for speed and size
-  int SPEED = 5;
+  //CHANGEDL ball speed to make it slower as it's going to be changing directions (didn't want to make the game impossible)
+  int SPEED = 3;
   
-  //CHANGED
-  int SIZE = 25;
+  //CHANGED ball size to make image of apple clearer
+  int SIZE = 40;
 
   // The location of the ball
   int x;
@@ -58,6 +59,15 @@ PImage img = loadImage("money.jpg");
     // First update the location based on the velocity (so the ball moves)
     x += vx;
     y += vy;
+    
+    //CHANGED: made the ball change directions (?) what does (0,100) mean here??
+    float randomNumber=random(0,100);
+    //if (?)
+    if (randomNumber<1){
+      //then velosity is reversed on both the x and the y axis.
+     vx=-vx;
+     vy=-vy;
+    }
 
     // Check if the ball is going off the top of bottom
     if (y - SIZE/2 < 0 || y + SIZE/2 > height) {
@@ -88,12 +98,21 @@ PImage img = loadImage("money.jpg");
     //return (x + SIZE/2 < 0 || x - SIZE/2 > width);
   //}
   
-  String isOffScreen() {
+  //CHANGED: told processing what "OFF LEFT", "OFF RIGHT" and "ON SCREEN" is (?)
+ String isOffScreen() {
+    //if it is true that the ball touches the left side of screen, then...
     if (x + SIZE/2 < 0){
+      //this means the ball is "OFF LEFT", meaning processing must add an 
+      //additional point to right player's score and must reset ball to middle of screen (as we can in in the pong tab).
     return "OFF LEFT";}
+    //if the above condition is not true, then procesing checks if it is true that the ball touches the left side of the screen. if so...
     else if (x - SIZE/2 > width){
+      //this means the ball is "OFF LEFT", meaning processing must return an 
+      //additional point to left player's score and must reset ball to middle of screen (as we can in in the pong tab).
     return "OFF RIGHT";}
+    //if both above conditions are not true, then the ball has bounced off the top or bottom of the screen and will be 
     else {
+      //returned to the screen without the score changing
       return "ON SCREEN";
     }
 }
@@ -135,7 +154,7 @@ PImage img = loadImage("money.jpg");
     fill(ballColor);
     rectMode(CENTER);
 
-//CHANGED: displayed the ball as an image of money
+//CHANGED: draw the ball as an image of an apple
     // Draw the ball
     tint (255,255);
     image(img,x,y,SIZE,SIZE);

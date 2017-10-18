@@ -15,17 +15,28 @@ Paddle rightPaddle;
 Ball ball;
 
 // The distance from the edge of the window a paddle should be
-int PADDLE_INSET = 40;
+//CHANGED: got rid of paddle inset in order to manually set the paddles on the x-axis myself.
+//int PADDLE_INSET = 55;
 
 // The background colour during play (black)
 color backgroundColor = color(0);
 
-//CHANGED: initializing variable "image"
+//CHANGED: decalring variable "image"
 PImage img;
 
-//CHANGED: defining new variable of score
-int rightplayerscore=0;
-int leftplayerscore=0;
+//CHANGED: declaring and INITIALIZING(?) new variables for score and making the score start at 0 for both players 
+int rightPlayerScore=0;
+int leftPlayerScore=0;
+
+//CHANGED
+String onePlayerWon="You just won, ";
+
+long startTime;
+long timePassed;
+int expireTime =3000;
+boolean isFlashing =false;
+boolean playGame=true;
+String whoWon="";
 
 // setup()
 //
@@ -35,15 +46,17 @@ void setup() {
   // Set the size
   size(640, 480);
 
-//added nature image to background (what is this called?)
-   img = loadImage("nature.jpg");
+//CHANGED:initializing background image of space
+   img = loadImage("space.jpg");
   // Create the paddles on either side of the screen. 
   // Use PADDLE_INSET to to position them on x, position them both at centre on y
   // Also pass through the two keys used to control 'up' and 'down' respectively
   // NOTE: On a mac you can run into trouble if you use keys that create that popup of
   // different accented characters in text editors (so avoid those if you're changing this)
-  leftPaddle = new Paddle(0, height/2, '1', 'q');
-  rightPaddle = new Paddle(width - PADDLE_INSET, height/2, '0', 'p');
+  //CHANGED: changed position of paddles on x-axis so that my alien image could be seen in its entirety (as the original paddles were less wide, the alien image was partially hidden).
+  //CHANGED the keys used to control "up" and "down" respecively in order to make it more challenging (and annoying) to access the keys
+  leftPaddle = new Paddle(-10, height/2, '6', 'r');
+  rightPaddle = new Paddle(width - 60, height/2, '5', 'u');
 
   // Create the ball at the centre of the screen
   ball = new Ball(width/2, height/2);
@@ -55,24 +68,49 @@ void setup() {
 // if the ball has hit a paddle, and displaying everything.
 
 void draw() {
-  // Fill the background each frame so we have animation
   
+  if (playGame==true){
+    
+  
+    
+    
+  // Fill the background each frame so we have animation
+  //
+  if(isFlashing ==true){
+   //found out how much time has passed since timer started
+    timePassed = millis() -startTime;
+    //if the time that has passed is biggger than 2 seconds then...
+    if(timePassed>expireTime)
+    {
+      //stop the flashing
+      isFlashing =false;
+    }
+  }
   background(backgroundColor);
   
-//CHANGED: added nature image to background
-//added transparency
-  tint(255, 255 - (rightplayerscore*15) - (leftplayerscore*15));
   image(img, 0, 0);
-  tint(255,255);
+  //tint(255,255);
 
-//CHANGED: made score appear in middle top of screen
-textSize(32);
-text(rightplayerscore,330,30); 
+//CHANGED: made score appear in right part of the top of screen
+textSize(52);
+if(isFlashing ==true)
+{
+ fill(random(0, 255), random(0, 255), random(0, 255));
+ text(rightPlayerScore,210,240); 
+}
 
 
-textSize(32);
-text(leftplayerscore,270,30); 
-fill(0, 102, 153);
+
+//CHANGED:made score appear in left part of the top of screen
+textSize(52);
+if(isFlashing ==true)
+{
+ fill(random(0, 255), random(0, 255), random(0, 255));
+text(leftPlayerScore,380,240); 
+}
+
+
+   
 
   // Update the paddles and ball by calling their update methods
   leftPaddle.update();
@@ -85,19 +123,25 @@ fill(0, 102, 153);
   ball.collide(rightPaddle);
 
   // Check if the ball has gone off the screen
-  //changed if statement
+  //CHANGED: specified what should happen if ball goes off the left of the screen. if ball goes off left of the screen, then..
   if (ball.isOffScreen()=="OFF LEFT") {
-    //added score 
-    rightplayerscore=rightplayerscore+1;
-    // If it has, reset the ball
+    //the right player's score increases by 1
+    rightPlayerScore=rightPlayerScore+1;
+    startTime = millis();
+    timePassed=0;
+    isFlashing =true;
+    // and the ball gets reset to the middle of the screen
     ball.reset();
   }
   
-  //
+  //CHANGED: specified what should happen if ball goes off the right of the screen. if ball goes off left of the screen, then..
    if (ball.isOffScreen()=="OFF RIGHT") {
-    //added score 
-    leftplayerscore=leftplayerscore+1;
-    // If it has, reset the ball
+    //the left player's score increases by 1
+    leftPlayerScore=leftPlayerScore+1;
+    startTime = millis();
+    timePassed=0;
+    isFlashing =true;
+    // and the ball gets reset to the middle of the screen
     ball.reset();
   }
 
@@ -105,7 +149,30 @@ fill(0, 102, 153);
   leftPaddle.display();
   rightPaddle.display();
   ball.display();
+  
+  //changed
+  if (leftPlayerScore>=10) {
+    playGame=false;
+    whoWon=" Mr. left alien!!";
+  }
+ 
+  if (rightPlayerScore>=10) {
+    playGame=false;
+    whoWon=" Mr. right alien!!";
+  }
+ 
 }
+//if plaGame is false
+else {
+background (0);
+fill(random(0, 255), random(0, 255), random(0, 255));
+textSize(22);
+text (onePlayerWon+whoWon,50, height/2);
+
+
+}
+}
+
 
 // keyPressed()
 //
