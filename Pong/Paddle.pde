@@ -7,8 +7,8 @@ class Paddle {
 
   /////////////// Properties ///////////////
 
-//CHANGED: defining new variable image for left paddle
-PImage img = loadImage("alien.jpg");
+  //ADDITION: defining and initializing new variable image for left paddle
+  PImage img = loadImage("alien.jpg");
 
 
 
@@ -23,7 +23,7 @@ PImage img = loadImage("alien.jpg");
   int y;
   int vx;
   int vy;
-  
+
   // The fill color of the paddle
   color paddleColor = color(255);
 
@@ -59,41 +59,41 @@ PImage img = loadImage("alien.jpg");
   void update() {
     // Update position with velocity (to move the paddle)
     x += vx;
+    //SUBSTRACTION: took away updating position of the paddle with velosity y axis
     //y += vy;
 
     // Constrain the paddle's y position to be in the window
-    //y = constrain(y,0 + HEIGHT/2,height - HEIGHT/2);
+    //CHANGED: changed this since my paddle is of a different size
+    y = constrain(y, 0, height - HEIGHT);
   }
 
   // display()
   //
   // Display the paddle at its location
-  
+
   void display() {
     // Set display properties
     noStroke();
     fill(paddleColor);
     rectMode(CENTER);
-    
+    //SUBSTRACTION: took away rect function to put in an image 
     //CHANGED: draw paddle as alien image
-    tint(255,255);
-    image(img,x,y,WIDTH,HEIGHT);
+    image(img, x, y, WIDTH, HEIGHT);
   }
 
   // keyPressed()
   //
   // Called when keyPressed is called in the main program
-  
+
   void keyPressed() {
     // Check if the key is our up key
     if (key == upKey) {
-      //CHANGED: If so we want the paddle to have a negative y velocity and move 15 pixels upwards each time we press the upkey
+      //CHANGED: if the above condition is true, instead of having the velosity change according to the speed, we want the paddle to have a negative y velocity and move 15 pixels upwards each time we press the upkey
       y -= 15;
     } // Otherwise check if the key is our down key 
     else if (key == downKey) {
-      //CHANGED: if so we want a positive y velocity, but moving 15 pixels down each time we press the key
+      //CHANGED: if the above condition is true, we want a positive y velocity, but moving 15 pixels down each time we press the key
       y += 15;
-      
     }
   }
 
@@ -102,14 +102,15 @@ PImage img = loadImage("alien.jpg");
   // Called when keyReleased is called in the main program
 
   void keyReleased() {
-    // Check if the key is our up key and the paddle is moving up
+    //Check if the key is our up key and the paddle is moving up
     if (key == upKey && vy < 0) {
       // If so it should stop
-      //vy = 0;
-    } // Otherwise check if the key is our down key and paddle is moving down 
+      vy = 0;
+    } 
+    // Otherwise check if the key is our down key and paddle is moving down 
     else if (key == downKey && vy > 0) {
       // If so it should stop
-      //vy = 0;
+      vy = 0;
     }
   }
 }
