@@ -5,7 +5,7 @@
 
 class Ball {
 
-  //ADDITION: initializing image of the ball (apple).
+  //ADDITION: initializing image of the ball (an apple).
   PImage img = loadImage("apple.jpg");
   /////////////// Properties ///////////////
 
@@ -60,7 +60,7 @@ class Ball {
     x += vx;
     y += vy;
 
-    //CHANGED: made the ball change directions 
+    //ADDITION: made the ball change directions 
     //declared randomNumber variable, initialized it, and every frame, this variable will chose a random number between 0 and 100
     float randomNumber=random(0, 100);
     //if it is true that the random number is smaller than 1, then...
@@ -95,27 +95,26 @@ class Ball {
   // something like an int (e.g. 0 = not off, 1 = off left, 2 = off right)
   // or a String (e.g. "ON SCREEN", "OFF LEFT", "OFF RIGHT")
 
+  //SUBSTRACTION of boolean as it didn't specify which side of the screen the ball went off on.
   //boolean isOffScreen() {
   //return (x + SIZE/2 < 0 || x - SIZE/2 > width);
   //}
-  //SUBSTRACTION of boolean as it didn't specify which side of the screen the ball went of on.
+
   //CHANGED: defining the isOffScreen function in order to specify which side of the screen ball goes off.
   String isOffScreen() {
-    //if it is true that the ball touches the left side of screen, then...
+    //if it is true that the ball goes off the left side of screen, then...
     if (x + SIZE/2 < 0) {
-      //this means the ball is "OFF LEFT", meaning processing must add an 
-      //additional point to right player's score and must reset ball to middle of screen (as we can in in the pong tab).
+      //the program returns OFF LEFT, which means the ball gets reset in the middle and a point goes to the right player
       return "OFF LEFT";
     }
-    //if the above condition is not true, then procesing checks if it is true that the ball touches the left side of the screen. if so...
+    //if the above condition is not true, then procesing checks if it is true that the ball goes off the left side of the screen. if so...
     else if (x - SIZE/2 > width) {
-      //this means the ball is "OFF LEFT", meaning processing must return an 
-      //additional point to left player's score and must reset ball to middle of screen (as we can in in the pong tab).
+      //the program returns OFF RIGHT, which means the ball gets reset in the middle and a point goes to the left player
       return "OFF RIGHT";
     }
-    //if both above conditions are not true, then the ball has bounced off the top or bottom of the screen and will be 
+    //if both above conditions are not true (then the ball has bounced off the top or bottom of the screen)  
     else {
-      //returned to the screen without the score changing
+      //and the ball is returned to the screen without the score changing
       return "ON SCREEN";
     }
   }

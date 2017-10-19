@@ -10,8 +10,6 @@ class Paddle {
   //ADDITION: defining and initializing new variable image for left paddle
   PImage img = loadImage("alien.jpg");
 
-
-
   // Default values for speed and size
   int SPEED = 5;
   int HEIGHT = 70;
@@ -63,7 +61,7 @@ class Paddle {
     //y += vy;
 
     // Constrain the paddle's y position to be in the window
-    //CHANGED: changed this since my paddle is of a different size
+    //CHANGED: changed the constrain of the paddles' y position since my paddle is of a different size
     y = constrain(y, 0, height - HEIGHT);
   }
 
@@ -77,7 +75,7 @@ class Paddle {
     fill(paddleColor);
     rectMode(CENTER);
     //SUBSTRACTION: took away rect function to put in an image 
-    //CHANGED: draw paddle as alien image
+    //ADDITION: draw paddle as alien image
     image(img, x, y, WIDTH, HEIGHT);
   }
 
@@ -88,7 +86,8 @@ class Paddle {
   void keyPressed() {
     // Check if the key is our up key
     if (key == upKey) {
-      //CHANGED: if the above condition is true, instead of having the velosity change according to the speed, we want the paddle to have a negative y velocity and move 15 pixels upwards each time we press the upkey
+      //CHANGED: if the above condition is true, instead of having the velosity change according to the speed, we want 
+      //the paddle to have a negative y velocity and move 15 pixels upwards each time we press the upkey
       y -= 15;
     } // Otherwise check if the key is our down key 
     else if (key == downKey) {
@@ -104,7 +103,7 @@ class Paddle {
   void keyReleased() {
     //Check if the key is our up key and the paddle is moving up
     if (key == upKey && vy < 0) {
-      // If so it should stop
+      //If so it should stop
       vy = 0;
     } 
     // Otherwise check if the key is our down key and paddle is moving down 

@@ -21,26 +21,26 @@ Ball ball;
 // The background colour during play (black)
 color backgroundColor = color(0);
 
-//ADDITION: declaring variable "image"
+//ADDITION: declaring variable imgage
 PImage img;
 
-//ADDITION: declaring and initializing of new variables for score and making the score start at 0 for both players 
+//ADDITION: declaring and initializing of new variables for both scores and making the score start at 0 for both players 
 int rightPlayerScore=0;
 int leftPlayerScore=0;
 
 //ADDITION: declaring and initializing new variable which will tell game that one player has one, making the message "You just won," appear
 String onePlayerWon="You just won, ";
-//ADDITION: declaring long variable (type for long integers) that tells processing when a player scores
+//ADDITION: declaring long variable (type for long integers) that tells processing the time the timer starts (when a player scores)
 long startTime;
-//ADDITION: declaring variable that tells processing how much time has passed since the point was made
+//ADDITION: declaring variable that tells processing how much time has passed since the timer was started (since a player has scored)
 long timePassed;
-//ADDITION: declaring and initializing variable which stops the internal clock after 2.5 seconds
+//ADDITION: declaring and initializing variable which stops the timer after 2.5 seconds
 int expireTime =2500;
 //ADDITION: declaring and initializing variable which stores the value false. This variable will make the score appear.
 boolean isAppearing =false;
 //ADDITION: declaring and initializing variable which stores the value true. This variable will tell processing whether game is still being played or not.
 boolean playGame=true;
-//ADDITION: declaring and iniializing variable which will tell processing which player won.
+//ADDITION: declaring and iniializing variable which will tells processing which player won. the text (the String) will be filled in depending on who wins
 String whoWon="";
 
 // setup()
@@ -59,7 +59,8 @@ void setup() {
   // NOTE: On a mac you can run into trouble if you use keys that create that popup of
   // different accented characters in text editors (so avoid those if you're changing this)
   //CHANGED: changed position of paddles on x-axis so that my alien image could be seen in its entirety (as the original paddles were less wide, the alien image was partially hidden).
-  //CHANGED the keys used to control "up" and "down" respecively in order to make it more challenging (and annoying) to access the keys
+  //CHANGED the keys used to control "up" and "down" respecively in order to make it more challenging (and annoying) to access the keys. The keys for the left paddle are "6" for up and "r" for down.
+  //keys for right paddle are "5" for up and "u" for down.
   leftPaddle = new Paddle(-10, height/2, '6', 'r');
   rightPaddle = new Paddle(width - 60, height/2, '5', 'u');
 
@@ -74,17 +75,17 @@ void setup() {
 
 void draw() {
 
-  //ADDITION: if it is true that the game is being played, then do everything until line SOMETHING 
+  //ADDITION: if it is true that the game is being played, then do everything until line 179
   if (playGame==true) {
 
-    //if the variable is flashing is true, then...
+    //if the variable isAppearing is true, then...
     if (isAppearing ==true) {
-      //we find out how much time has passed since timer started. millis returns how many milliseconds have gone by since the program started. so millis-the time the timer started= how much time has passed timer started
+      //we find out how much time has passed since timer started. millis returns how many milliseconds have gone by since the program started. so millis minus the time the timer started= how much time has passed since timer started
       timePassed = millis() -startTime;
       //if the time that has passed since the time started is biggger than 2.5 seconds then...
       if (timePassed>expireTime)
       {
-        //it is not true that isAppearing is true. 
+        //it is not true that variable isAppearing is true. 
         isAppearing =false;
       }
     }
@@ -94,7 +95,7 @@ void draw() {
     //ADDITION:initialized image of space
     image(img, 0, 0);
 
-    //CHANGED: make score appear in right part of the screen for 2.5 seconds 
+    //ADDITION: make score appear in right part of the screen for 2.5 seconds 
     textSize(52);
     //if it is true that the variable isAppearing is true (meaning that less than 2.5 seconds has passed since a player last scored), then...
     if (isAppearing ==true)
@@ -104,7 +105,7 @@ void draw() {
       text(rightPlayerScore, 380, 240);
     }
 
-    //CHANGED: make score appear in left part of the top of screen for 2.5 seconds 
+    //ADDITION: make score appear in left part of the top of screen for 2.5 seconds 
     textSize(52);
     //if it is true that the variable isAppearing is true (meaning that less than 2.5 seconds has passed since a player last scored), then...
     if (isAppearing ==true)
@@ -127,7 +128,7 @@ void draw() {
 
     // Check if the ball has gone off the screen
     //
-    //ADDITION/CHANGE: specified what should happen if ball goes off the left of the screen. if ball goes off left of the screen, then..
+    //ADDITION/CHANGE: specified what should happen if ball goes off the left side of the screen. if ball goes off left of the screen, then..
     if (ball.isOffScreen()=="OFF LEFT") {
       //the right player's score increases by 1
       rightPlayerScore=rightPlayerScore+1;
@@ -141,7 +142,7 @@ void draw() {
       ball.reset();
     }
 
-    //ADDITION: specified what should happen if ball goes off the right of the screen. if ball goes off left of the screen, then..
+    //ADDITION: specified what should happen if ball goes off the right side of the screen. if ball goes off right of the screen, then..
     if (ball.isOffScreen()=="OFF RIGHT") {
       //the left player's score increases by 1
       leftPlayerScore=leftPlayerScore+1;
@@ -181,10 +182,10 @@ void draw() {
   else {
     //the background becomes black
     background (0);
-    //the words "You just won," and either "Mr. left alien!!" or "Mr. right alien!!" appear 
+    //the words "You just won," and either "Mr. left alien!!" or "Mr. right alien!!" appear in random colours every frame
     fill(random(0, 255), random(0, 255), random(0, 255));
     textSize(29);
-    text (onePlayerWon+whoWon, 50, height/2);
+    text (onePlayerWon+whoWon, 80, height/2);
   }
 }
 
