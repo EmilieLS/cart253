@@ -21,9 +21,20 @@ void setup() {
   frameRate(10);
 
   // QUESTION: What does this for loop do?
+  //ANSWER: this loop initializes  the location of the 100 griddies in the loop and creates them. Puts the new gritties into the array. 
+  //i=0 tells processing that at the start of the program, the variable i has the value of zero, meaning that there are no griddies.
+  //i < griddies.length tells processing that if the number of griddies has an integer value smaller than the length/size of the array (100 in this case),
+  //then the loop keeps going. If not, it ends.
+  //i++ tells processing to add one griddie at the end of each loop.
   for (int i = 0; i < griddies.length; i++) {
+    //the location of the griddies on the x axis is equal to a random integer number between 0 and 32 (640 divided by 20), meaning that the griddies will appear at
+    // a location that is a multiple of 20. 
     int x = floor(random(0, width/gridSize));
+    //the y location of the griddie will be equal to a random integer number between 0 and 24 (480 divided by 20), meaning that the griddies will appear at a location that is a multiple of 20.
     int y = floor(random(0, height/gridSize));
+    //the x location of the new grittie will be the x location of the griddie times 20,
+    //the y location of the new griddie will be the x location of the griddie times 20, 
+    //and it will have a size of 20.
     griddies[i] = new Griddie(x * gridSize, y * gridSize, gridSize);
   }
 }
@@ -35,7 +46,7 @@ void setup() {
 void draw() {
   background(50);
 
-  // We need to loop through all the griddies one by one
+  // We need to loop through all the griddies one by one: this is here because its an array. 
   for (int i = 0; i < griddies.length; i++) {
 
     // Update the griddies
@@ -44,12 +55,14 @@ void draw() {
     // Now go through all the griddies a second time...
     for (int j = 0; j < griddies.length; j++) {
       // QUESTION: What is this if-statement for?
+      //ANSWER: To check that the griddies do not overlap with themselves.
       if (j != i) {
         // QUESTION: What does this line check?
+        // ANSWER: then we check whether a griddie collides with another grittie. 
         griddies[i].collide(griddies[j]);
       }
     }
-    
+
     // Display the griddies
     griddies[i].display();
   }
