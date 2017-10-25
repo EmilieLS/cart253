@@ -8,8 +8,14 @@
 
 // The size of a single grid element
 int gridSize = 20;
+
+//The size of a single ball
+int ballSize= 20;
+
 // An array storing all the griddies
 Griddie[] griddies = new Griddie[100];
+//An array storing all the balls
+Ball[] balls= new Ball[100];
 
 // setup()
 //
@@ -36,6 +42,13 @@ void setup() {
     //the y location of the new griddie will be the x location of the griddie times 20, 
     //and it will have a size of 20.
     griddies[i] = new Griddie(x * gridSize, y * gridSize, gridSize);
+  }
+
+  //initializes the locaiton of the 100 balls in the loop and creates them. puts the new balls into the array.
+  for (int t=0; t < balls.length; t++) {
+    int x= floor(random(0, width/ballSize));
+    int y=floor(random(0, height/ballSize));
+    balls[t]= new Ball (x * ballSize, y * ballSize, ballSize);
   }
 }
 
@@ -65,5 +78,31 @@ void draw() {
 
     // Display the griddies
     griddies[i].display();
+  }
+
+
+  // We need to loop through all the balls one by one
+  for (int t = 0; t < balls.length; t++) {
+
+    // Update the balls
+    balls[t].update();
+
+    // Now go through all the balls a second time...
+    for (int u = 0; u < balls.length; u++) {
+      // check that balls don't overlap with themselves
+      if (u != t) {
+        // check if a ball overlaps with another ball
+        balls[t].collide(balls[u]);
+      }
+    }
+
+    //check if balls collide with griddies
+    for (int j = 0; j < griddies.length; j++) {
+      balls[t].collideGriddieAndBall(griddies[j]);
+    }
+
+
+    // Display the griddies
+    balls[t].display();
   }
 }

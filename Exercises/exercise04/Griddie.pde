@@ -43,7 +43,7 @@ class Griddie {
 
     // QUESTION: How does the Griddie movement updating work?
     //ANSWER: the griddie movement updating for both the y and x axis happens through a random integer being picked between -1 and 1. the new location of the griddies 
-    //is equal to the size of the the griddies multipled by -1, 0, 1. this means that the new griddies appear pretty much directly beside the old gritties, and also 
+    //is equal to the size of the griddies multipled by -1, 0, 1. this means that the new griddies appear pretty much directly beside the old gritties, and also 
     //some of them disappear (when multiplied by 0). 
     int xMoveType = floor(random(-1, 2));
     int yMoveType = floor(random(-1, 2));
@@ -51,7 +51,7 @@ class Griddie {
     y += size * yMoveType;
 
     // QUESTION: What are these if statements doing?
-    //ANSWER: it makes the grddies reappaer on the opposite side of the screen they went off of. 
+    //ANSWER: it makes the griddies reappaer on the opposite side of the screen they went off of. 
     //if it is true that the x location of a griddie is smaller than 0, then...
     if (x < 0) {
       //the location of the griddie on the x axis will be equal to the location of the griddie on the x axis plus the width of the screen, so it will reappear on screen.
