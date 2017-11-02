@@ -57,7 +57,7 @@ class Griddie {
       //the location of the griddie on the x axis will be equal to the location of the griddie on the x axis plus the width of the screen, so it will reappear on screen.
       x += width;
       //if the above condition is not true, then we look at 
-      //if it is true that the location of the griddies on the x axis is greater than or equal to the width, then... 
+      //if it is true that the location of the griddies on the x axis is greater than or equal to the width, then...
     } else if (x >= width) {
       //the location of a griddie on the x axis will be equal to the location of the griddie on the x axis minus the width of the screen, so it will reappear on screen.
       x -= width;
