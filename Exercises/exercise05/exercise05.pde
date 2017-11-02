@@ -3,9 +3,9 @@
 //float t1 = random(0,100);
 //float t2 = random(0,100);
 
-//making an array for the balls to increase number. had to make it an array list to be able to remove the balls from the array later
+//making an array for the balls to increase number. had to make it an array float list to be able to remove the balls from the array later
 FloatList balls = new FloatList();
-//array to store the x valu of the balls 
+//array to store the x value of the balls 
 FloatList xValueOfBalls= new FloatList();
 
 
