@@ -10,8 +10,8 @@ import processing.video.*;
 Capture video;
 
 // A PVector allows us to store an x and y location in a single object
-// When we create it we give it the starting x and y (which I'm setting to -1, -1
-// as a default value)
+// When we create it we give it the starting x and y 
+////CHANGE: took away negative 1 because starting with negative value gave a negative pixel coordinate
 PVector reddestPixel = new PVector(1, 1);
 
 // An array of bouncers to play with
@@ -93,7 +93,8 @@ void handleVideoInput() {
   // Start with a very low "record" for the brightest pixel
   // so that we'll definitely find something better
   //made the record about redness. 
-  float rednessRecord = 0;
+  //CHANGE: had to make the redness record higher because the webcam wasn't finding anything red with the record set to 0
+  float rednessRecord = 1000;
 
   // Go through every pixel in the grid of pixels made by this
   // frame of video
