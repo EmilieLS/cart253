@@ -12,7 +12,7 @@ Capture video;
 // A PVector allows us to store an x and y location in a single object
 // When we create it we give it the starting x and y (which I'm setting to -1, -1
 // as a default value)
-PVector reddestPixel = new PVector(-1, 1);
+PVector reddestPixel = new PVector(1, 1);
 
 // An array of bouncers to play with
 Bouncer[] bouncers = new Bouncer[10];
@@ -60,7 +60,10 @@ void draw() {
   for (int i = 0; i < bouncers.length; i++) {
     bouncers[i].update();
     bouncers[i].display();
- 
+    //calculating the location of the reddest pixel
+    int loc= int(reddestPixel.x)+ int(reddestPixel.y) * width; 
+    //making the colours of the bouncers become the same colour as the reddest pixel
+    bouncers[i].fillColor=video.pixels[loc];
   }
 
 
