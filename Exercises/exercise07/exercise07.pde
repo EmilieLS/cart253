@@ -40,8 +40,4 @@ void draw() {
   bouncer2.draw();
 }
 
-//ADDED: to see if my sound file works.
-//everytime mouse gets clicked, the file plays.
-void mouseClicked () {
-    tone.play();
-}
+//REMOVED the code that plays the file when the mouse is clicked 
