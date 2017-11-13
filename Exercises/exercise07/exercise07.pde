@@ -1,4 +1,8 @@
-/* */
+
+//ADDED: Import the sound library
+import processing.sound.*;
+
+
 //declaring objects
 //declared variable backgroundColor that has a pinkish color
 color backgroundColor = color(200,150,150);
