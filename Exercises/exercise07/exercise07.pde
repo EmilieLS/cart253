@@ -7,6 +7,7 @@ import processing.sound.*;
 //ADDED: storing sound in a variable
 SoundFile tone;
 
+
 //declaring objects
 //declared variable backgroundColor that has a pinkish color
 color backgroundColor = color(200, 150, 150);
@@ -23,9 +24,11 @@ void setup() {
 
   size(640, 480);
   background(backgroundColor);
-  //this is where we are creating the object ouncer iself. It's like the setup() function but it's used to create an individual object. A new bouncer is created from the class bouncer.
-  bouncer = new Bouncer(width/2, height/2, 2, 2, 50, color(150, 0, 0, 50), color(255, 0, 0, 50));
-  bouncer2 = new Bouncer(width/2, height/2, -2, 2, 50, color(0, 0, 150, 50), color(0, 0, 255, 50));
+  //this is where we are creating the object bouncer iself. It's like the setup() function but it's used to create an individual object. A new bouncer is created from the class bouncer.
+  //CHANGE: made speed of bouncer slower
+  bouncer = new Bouncer(width/2, height/2, 0.6, 0.6, 50, color(150, 0, 0, 50), color(255, 0, 0, 50));
+  //CHANGE: made speed of bouncer slower
+  bouncer2 = new Bouncer(width/2, height/2,-0.6, 0.6, 50, color(0, 0, 150, 50), color(0, 0, 255, 50));
 }
 //call methods on the objects
 void draw() {
