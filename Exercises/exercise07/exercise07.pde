@@ -4,7 +4,7 @@
 //ADDED: Import the sound library
 import processing.sound.*;
 
-//storing sound in a variable
+//ADDED: storing sound in a variable
 SoundFile tone;
 
 //declaring objects
@@ -40,6 +40,8 @@ void draw() {
   bouncer2.draw();
 }
 
+//ADDED: to see if my sound file works.
+//everytime mouse gets clicked, the file plays.
 void mouseClicked () {
     tone.play();
 }
