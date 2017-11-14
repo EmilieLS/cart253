@@ -90,5 +90,23 @@ void draw() {
 }
 
 
+//ADDED: this function will  determine what to do when the mouse is pressed on one of the balls (the ball will disappear!)
+void mousePressed() {
+  for (int i=0; i<balls.size(); i=i+1) {
+    //it is true that the mouse is within the X position of the ball if its within its 20 pixel diameter
+    boolean withinXPositionOfBall= (mouseX> (xValueOfBalls.get(i)-10)) && (mouseX< (xValueOfBalls.get(i)+10));
+    //it is true that the mouse is within the y position of the ball if its within its 20 pixel height
+    boolean withinYPositionOfBall=(mouseY> (i*30)) && (mouseY< (i*30)+10+10);
+
+    //if the mouse is touching a ball when it is clicked then
+    if (withinXPositionOfBall && withinYPositionOfBall) {
+      //the ball that was clicked is removed
+      balls.remove(i);
+      //had to do this because postiion of balls on x axis were defined separately because the noise was generated accoridng to x value
+      xValueOfBalls.remove(i);
+    }
+  }
+}
+
 
 //REMOVED the code that plays the file when the mouse is clicked 
