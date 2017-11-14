@@ -10,6 +10,7 @@ import processing.sound.*;
 //ADDED: storing sound in a variable
 SoundFile songOne;
 SoundFile songTwo;
+SoundFile songThree;
 
 
 //declaring objects
@@ -35,6 +36,8 @@ void setup() {
   //made the sound file a little slower
   songTwo.rate(0.9);
 
+ //NEW SOUNDFILE to play when balls removed
+songThree = new SoundFile(this, "Diamonds.mp3");
 
   //ADDED: putting 15 balls on screen
   for (int i=0; i< 15; i = i+1) {
