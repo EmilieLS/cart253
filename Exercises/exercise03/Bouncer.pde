@@ -1,3 +1,6 @@
+/* */
+
+//defining the class called Bouncer
 class Bouncer {
   
  int x;
@@ -9,6 +12,7 @@ class Bouncer {
  color defaultColor;
  color hoverColor;
  
+ //The constructor (basically the setup() for the Bouncer)
  Bouncer(int tempX, int tempY, int tempVX, int tempVY, int tempSize, color tempDefaultColor, color tempHoverColor) {
    x = tempX;
    y = tempY;
