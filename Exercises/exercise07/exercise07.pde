@@ -24,6 +24,9 @@ void setup() {
   songOne = new SoundFile(this, "Moth.mp3");
   //made the song start after 14 seconds
   songOne.cue(14);
+  //made song one slower
+  songOne.rate(0.8);
+ 
   
   
   //ADDED another sound file
