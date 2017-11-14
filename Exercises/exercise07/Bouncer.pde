@@ -32,7 +32,7 @@ class Bouncer {
     y += vy;
 
     handleBounce();
-    handleMouse();
+  
   }
 
   void handleBounce() {
@@ -58,13 +58,6 @@ class Bouncer {
     y = constrain(y, size/2, height-size/2);
   }
 
-  void handleMouse() {
-    if (dist(mouseX, mouseY, x, y) < size/2) {
-      fillColor = hoverColor;
-    } else {
-      fillColor = defaultColor;
-    }
-  }
 
   void draw() {
     noStroke();
