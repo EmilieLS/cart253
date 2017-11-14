@@ -36,6 +36,16 @@ void setup() {
   songTwo.rate(0.9);
  
  
+  //ADDED: putting 15 balls on screen
+  for (int i=0; i< 15; i = i+1) {
+    //setting the value of this list & and setting a random number for the perlin noise
+    balls.set(i, random(10, 450));
+  }
+  
+  
+  
+ 
+ 
   size(640, 480);
   background(backgroundColor);
   //this is where we are creating the object bouncer iself. It's like the setup() function but it's used to create an individual object. A new bouncer is created from the class bouncer.
