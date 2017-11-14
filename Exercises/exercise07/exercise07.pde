@@ -36,18 +36,14 @@ void setup() {
   //made the sound file a little slower
   songTwo.rate(0.9);
 
- //NEW SOUNDFILE to play when balls removed
-songThree = new SoundFile(this, "Diamonds.mp3");
+  //NEW SOUNDFILE to play when balls removed
+  songThree = new SoundFile(this, "Diamonds.mp3");
 
   //ADDED: putting 15 balls on screen
   for (int i=0; i< 15; i = i+1) {
     //setting the value of this list & and setting a random number for the perlin noise
     balls.set(i, random(10, 450));
   }
-
-
-
-
 
   size(640, 480);
   background(backgroundColor);
@@ -107,6 +103,8 @@ void mousePressed() {
       balls.remove(i);
       //had to do this because postiion of balls on x axis were defined separately because the noise was generated accoridng to x value
       xValueOfBalls.remove(i);
+      //Added: MADE SONG THREE PLAY WHEN A BALL IS CLICKED
+      songThree.play();
     }
   }
 }
