@@ -24,7 +24,13 @@ void setup() {
   songOne = new SoundFile(this, "Moth.mp3");
   //made the song start after 14 seconds
   songOne.cue(14);
-
+  
+  
+  //ADDED another sound file
+  songTwo = new SoundFile(this, "tinkling.wav");
+  //made the sound file a little slower
+  songTwo.rate(0.9);
+ 
 
   size(640, 480);
   background(backgroundColor);
