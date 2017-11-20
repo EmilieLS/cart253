@@ -5,17 +5,18 @@
  @jsoleradillon
 */
 
-float m[] = new float[400];
+float m[] = new float[600];
 float yoff = 0;
 float yincrement = 0.005;
 float noiseVar = 1;
 
 
 void setup() {
-  size(400, 300);
+  //changed size 
+  size(600, 600);
 
-  for (int i=0;i<400;i++) {
-    m[i] = noise(yoff)*height;
+  for (int i=0;i<600;i++) {
+    m[i] = noise(yoff)*height; //<>//
     yoff += yincrement;
   }
 }
@@ -23,20 +24,19 @@ void setup() {
 void draw() {
   background(255);
 
-  if (mousePressed) {
-    yincrement = map(mouseY, height, 0, 0.0001, 0.05);
-    println(yincrement);
-  }
+//removed mouse pressed function
 
-
-  for (int i=0;i<400;i++) {
+//changed the limit
+  for (int i=0;i<600;i++) {
     line(i, m[i], i, height);
   }
 
-  for (int i=0;i<399;i++) {
+//changed the limit
+  for (int i=0;i<599;i++) {
     m[i] = m[i+1];
   }
 
-  m[399] = noise(yoff)*height;
+//changed last element of the array
+  m[599] = noise(yoff)*height;
   yoff += yincrement;
 }
