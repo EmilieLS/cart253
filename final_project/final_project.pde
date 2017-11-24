@@ -74,12 +74,13 @@ void draw() {
     pushMatrix();
     translate(sphereX, (i*30)+10);
     fill(240);
-    sphere(25);
+    //CHANGED spheres to boxes
+    box(25);
     //ADDED: made the text red
     fill(255, 0, 0);
     textFont(courierFont);
     //ADDED: put the text above the spheres
-    text(feministSpheresArray[i], 0, -40);
+    text(feministSpheresArray[i], 0, -30);
     popMatrix();
 
 
