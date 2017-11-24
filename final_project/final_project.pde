@@ -22,7 +22,7 @@ FloatList spheres = new FloatList();
 FloatList xValueOfspheres= new FloatList();
 
 //ADDED: array to make specific word for each feminist cube
-String []feministSpheresArray = {"A", "A", "A", "A", "A", "A", "A", "A", "A", "A"};
+String []feministSpheresArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS\nBOOK", "SAFE\nSEX", "SELF\nLOVE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "TRANS\nINCLUSIVITY"};
 
 
 void setup() {
@@ -52,7 +52,9 @@ void draw() {
   background(255);
 
   //ADDED to change the font.
-  PFont courierFont = createFont("Courier", 19);
+  //CHANGED font ot be smaller
+  PFont courierFont = createFont("Courier", 12);
+  textAlign(CENTER,CENTER);
 
 
   //drawing the spheres. the spheres will loop according to the size of the list in the current array (changes whether of not spheres have been clicked)
@@ -80,7 +82,7 @@ void draw() {
     fill(255, 0, 0);
     textFont(courierFont);
     //ADDED: put the text above the spheres
-    text(feministSpheresArray[i], 0, -30);
+    text(feministSpheresArray[i], 0, -35);
     popMatrix();
 
 
