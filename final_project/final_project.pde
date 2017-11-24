@@ -21,6 +21,9 @@ FloatList spheres = new FloatList();
 //array to store the x value of the spheres 
 FloatList xValueOfspheres= new FloatList();
 
+//ADDED: array to make specific word for each feminist cube
+String []feministSpheresArray = {"A", "A", "A", "A", "A", "A", "A", "A", "A", "A"};
+
 
 void setup() {
   //changed size 
