@@ -51,7 +51,10 @@ void setup() {
 void draw() {
   background(255);
 
- 
+  //ADDED to change the font.
+  PFont courierFont = createFont("Courier", 19);
+
+
   //drawing the spheres. the spheres will loop according to the size of the list in the current array (changes whether of not spheres have been clicked)
   for (int i=0; i<spheres.size(); i=i+1) {
     float sphereX=spheres.get(i);
@@ -72,6 +75,11 @@ void draw() {
     translate(sphereX, (i*30)+10);
     fill(240);
     sphere(25);
+    //ADDED: made the text red
+    fill(255, 0, 0);
+    textFont(courierFont);
+    //ADDED: put the text above the spheres
+    text(feministSpheresArray[i], 0, -40);
     popMatrix();
 
 
