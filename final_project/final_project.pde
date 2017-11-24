@@ -8,7 +8,7 @@
 
 
 // array for the moutains
-float m[] = new float[600];
+float m[] = new float[800];
 //offset on the y axis begins at 0 ???
 float yoff = 0;
 //how much the mountains grow on the y axis
@@ -22,13 +22,13 @@ FloatList spheres = new FloatList();
 FloatList xValueOfspheres= new FloatList();
 
 //ADDED: array to make specific word for each feminist cube
-String []feministSpheresArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS\nBOOK", "SAFE\nSEX", "SELF\nLOVE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "TRANS\nINCLUSIVITY"};
+String []feministSpheresArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS\nBOOK", "SEXUAL EMPOWEREMENT", "SELF\nLOVE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "TRANS\nINCLUSIVITY"};
 
 
 void setup() {
   //changed size 
   //ADDED 3D feature
-  size(600, 600, P3D);
+  size(800, 800, P3D);
 
   //CHANGED by removing 5 spheres from array
   //putting 10 spheres on screen
@@ -39,7 +39,7 @@ void setup() {
 
 
   //setting up perlin noise mountains. 
-  for (int i=0; i<600; i++) {
+  for (int i=0; i<800; i++) {
     //CHANGE: made the mountains go up less high
     m[i] = height/2 + noise(yoff)*height/2;
     //
@@ -74,7 +74,7 @@ void draw() {
     //ADDED: making the spheres
     //spheres will be placed at intervals of 30 pixels on y axis, and the entire sphere will be showing on screen.
     pushMatrix();
-    translate(sphereX, (i*30)+10);
+    translate(sphereX, (i*50)+20);
     fill(240);
     //CHANGED spheres to boxes
     box(25);
@@ -97,19 +97,19 @@ void draw() {
   //removed mouse pressed function
 
   //changed the limit
-  for (int i=0; i<600; i++) {
+  for (int i=0; i<800; i++) {
     line(i, m[i], i, height);
   }
 
   //making the mountains move to the left
   //changed the limit
-  for (int i=0; i<599; i++) {
+  for (int i=0; i<799; i++) {
     m[i] = m[i+1];
   }
 
   //CHANGED: last element of the array
   //CHANGE: made the mountains go up less high
-  m[599] = height/2 + noise(yoff)*height/2;
+  m[799] = height/2 + noise(yoff)*height/2;
   yoff += yincrement;
 }
 
