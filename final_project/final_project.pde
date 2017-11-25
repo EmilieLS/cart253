@@ -24,13 +24,20 @@ FloatList xValueOfboxes= new FloatList();
 //ADDED: array to make specific word for each feminist cube
 String []feministboxesArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS\nBOOK", "SEXUAL EMPOWEREMENT", "SELF\nLOVE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "TRANS\nINCLUSIVITY"};
 
-
-
+//ADDITION: for avatar 
+//generating a random number to be used in the noise function in draw (?)
+float tx = random(0, 100);
+float ty = random(0, 100);
+//declaing image variable
+PImage img;
 
 void setup() {
   //changed size 
   //ADDED 3D feature
   size(1300, 800, P3D);
+
+  //ADDITION: initializing avatar (image of a girl)
+  img = loadImage("girl.jpg");
 
   //CHANGED by removing 5 boxes from array
   //putting 10 boxes on screen
@@ -52,6 +59,15 @@ void setup() {
 
 void draw() {
   background(255);
+
+  //ADDITION of avatar with the noise function
+  //used the noise function to make the avatr move in a more life-like manner.
+  float x = width * noise(tx);
+  float y = height * noise(ty);
+  image(img, x, y, 110, 120);
+  //how fast the avatar moves
+  tx += 0.006;
+  ty += 0.006;
 
   //ADDED to change the font.
   //CHANGED font ot be smaller
@@ -124,7 +140,7 @@ void draw() {
 void mousePressed() {
   for (int i=0; i<boxes.size(); i=i+1) {
     //it is true that the mouse is within the X position of the box if its within its 20 pixel diameter
-    boolean withinXPositionOfbox= (mouseX> (xValueOfboxes.get(i)-10)) && (mouseX< (xValueOfboxes.get(i)+50));
+    boolean withinXPositionOfbox= (mouseX> (xValueOfboxes.get(i)-50)) && (mouseX< (xValueOfboxes.get(i)+50));
     //it is true that the mouse is within the y position of the box if its within its 20 pixel height
     //CHANGED parameters accordingly with the new interval of the boxes on the y axis
     boolean withinYPositionOfbox=(mouseY> (i*50)) && (mouseY< (i*50)+60);
