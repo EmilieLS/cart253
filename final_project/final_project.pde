@@ -25,6 +25,8 @@ FloatList xValueOfboxes= new FloatList();
 String []feministboxesArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS\nBOOK", "SEXUAL EMPOWEREMENT", "SELF\nLOVE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "TRANS\nINCLUSIVITY"};
 
 
+
+
 void setup() {
   //changed size 
   //ADDED 3D feature
@@ -53,7 +55,7 @@ void draw() {
 
   //ADDED to change the font.
   //CHANGED font ot be smaller
-  PFont courierFont = createFont("Courier", 12);
+  PFont courierFont = createFont("Courier", 13);
   textAlign(CENTER, CENTER);
 
 
@@ -61,12 +63,14 @@ void draw() {
   for (int i=0; i<boxes.size(); i=i+1) {
     float boxX=boxes.get(i);
     //moving the boxes to go off the left of the screen
-    float newX = boxes.get(i)-2;
+    float newX = boxes.get(i)+2;
+    
+    
 
-
-    //if the boxes are off the left of the screen, put them back on the right of the screen to create a continuous flow
-    if ((newX < -30)) {
-      newX += width+30;
+//CHANGED direction of the boxes
+    //if the boxes are off the right of the screen, put them back on the left of the screen to create a continuous flow
+    if ((newX >1330)) {
+      newX = -30;
     }
     boxes.set(i, newX);
 
