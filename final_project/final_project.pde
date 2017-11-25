@@ -62,19 +62,20 @@ void draw() {
   //drawing the boxes. the boxes will loop according to the size of the list in the current array (changes whether of not boxes have been clicked)
   for (int i=0; i<boxes.size(); i=i+1) {
     float boxX=boxes.get(i);
-    //moving the boxes to go off the left of the screen
+    //moving the boxes to go off the right of the screen
     float newX = boxes.get(i)+2;
-    
-    
 
-//CHANGED direction of the boxes
+
+
+    //CHANGED direction of the boxes
     //if the boxes are off the right of the screen, put them back on the left of the screen to create a continuous flow
     if ((newX >1330)) {
       newX = -30;
     }
     boxes.set(i, newX);
 
-
+    //ADDED lights to boxes
+    lights();
     //ADDED: making the boxes
     //boxes will be placed at intervals of 50 pixels on y axis
     pushMatrix();
