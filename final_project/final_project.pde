@@ -16,13 +16,13 @@ float yincrement = 0.005;
 //removed noiseVar
 
 
-//making an array for the spheres to increase number. had to make it an array float list to be able to remove the spheres from the array later
-FloatList spheres = new FloatList();
-//array to store the x value of the spheres 
-FloatList xValueOfspheres= new FloatList();
+//making an array for the boxes to increase number. had to make it an array float list to be able to remove the boxes from the array later
+FloatList boxes = new FloatList();
+//array to store the x value of the boxes 
+FloatList xValueOfboxes= new FloatList();
 
 //ADDED: array to make specific word for each feminist cube
-String []feministSpheresArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS\nBOOK", "SEXUAL EMPOWEREMENT", "SELF\nLOVE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "TRANS\nINCLUSIVITY"};
+String []feministboxesArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS\nBOOK", "SEXUAL EMPOWEREMENT", "SELF\nLOVE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "TRANS\nINCLUSIVITY"};
 
 
 void setup() {
@@ -30,11 +30,11 @@ void setup() {
   //ADDED 3D feature
   size(800, 800, P3D);
 
-  //CHANGED by removing 5 spheres from array
-  //putting 10 spheres on screen
+  //CHANGED by removing 5 boxes from array
+  //putting 10 boxes on screen
   for (int i=0; i< 10; i = i+1) {
     //setting the random value of this list 
-    spheres.set(i, random(0, width));
+    boxes.set(i, random(0, width));
   }
 
 
@@ -54,43 +54,44 @@ void draw() {
   //ADDED to change the font.
   //CHANGED font ot be smaller
   PFont courierFont = createFont("Courier", 12);
-  textAlign(CENTER,CENTER);
+  textAlign(CENTER, CENTER);
 
 
-  //drawing the spheres. the spheres will loop according to the size of the list in the current array (changes whether of not spheres have been clicked)
-  for (int i=0; i<spheres.size(); i=i+1) {
-    float sphereX=spheres.get(i);
-    //moving the spheres to go off the left of the screen
-    float newX = spheres.get(i)-2;
+  //drawing the boxes. the boxes will loop according to the size of the list in the current array (changes whether of not boxes have been clicked)
+  for (int i=0; i<boxes.size(); i=i+1) {
+    float boxX=boxes.get(i);
+    //moving the boxes to go off the left of the screen
+    float newX = boxes.get(i)-2;
 
 
-    //if the spheres are off the left of the screen, put them back on the right of the screen to create a continuous flow
+    //if the boxes are off the left of the screen, put them back on the right of the screen to create a continuous flow
     if ((newX < -30)) {
       newX += width+30;
     }
-    spheres.set(i, newX);
+    boxes.set(i, newX);
 
 
-    //ADDED: making the spheres
-    //spheres will be placed at intervals of 30 pixels on y axis, and the entire sphere will be showing on screen.
+    //ADDED: making the boxes
+    //boxes will be placed at intervals of 50 pixels on y axis
     pushMatrix();
-    translate(sphereX, (i*50)+20);
+    //CHANGED the boxes to be more separated on the y axis
+    translate(boxX, (i*50)+20);
     fill(240);
-    //CHANGED spheres to boxes
+    //CHANGED boxes to boxes
     box(25);
     //ADDED: made the text red
     fill(255, 0, 0);
     textFont(courierFont);
-    //ADDED: put the text above the spheres
-    text(feministSpheresArray[i], 0, -35);
+    //ADDED: put the text above the boxes
+    text(feministboxesArray[i], 0, -35);
     popMatrix();
 
 
 
-    //made the spheres move pretty slowly so you can semi-easily click it. the arraylist requires us to write the code this weird way. 
-    spheres.set(i, spheres.get(i) + 0.0004);
-    //store the X value of the sphere so we can access it during the click
-    xValueOfspheres.set(i, sphereX);
+    //made the boxes move pretty slowly so you can semi-easily click it. the arraylist requires us to write the code this weird way. 
+    boxes.set(i, boxes.get(i) + 0.0004);
+    //store the X value of the box so we can access it during the click
+    xValueOfboxes.set(i, boxX);
   }
 
 
@@ -114,20 +115,21 @@ void draw() {
 }
 
 
-//this function will  determine what to do when the mouse is pressed on one of the spheres (the sphere will disappear!)
+//this function will  determine what to do when the mouse is pressed on one of the boxes (the box will disappear!)
 void mousePressed() {
-  for (int i=0; i<spheres.size(); i=i+1) {
-    //it is true that the mouse is within the X position of the sphere if its within its 20 pixel diameter
-    boolean withinXPositionOfsphere= (mouseX> (xValueOfspheres.get(i)-10)) && (mouseX< (xValueOfspheres.get(i)+10));
-    //it is true that the mouse is within the y position of the sphere if its within its 20 pixel height
-    boolean withinYPositionOfsphere=(mouseY> (i*30)) && (mouseY< (i*30)+10+10);
+  for (int i=0; i<boxes.size(); i=i+1) {
+    //it is true that the mouse is within the X position of the box if its within its 20 pixel diameter
+    boolean withinXPositionOfbox= (mouseX> (xValueOfboxes.get(i)-10)) && (mouseX< (xValueOfboxes.get(i)+10));
+    //it is true that the mouse is within the y position of the box if its within its 20 pixel height
+    //CHANGED parameters accordingly with the new interval of the boxes on the y axis
+    boolean withinYPositionOfbox=(mouseY> (i*50)) && (mouseY< (i*50)+10+10);
 
-    //if the mouse is touching a sphere when it is clicked then
-    if (withinXPositionOfsphere && withinYPositionOfsphere) {
-      //the sphere that was clicked is removed
-      spheres.remove(i);
-      //had to do this because postiion of spheres on x axis were defined separately because the noise was generated accoridng to x value
-      xValueOfspheres.remove(i);
+    //if the mouse is touching a box when it is clicked then
+    if (withinXPositionOfbox && withinYPositionOfbox) {
+      //the box that was clicked is removed
+      boxes.remove(i);
+      //had to do this because postiion of boxes on x axis were defined separately because the noise was generated accoridng to x value
+      xValueOfboxes.remove(i);
     }
   }
 }
