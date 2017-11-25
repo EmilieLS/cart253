@@ -64,10 +64,16 @@ void draw() {
   //used the noise function to make the avatr move in a more life-like manner.
   float x = width * noise(tx);
   float y = height * noise(ty);
+  //ADDITION in order to not make the avatar go below the mountains
+  y = constrain(y, 0, 400);
+  //ADDITION in order to not make the avatar go out the sides of the screen
+  x = constrain(x, 0, 1200);
   image(img, x, y, 110, 120);
   //how fast the avatar moves
   tx += 0.006;
   ty += 0.006;
+
+
 
   //ADDED to change the font.
   //CHANGED font ot be smaller
