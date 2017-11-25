@@ -8,7 +8,7 @@
 
 
 // array for the moutains
-float m[] = new float[800];
+float m[] = new float[1300];
 //offset on the y axis begins at 0 ???
 float yoff = 0;
 //how much the mountains grow on the y axis
@@ -28,7 +28,7 @@ String []feministboxesArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS\nBOOK", 
 void setup() {
   //changed size 
   //ADDED 3D feature
-  size(800, 800, P3D);
+  size(1300, 800, P3D);
 
   //CHANGED by removing 5 boxes from array
   //putting 10 boxes on screen
@@ -39,7 +39,7 @@ void setup() {
 
 
   //setting up perlin noise mountains. 
-  for (int i=0; i<800; i++) {
+  for (int i=0; i<1300; i++) {
     //CHANGE: made the mountains go up less high
     m[i] = height/2 + noise(yoff)*height/2;
     //
@@ -98,19 +98,19 @@ void draw() {
   //removed mouse pressed function
 
   //changed the limit
-  for (int i=0; i<800; i++) {
+  for (int i=0; i<1300; i++) {
     line(i, m[i], i, height);
   }
 
   //making the mountains move to the left
   //changed the limit
-  for (int i=0; i<799; i++) {
+  for (int i=0; i<1299; i++) {
     m[i] = m[i+1];
   }
 
   //CHANGED: last element of the array
   //CHANGE: made the mountains go up less high
-  m[799] = height/2 + noise(yoff)*height/2;
+  m[1299] = height/2 + noise(yoff)*height/2;
   yoff += yincrement;
 }
 
