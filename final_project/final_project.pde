@@ -74,8 +74,8 @@ void draw() {
     //ADDED: making the boxes
     //boxes will be placed at intervals of 50 pixels on y axis
     pushMatrix();
-    //CHANGED the boxes to be more separated on the y axis
-    translate(boxX, (i*50)+20);
+    //CHANGED the boxes to be more separated on the y axis and made the entire box show on the screen
+    translate(boxX, (i*50)+60);
     fill(240);
     //CHANGED boxes to boxes
     box(25);
@@ -119,10 +119,10 @@ void draw() {
 void mousePressed() {
   for (int i=0; i<boxes.size(); i=i+1) {
     //it is true that the mouse is within the X position of the box if its within its 20 pixel diameter
-    boolean withinXPositionOfbox= (mouseX> (xValueOfboxes.get(i)-10)) && (mouseX< (xValueOfboxes.get(i)+10));
+    boolean withinXPositionOfbox= (mouseX> (xValueOfboxes.get(i)-10)) && (mouseX< (xValueOfboxes.get(i)+50));
     //it is true that the mouse is within the y position of the box if its within its 20 pixel height
     //CHANGED parameters accordingly with the new interval of the boxes on the y axis
-    boolean withinYPositionOfbox=(mouseY> (i*50)) && (mouseY< (i*50)+10+10);
+    boolean withinYPositionOfbox=(mouseY> (i*50)) && (mouseY< (i*50)+60);
 
     //if the mouse is touching a box when it is clicked then
     if (withinXPositionOfbox && withinYPositionOfbox) {
