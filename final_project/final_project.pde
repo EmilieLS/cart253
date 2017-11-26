@@ -50,7 +50,7 @@ void setup() {
   //setting up perlin noise mountains. 
   for (int i=0; i<1300; i++) {
     //CHANGE: made the mountains go up less high
-    m[i] = height/2 + noise(yoff)*height/2;
+    m[i] = height/1.80 + noise(yoff)*height/1.80;
     //
     yoff += yincrement;
   }
@@ -137,7 +137,7 @@ void draw() {
 
   //CHANGED: last element of the array
   //CHANGE: made the mountains go up less high
-  m[1299] = height/2 + noise(yoff)*height/2;
+  m[1299] = height/1.80+ noise(yoff)*height/1.80;
   yoff += yincrement;
 }
 
