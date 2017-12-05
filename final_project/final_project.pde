@@ -21,8 +21,14 @@ FloatList spheres = new FloatList();
 //array to store the x value of the spheres 
 FloatList xValueOfspheres= new FloatList();
 
-//ADDED: array to make specific word for each feminist cube
-String []feministspheresArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS\nBOOK", "SEXUAL EMPOWEREMENT", "SELF\nLOVE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "TRANS\nINCLUSIVITY"};
+////ADDED an array storing the bullshit Cubes
+//BullshitCube[] bullshitCubes=new BullshitCube [9];
+
+
+//ADDED: array to make specific words for each feminist cube
+String []feministSpheresArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS\nBOOK", "SEXUAL EMPOWEREMENT", "SELF\nLOVE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "TRANS\nINCLUSIVITY"};
+//ADDED: array to make specific words for each cube of bullshit
+String [] bullshitCubesArray= {"SLUT\nSHAMING", "MIKE\nPENCE", "FAT\nSHAMING", "I'M\nNOT\nRACIST!\nBUT", "THAT'S\nSO\nGAY", "FRAT\nBOYZ", "TRANSPHOBIA", "STRAIGHT\nCIS\nWHITE\nGUYS", "TOXIC\nMASCULINITY"};
 
 //ADDITION: for avatar 
 //generating a random number to be used in the noise function in draw (?)
@@ -35,6 +41,7 @@ void setup() {
   //changed size 
   //ADDED 3D feature
   size(1300, 800, P3D);
+
 
   //ADDITION: initializing avatar (image of a girl)
   img = loadImage("girl.jpg");
@@ -54,11 +61,17 @@ void setup() {
     //
     yoff += yincrement;
   }
+  
+
+  
 }
 
 
 void draw() {
   background(255);
+  
+ 
+
 
   //ADDITION of avatar with the noise function
   //used the noise function to make the avatr move in a more life-like manner.
@@ -112,7 +125,7 @@ void draw() {
     fill(255, 0, 0);
     textFont(courierFont);
     //ADDED: put the text above the spheres
-    text(feministspheresArray[i], 0, -50);
+    text(feministSpheresArray[i], 0, -50);
     popMatrix();
 
 
@@ -141,6 +154,10 @@ void draw() {
   //CHANGE: made the mountains go up less high
   m[1299] = height/1.80+ noise(yoff)*height/1.80;
   yoff += yincrement;
+  
+  
+ 
+  
 }
 
 
