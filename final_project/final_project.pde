@@ -21,14 +21,16 @@ FloatList spheres = new FloatList();
 //array to store the x value of the spheres 
 FloatList xValueOfspheres= new FloatList();
 
-////ADDED an array storing the bullshit Cubes
-//BullshitCube[] bullshitCubes=new BullshitCube [9];
+//making an array for boxes to increase number. had to make it an array float list to be able to remove the box from the array later
+FloatList boxes= new FloatList();
+//array to store the x value of the boxes 
+FloatList xValueOfBoxes= new FloatList();
 
 
 //ADDED: array to make specific words for each feminist cube
 String []feministSpheresArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS\nBOOK", "SEXUAL EMPOWEREMENT", "SELF\nLOVE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "TRANS\nINCLUSIVITY"};
-//ADDED: array to make specific words for each cube of bullshit
-String [] bullshitCubesArray= {"SLUT\nSHAMING", "MIKE\nPENCE", "FAT\nSHAMING", "I'M\nNOT\nRACIST!\nBUT", "THAT'S\nSO\nGAY", "FRAT\nBOYZ", "TRANSPHOBIA", "STRAIGHT\nCIS\nWHITE\nGUYS", "TOXIC\nMASCULINITY"};
+//ADDED: array to make specific words for each box of offensive crap
+String [] boxesArray= {"SLUT\nSHAMING", "MIKE\nPENCE", "FAT\nSHAMING", "I'M\nNOT\nRACIST!\nBUT", "THAT'S\nSO\nGAY", "FRAT\nBOYZ", "TRANSPHOBIA", "STRAIGHT\nCIS\nWHITE\nGUYS", "TOXIC\nMASCULINITY"};
 
 //ADDITION: for avatar 
 //generating a random number to be used in the noise function in draw (?)
@@ -62,6 +64,12 @@ void setup() {
     yoff += yincrement;
   }
   
+    //putting 9 boxes on screen
+  for (int i=0; i< 9; i = i+1) {
+    //setting the random value of this list 
+    boxes.set(i, random(0, width));
+  }
+
 
   
 }
@@ -70,9 +78,6 @@ void setup() {
 void draw() {
   background(255);
   
- 
-
-
   //ADDITION of avatar with the noise function
   //used the noise function to make the avatr move in a more life-like manner.
   float x = width * noise(tx);
@@ -87,7 +92,6 @@ void draw() {
   ty += 0.006;
 
 
-
   //ADDED to change the font.
   //CHANGED font ot be smaller
   PFont courierFont = createFont("Courier", 13);
@@ -99,7 +103,6 @@ void draw() {
     float sphereX=spheres.get(i);
     //moving the spheres to go off the right of the screen
     float newX = spheres.get(i)+2;
-
 
 
     //CHANGED direction of the spheres
@@ -135,6 +138,48 @@ void draw() {
     //store the X value of the sphere so we can access it during the click
     xValueOfspheres.set(i, sphereX);
   }
+  
+  
+  //drawing the boxes. the boxes will loop according to the size of the list in the current array 
+  for (int i=0; i<boxes.size(); i=i+1) {
+    float boxX=boxes.get(i);
+    //moving the spheres to go off the right of the screen
+    float newX = boxes.get(i)+2;
+
+
+    //CHANGED direction of the spheres
+    //if the spheres are off the right of the screen, put them back on the left of the screen to create a continuous flow
+    if ((newX >1330)) {
+      newX = -30;
+    }
+    boxes.set(i, newX);
+
+    //ADDED lights to cubes
+    //lights();
+    //ADDED: making the cubes
+    //spheres will be placed at intervals of 50 pixels on y axis
+    pushMatrix();
+    //CHANGED the boxes to be more separated on the y axis and made the entire sphere show on the screen
+    translate(boxX, (i*50)+75);
+    //ADDITION: Made the boxes rotate on X axis so the the text could be seen more clearly
+    rotateX(6);
+    fill(240);
+    box(30);
+    //ADDED: made the text red
+    fill(255, 0, 0);
+    textFont(courierFont);
+    //ADDED: put the text above the spheres
+    text(boxesArray[i], 0, -50);
+    popMatrix();
+
+
+
+    //made the boxes move pretty slowly so you can semi-easily click it. the arraylist requires us to write the code this weird way. 
+    boxes.set(i, boxes.get(i) + 0.0004);
+    //store the X value of the boxes so we can access it during the click
+    xValueOfspheres.set(i, boxX);
+  }
+
 
 
   //removed mouse pressed function
