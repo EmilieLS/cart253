@@ -9,6 +9,9 @@
 //declare object avatar
 Avatar avatar;
 
+//ADDED:default value for r (red) is 255
+float r=255;
+
 //ADDED: The background colour during play (black)
 color backgroundColor = color(255);
 
@@ -169,8 +172,14 @@ void draw() {
   for (int i=0; i<1300; i++) {
     //ADDED: made stroke apply only to the mountains
     pushStyle();
-    //CHANGE: made mountains red
-    stroke(255, 0, 0);
+    //CHANGED stroke to be able to change colour of mountains over time to make them look more hellish
+    //mountains become less and less red and more and more black
+    stroke(r, 0, 0);
+    r-=0.002;
+    //if variable r (red) is smaller than two, the mountains get completely red again
+    if (r<2) {
+      r=255;
+    }
     line(i, m[i], i, height);
     popStyle();
   }
