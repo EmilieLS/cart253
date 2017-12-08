@@ -71,8 +71,8 @@ void setup() {
     boxes.set(i, random(0, width));
   }
   // Create the avatar at the centre of the screen
-  //the keys used to control "up" and "down" are "w" for up and "s" for down.
-  avatar = new Avatar (width/2, height/2, 'w', 's');
+  //the keys used to control "up" and "down" are "w" for up and "s" for down, "a" for left, and "d" for right.
+  avatar = new Avatar (width/2, height/2, 'w', 's', 'a', 'd');
 }
 
 

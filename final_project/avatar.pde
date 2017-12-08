@@ -25,6 +25,9 @@ class Avatar {
   // The characters used to make the avatar move up and down, defined in constructor
   char upKey;
   char downKey;
+  //ADDED: left and right key to control avatar
+  char leftKey;
+  char rightKey;
 
 
   /////////////// Constructor ///////////////
@@ -32,7 +35,7 @@ class Avatar {
   // Sets the position and controls based on arguments,
   // starts the velocity at 0
 
-  Avatar(int _x, int _y, char _upKey, char _downKey) {
+  Avatar(int _x, int _y, char _upKey, char _downKey, char _leftKey, char _rightKey) {
     x = _x;
     y = _y;
     vx = 0;
@@ -40,6 +43,8 @@ class Avatar {
 
     upKey = _upKey;
     downKey = _downKey;
+    leftKey=_leftKey;
+    rightKey=_rightKey;
   }
 
 
@@ -53,7 +58,7 @@ class Avatar {
     // Update position with velocity (to move the avatar)
     x += vx;
     // updating position of the paddle with velosity y axis
-    //y += vy;
+    y += vy;
 
     // Constrain the paddle's y position to be in the window
     y = constrain(y, 0, height - HEIGHT);
@@ -89,6 +94,15 @@ class Avatar {
       // if the above condition is true, we want a positive y velocity, but moving 15 pixels down each time we press the key
       y += 15;
     }
+    if (key == leftKey) {
+      //if the above condition is true, instead of having the velosity change according to the speed, we want 
+      //the avatar to have a negative x velocity and move 15 pixels upwards each time we press the upkey
+      x -= 15;
+    } // Otherwise check if the key is our down key 
+    else if (key == rightKey) {
+      // if the above condition is true, we want a positive x velocity, but moving 15 pixels right each time we press the key
+      x += 15;
+    }
   }
 
   // keyReleased()
@@ -105,6 +119,16 @@ class Avatar {
     else if (key == downKey && vy > 0) {
       // If so it should stop
       vy = 0;
+    }
+       //Check if the key is our left key and the avatar is moving left
+    if (key == leftKey && vx < 0) {
+      //If so it should stop
+      vx = 0;
+    } 
+    // Otherwise check if the key is our right key and avatar is moving right
+    else if (key == rightKey && vy > 0) {
+      // If so it should stop
+      vx = 0;
     }
   }
 }
