@@ -12,7 +12,8 @@ class Avatar {
   PImage img = loadImage("girl.jpg");
 
   // Default values for speed and size
-  int SPEED = 5;
+  //CHANGE: made speed faster
+  int SPEED = 7;
   int HEIGHT = 70;
   int WIDTH = 70;
 
@@ -86,22 +87,20 @@ class Avatar {
   void keyPressed() {
     // Check if the key is our up key
     if (key == upKey) {
-      //if the above condition is true, instead of having the velosity change according to the speed, we want 
-      //the avatar to have a negative y velocity and move 15 pixels upwards each time we press the upkey
-      y -= 15;
+      //if the above condition is true have the velosity change according to the speed when we press the upkey
+      vy=-SPEED;
     } // Otherwise check if the key is our down key 
     else if (key == downKey) {
-      // if the above condition is true, we want a positive y velocity, but moving 15 pixels down each time we press the key
-      y += 15;
+      //if the above condition is true have the velosity change according to the speed when we press the downkey
+      vy=+SPEED;
     }
     if (key == leftKey) {
-      //if the above condition is true, instead of having the velosity change according to the speed, we want 
-      //the avatar to have a negative x velocity and move 15 pixels upwards each time we press the upkey
-      x -= 15;
+      //if the above condition is true have the velosity change according to the speed when we press the left key
+      vx=-SPEED;
     } // Otherwise check if the key is our down key 
     else if (key == rightKey) {
-      // if the above condition is true, we want a positive x velocity, but moving 15 pixels right each time we press the key
-      x += 15;
+      //if the above condition is true have the velosity change according to the speed when we press the rightkey
+      vx=+SPEED;
     }
   }
 
@@ -120,7 +119,7 @@ class Avatar {
       // If so it should stop
       vy = 0;
     }
-       //Check if the key is our left key and the avatar is moving left
+    //Check if the key is our left key and the avatar is moving left
     if (key == leftKey && vx < 0) {
       //If so it should stop
       vx = 0;
