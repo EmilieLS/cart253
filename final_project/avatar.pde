@@ -61,8 +61,11 @@ class Avatar {
     // updating position of the paddle with velosity y axis
     y += vy;
 
-    // Constrain the paddle's y position to be in the window
-    y = constrain(y, 0, height - HEIGHT);
+    // Constrain the avatar's y position to be in the window, and (CHANGED) not be able to go to the bottom of the hellish mountains
+    //y = constrain(y, 0, height - HEIGHT);
+    y = constrain(y, 0, 600);
+    //ADDED: constrains the avatar's x position to be in the window
+    x = constrain(x, 0, 1230);
   }
 
   // display()
