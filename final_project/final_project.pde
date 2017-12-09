@@ -1,21 +1,15 @@
-//the code for the mountain mostly comes from here: //<>//
-/*
- By Joan Soler-Adillon
- www.joan.cat
- processing.joan.cat
- @jsoleradillon
- */
-
-//declare object avatar
+//declare object avatar //<>//
 Avatar avatar;
 
 //ADDED:default value for r (red) is 255
 float r=255;
+//ADDED: for better fading and brightning of red on mountains
+boolean isBrightning=false;
 
 //ADDED: The background colour during play (black)
 color backgroundColor = color(255);
 
-// array for the moutains
+// array for the moutains. m is every pixel position for the mountains
 float m[] = new float[1300];
 //offset on the y axis begins at 0 ???
 float yoff = 0;
@@ -29,11 +23,12 @@ FloatList spheres = new FloatList();
 //array to store the x value of the spheres 
 FloatList xValueOfspheres= new FloatList();
 
+
 //making an array for boxes to increase number. had to make it an array float list to be able to remove the box from the array later
 FloatList boxes= new FloatList();
 //array to store the x value of the boxes 
 FloatList xValueOfBoxes= new FloatList();
-
+//FloatList yOffOfSpheres= new FloatList();
 
 //ADDED: array to make specific words for each feminist cube
 String []feministSpheresArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS\nBOOK", "SEXUAL EMPOWEREMENT", "SELF\nLOVE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "TRANS\nINCLUSIVITY"};
@@ -55,6 +50,7 @@ void setup() {
   for (int i=0; i< 10; i = i+1) {
     //setting the random value of this list 
     spheres.set(i, random(0, width));
+
   }
 
   //setting up perlin noise mountains. 
@@ -93,7 +89,8 @@ void draw() {
     float sphereX=spheres.get(i);
     //moving the spheres to go off the right of the screen
     float newX = spheres.get(i)+2;
-
+ 
+    
 
     //CHANGED direction of the spheres
     //if the spheres are off the right of the screen, put them back on the left of the screen to create a continuous flow
@@ -175,10 +172,20 @@ void draw() {
     //CHANGED stroke to be able to change colour of mountains over time to make them look more hellish
     //mountains become less and less red and more and more black
     stroke(r, 0, 0);
-    r-=0.002;
-    //if variable r (red) is smaller than two, the mountains get completely red again
+  //ADDED: made brighting and fading of red of mountains more progressive
+    if (isBrightning==true) {
+      r+=0.002;
+    }
+    else{
+      r-=0.002;
+    }
+    //the mountains start to get red again once they are black
     if (r<2) {
-      r=255;
+      isBrightning=true;
+    }
+    //the mountains starts to fade to black when maximum redness is reached
+    if (r>255) {
+      isBrightning=false;
     }
     line(i, m[i], i, height);
     popStyle();
@@ -202,7 +209,7 @@ void draw() {
   avatar.display();
 }
 
-//for now, not dealing with this function
+////for now, not dealing with this function
 ////this function will  determine what to do when the mouse is pressed on one of the spheres (the sphere will disappear!)
 //void mousePressed() {
 //  for (int i=0; i<spheres.size(); i=i+1) {

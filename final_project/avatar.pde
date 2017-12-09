@@ -9,7 +9,7 @@ class Avatar {
 
 
   //initializing avatar (image of a girl)
-  PImage img = loadImage("girl.jpg");
+  PImage img = loadImage("girl.png");
 
   // Default values for speed and size
   //CHANGE: made speed faster
@@ -128,7 +128,7 @@ class Avatar {
       vx = 0;
     } 
     // Otherwise check if the key is our right key and avatar is moving right
-    else if (key == rightKey && vy > 0) {
+    else if (key == rightKey && vx > 0) {
       // If so it should stop
       vx = 0;
     }
