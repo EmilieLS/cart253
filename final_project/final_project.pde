@@ -110,7 +110,7 @@ void draw() {
     //spheres will be placed at intervals of 50 pixels on y axis
     pushMatrix();
     //CHANGED the spheres to be more separated on the y axis and made the entire sphere show on the screen
-    translate(sphereX, sphereY,-50);
+    translate(sphereX, sphereY);
     //ADDITION: Made the spheres rotate on X axis so the the text could be seen more clearly
     rotateX(6);
     fill(240);
@@ -150,7 +150,7 @@ void draw() {
     //lights();
     pushMatrix();
     //boxes will be placed at intervals of 50 pixels on y axis
-    translate(boxX, (i*50)+75,-50);
+    translate(boxX, (i*50)+75);
     rotateX(6);
     fill(240);
     box(30);
