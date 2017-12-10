@@ -2,7 +2,7 @@
 Avatar avatar;
 
 //ADDED:default value for r (red) is 255
-float r=255;
+float r=100;
 //ADDED: for better fading and brightning of red on mountains
 boolean isBrightning=false;
 
@@ -91,8 +91,7 @@ void draw() {
 
 
 
-    //made the spheres move pretty slowly so you can semi-easily click them. the arraylist requires us to write the code this weird way. 
-    spheres.set(i, spheres.get(i)+1);
+ 
 
     float newY = spheres.get(i);
     //moving the spheres to go off the right of the screen
@@ -104,6 +103,7 @@ void draw() {
     }
     spheres.set(i, newX);
     spheres.set(i, newY);
+    
 
     //ADDED lights to spheres
     //lights();
@@ -124,6 +124,8 @@ void draw() {
     text(feministSpheresArray[i], 0, -50);
     popMatrix();
 
+   //made the spheres move pretty slowly so you can semi-easily click them. the arraylist requires us to write the code this weird way. 
+    spheres.set(i, spheres.get(i)+1); 
     //store the X value of the sphere so we can access it during the click
     xValueOfspheres.set(i, sphereX);
   }
@@ -176,11 +178,11 @@ void draw() {
     //CHANGED stroke to be able to change colour of mountains over time to make them look more hellish
     //mountains become less and less red and more and more black
     stroke(r, 0, 0);
-    //ADDED: made brighting and fading of red of mountains more progressive
+    //ADDED: made brightning and fading of red of mountains more progressive
     if (isBrightning==true) {
-      r+=0.002;
+      r+=0.009;
     } else {
-      r-=0.002;
+      r-=0.009;
     }
     //the mountains start to get red again once they are black
     if (r<2) {
