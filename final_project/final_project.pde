@@ -66,7 +66,7 @@ void setup() {
   //ADDED frame rate
   frameRate(30);
 
-  //CHANGED by removing 5 spheres from array
+  //CHANGED by removing 5 spheres from array.
   //putting 10 spheres on screen
   for (int i=0; i< 10; i = i+1) {
     //setting the random value of this list 
