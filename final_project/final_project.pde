@@ -132,13 +132,13 @@ void draw() {
       rotateX(6);
       fill(240);
       //CHANGED spheres to spheres
-      sphere(30);
+      sphere(20);
       //ADDED: made the text red
       fill(255, 0, 0);
       textSize(13);
       textFont(courierFont);
       //ADDED: put the text above the spheres
-      text(feministSpheresArray[i], 0, -50);
+      text(feministSpheresArray[i], 0, -40);
       popMatrix();
 
       //made the spheres move pretty slowly so you can semi-easily click them. 
@@ -196,7 +196,6 @@ void draw() {
       xValueOfBoxes.set(i, newX);
     }
 
-    //removed mouse pressed function
 
     //changed the limit
     for (int i=0; i<1300; i++) {
@@ -270,6 +269,31 @@ void draw() {
 //  }
 //}
 
+
+  // collide(Avatar avatar)
+  //
+  // Checks whether this ball is colliding with the avatar passed as an argument
+  // If it is, it makes the ball bounce away from the avatar by reversing its
+  // x velocity
+
+  void collide() {
+    for (int i=0; i<spheres.size(); i=i+1) {
+    // Calculate possible overlaps with the avatar side by side
+    boolean withinXPositionOfSphere=(avatarX> (xValueOfSpheres.get(i)-10))&& avatarX<(xValueOfBalls.get(i)+10);
+    boolean withinYPositionOfSphere=(avatarY> (yValueOfSpheres.get(i)-10))&& avatarY<(yValueOfSpheres.get(i)+10);
+    
+       //if the mouse is touching a ball when it is clicked then
+    if (withinXPositionOfSphere && withinYPositionOfSphere) {
+      //the ball that was clicked is removed
+      spheres.remove(i);
+      //had to do this because postiion of balls on x axis were defined separately because the noise was generated accoridng to x value
+      xValueOfSpheres.remove(i);
+      yValueOfSpheres.remove(i);
+    }
+  }
+  }
+  
+  
 
 
 void keyPressed() {

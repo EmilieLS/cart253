@@ -16,10 +16,11 @@ class Avatar {
   int SPEED = 7;
   int HEIGHT = 70;
   int WIDTH = 70;
+  int SIZE=50;
 
   // The position and velocity of the avatar
-  int x;
-  int y;
+  int avatarX;
+  int avatarY;
   int vx;
   int vy;
 
@@ -67,7 +68,8 @@ class Avatar {
     //ADDED: constrains the avatar's x position to be in the window
     x = constrain(x, 0, 1230);
   }
-
+  
+ 
   // display()
   //
   // Display the paddle at its location
@@ -79,7 +81,7 @@ class Avatar {
     noStroke();
     rectMode(CENTER);
     // draw avatar as girl image
-    image(img, x, y, WIDTH, HEIGHT);
+    image(img, x, y, SIZE, SIZE);
     popStyle();
   }
 
