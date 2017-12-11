@@ -26,11 +26,11 @@ float boxX;
 
 
 //making an array for the spheres to increase number. had to make it an array float list to be able to remove the spheres from the array later
-FloatList spheres = new FloatList();
+FloatList yValueOfSpheres = new FloatList();
 //array to store the x value of the spheres 
-//FloatList xValueOfspheres= new FloatList();
-FloatList yValueOfSpheres= new FloatList();
+//removed spheres array
 FloatList xValueOfSpheres= new FloatList();
+FloatList noiseMarkerSpheres= new FloatList();
 
 
 //making an array for boxes to increase number. had to make it an array float list to be able to remove the box from the array later
@@ -45,7 +45,9 @@ String []feministSpheresArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS\nBOOK"
 String [] boxesArray= {"SLUT\nSHAMING", "MIKE\nPENCE", "FAT\nSHAMING", "I'M\nNOT\nRACIST!\nBUT", "THAT'S\nSO\nGAY", "FRAT\nBOYZ", "TRANSPHOBIA", "STRAIGHT\nCIS\nWHITE\nGUYS", "TOXIC\nMASCULINITY"};
 
 //ADDITION: declaring variable imgage
-PImage img;
+//PImage img = loadImage("lost image.jpg");
+
+
 
 //ADDITION: declaring and initializing of score and making the score start at 0 
 int score=0;
@@ -53,8 +55,10 @@ int score=0;
 //ADDED: Text for the mountains
 String feministHell= "Feminist Hell";
 
+//ADDITION: The beginning of the text of when the game is over
+String endText="GIRL";
 //ADDITION: declaring and initializing new variable which will tells the game that the player won making the message below appear
-String playerWon="Girl, you did it.\nYOUR JOURNEY OF SELF-CARE AND LOVE, READING FEMINIST LITERATURE AND NURTURING YOUR COMMUNITY HELPED YOU STAY CLEAR OF\nFEMINIST HELL";
+String gameOutcome=" ";
 //ADDITION: declaring long variable (type for long integers) that tells processing the time the timer starts (when a player scores)
 long startTime;
 //ADDITION: declaring variable that tells processing how much time has passed since the timer was started (since the player has scored)
@@ -86,9 +90,10 @@ void setup() {
   //putting 10 spheres on screen
   for (int i=0; i< 10; i = i+1) {
     //setting the random value of this list 
-    spheres.set(i, random(0, width));
+    yValueOfSpheres.set(i, random(0, height));
     //setting x values of spheres here. will have 110 pixels in between each sphere
     xValueOfSpheres.set(i, (i*110));
+    noiseMarkerSpheres.set(i, random(0, 1000));
   }
 
   //putting 9 boxes on screen
@@ -98,6 +103,7 @@ void setup() {
     //setting x values of boxes. 110 pixels in between each box
     xValueOfBoxes.set(i, (i*110));
   }
+
   // Create the avatar at the centre of the screen
   //the keys used to control "up" and "down" are "w" for up and "s" for down, "a" for left, and "d" for right.
   avatar = new Avatar (width/2, height/2, 'w', 's', 'a', 'd');
@@ -157,37 +163,44 @@ void draw() {
 
 
     //drawing the spheres. the spheres will loop according to the size of the list in the current array (changes whether of not spheres have been clicked)
-    for (int i=0; i<spheres.size(); i=i+1) {
+    for (int i=0; i<yValueOfSpheres.size(); i=i+1) {
       //position of spheres on x axis is every 110 pixels, and position of spheres on y axis is controlled by the noise function to give cool movement.
-      float sphereX=xValueOfSpheres.get(i);
-      float sphereY=height*noise(spheres.get(i));
-      //constraining the spheres not to go below the mountains
-      sphereY = constrain(sphereY, 0, 500);
+      float sphereX=xValueOfSpheres.get(i)+5;
+      float sphereY=height*noise(noiseMarkerSpheres.get(i));
 
 
-      //ADDED lights to spheres
-      //lights();
       //ADDED: making the spheres
       pushMatrix();
+      //ADDED lights to spheres
+      lights();
       translate(sphereX, sphereY);
       //ADDITION: Made the spheres rotate on X axis so the the text could be seen more clearly
       rotateX(6);
-      fill(240);
+      fill(255);
+      // stroke(50);
       //CHANGED spheres to spheres
       sphere(20);
+      pushStyle();
       //ADDED: made the text red
       fill(255, 0, 0);
       textSize(13);
       textFont(courierFont);
       //ADDED: put the text above the spheres
       text(feministSpheresArray[i], 0, -40);
+      popStyle();
       popMatrix();
 
-      //made the spheres move pretty slowly so you can semi-easily click them. 
-      spheres.set(i, spheres.get(i)+0.008); 
+      //float sphereY=height*noise(spheres.get(i));
+      //constraining the spheres not to go below the mountains
+      //sphereY = constrain(sphereY, 0, 500);
+
+
       //making spheres move to the right of the screen
-      xValueOfSpheres.set(i, sphereX+=5);
-      yValueOfSpheres.set(i, sphereY);
+      xValueOfSpheres.set(i, sphereX);
+      yValueOfSpheres.set(i, constrain(sphereY, 0, 500));
+      //made the spheres move pretty slowly so you can semi-easily click them. 
+      noiseMarkerSpheres.set(i, noiseMarkerSpheres.get(i)+0.005); 
+
 
       //if the spheres are off the right of the screen, put them back on the left of the screen to create a continuous flow
       float newX = xValueOfSpheres.get(i);
@@ -215,11 +228,13 @@ void draw() {
       fill(240);
       box(30);
       //ADDED: made the text red
+      pushStyle();
       fill(255, 0, 0);
       textFont(courierFont);
       textSize(13);
       //ADDED: put the text above the boxes
       text(boxesArray[i], 0, -50);
+      popStyle();
       popMatrix();
 
 
@@ -238,18 +253,77 @@ void draw() {
     }
 
 
+
+pushStyle();
+    pushMatrix();
+    translate(600, 750, 10);
     textFont(courierFont);
     //ADDED: put the text above the spheres
-    textSize(60);
-    text(feministHell, 500, 700);
-
+    textSize(40);
+    fill(0);
+    text(feministHell, 0, 0);
+    popMatrix();
+ popStyle();
+ 
+ 
     //updates the avatar
     avatar.update();
     //displays the avatar
     avatar.display();
     //checks if avatar collides with spheres
     avatar.collide();
-  }
+  } 
+
+  //  else {
+  //    //the background becomes black
+  //    background(0);
+  //    //the words  appear in random colours every frame "Girl, you did it.\nYOUR JOURNEY OF SELF-CARE AND LOVE, READING FEMINIST LITERATURE AND NURTURING YOUR COMMUNITY HELPED YOU STAY CLEAR OF\nFEMINIST HELL";
+  //    fill(random(0, 255), random(0, 255), random(0, 255));
+  //    textSize(29);
+  //    text (endText+gameOutcome, 500, height/2);
+
+  //    //THIS IS PART OF SETUP. WILL IT WORK HERE
+  //      //setting up perlin noise mountains. 
+  //  for (int i=0; i<1300; i++) {
+  //    //CHANGE: made the mountains go up less high
+  //    m[i] = height/1.80 + noise(yoff)*height/1.80;
+  //    //WHAT IS THIS ?
+  //    yoff += yincrement;
+  //  }
+
+
+  ////DRAW
+  ////image(img,300,0);
+  ////Added mountains to end screen
+  //    for (int i=0; i<1300; i++) {
+  //      pushStyle();
+  //      stroke(r, 0, 0);
+  //      if (isBrightning==true) {
+  //        r+=0.009;
+  //      } else {
+  //        r-=0.009;
+  //      }
+  //      if (r<2) {
+  //        isBrightning=true;
+  //      }
+  //      if (r>255) {
+  //        isBrightning=false;
+  //      }
+  //      line(i, m[i], i, height);
+  //      popStyle();
+  //    }
+
+  //    //making the mountains move to the left
+  //    //changed the limit
+  //    for (int i=0; i<1299; i++) {
+  //      m[i] = m[i+1];
+  //    }
+
+  //    //CHANGED: last element of the array
+  //    //CHANGE: made the mountains go up less high
+  //    m[1299] = height/1.80+ noise(yoff)*height/1.80;
+  //    yoff += yincrement;
+  //  }
 }
 
 //ADDED: mouse dragged function to be able to drag the boxes into feminist hell 
