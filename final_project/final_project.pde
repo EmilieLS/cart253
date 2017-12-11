@@ -1,4 +1,13 @@
-//declare object avatar //<>//
+// array for the moutains. m is every pixel position for the mountains //<>//
+float m[] = new float[1300];
+//offset on the y axis begins at 0 ???
+float yoff = 0;
+//how much the mountains grow on the y axis
+float yincrement = 0.03;
+//removed noiseVar
+
+
+//declare object avatar
 Avatar avatar;
 
 //ADDED:default value for r (red) is 255
@@ -9,17 +18,11 @@ boolean isBrightning=false;
 //ADDED: The background colour during play (black)
 color backgroundColor = color(255);
 
-// array for the moutains. m is every pixel position for the mountains
-float m[] = new float[1300];
-//offset on the y axis begins at 0 ???
-float yoff = 0;
-//how much the mountains grow on the y axis
-float yincrement = 0.03;
-//removed noiseVar
 
 //ADDED:declaring variables to be able to manipulate the y position of the spheres and boxes
 float sphereY;
 float boxY;
+float boxX;
 
 
 //making an array for the spheres to increase number. had to make it an array float list to be able to remove the spheres from the array later
@@ -71,6 +74,14 @@ void setup() {
   //ADDED frame rate
   frameRate(30);
 
+  //setting up perlin noise mountains. 
+  for (int i=0; i<1300; i++) {
+    //CHANGE: made the mountains go up less high
+    m[i] = height/1.80 + noise(yoff)*height/1.80;
+    //WHAT IS THIS ?
+    yoff += yincrement;
+  }
+
   //CHANGED by removing 5 spheres from array.
   //putting 10 spheres on screen
   for (int i=0; i< 10; i = i+1) {
@@ -78,14 +89,6 @@ void setup() {
     spheres.set(i, random(0, width));
     //setting x values of spheres here. will have 110 pixels in between each sphere
     xValueOfSpheres.set(i, (i*110));
-  }
-
-  //setting up perlin noise mountains. 
-  for (int i=0; i<1300; i++) {
-    //CHANGE: made the mountains go up less high
-    m[i] = height/1.80 + noise(yoff)*height/1.80;
-    //WHAT IS THIS ?
-    yoff += yincrement;
   }
 
   //putting 9 boxes on screen
@@ -108,7 +111,46 @@ void draw() {
 
     background(backgroundColor);
 
-    //ADDED Pfint to change the font.
+    //changed the limit
+    for (int i=0; i<1300; i++) {
+      //ADDED: made stroke apply only to the mountains
+      pushStyle();
+      //CHANGED stroke to be able to change colour of mountains over time to make them look more hellish
+      //mountains become less and less red and more and more black
+      stroke(r, 0, 0);
+      //ADDED: made brightning and fading of red of mountains more progressive
+      if (isBrightning==true) {
+        r+=0.009;
+      } else {
+        r-=0.009;
+      }
+      //the mountains start to get red again once they are black
+      if (r<2) {
+        isBrightning=true;
+      }
+      //the mountains starts to fade to black when maximum redness is reached
+      if (r>255) {
+        isBrightning=false;
+      }
+      line(i, m[i], i, height);
+      popStyle();
+    }
+
+
+    //making the mountains move to the left
+    //changed the limit
+    for (int i=0; i<1299; i++) {
+      m[i] = m[i+1];
+    }
+
+    //CHANGED: last element of the array
+    //CHANGE: made the mountains go up less high
+    m[1299] = height/1.80+ noise(yoff)*height/1.80;
+    yoff += yincrement;
+
+
+
+    //ADDED Pfont to change the font.
     //CHANGED font ot be smaller
     PFont courierFont = createFont("Courier", 13);
     textAlign(CENTER, CENTER);
@@ -164,7 +206,6 @@ void draw() {
       //boxes dont go below the mountains
       boxY=constrain(boxY, 0, 500);
 
-
       //ADDED: making the boxes
       //ADDED lights to boxes
       //lights();
@@ -197,42 +238,10 @@ void draw() {
     }
 
 
-    //changed the limit
-    for (int i=0; i<1300; i++) {
-      //ADDED: made stroke apply only to the mountains
-      pushStyle();
-      //CHANGED stroke to be able to change colour of mountains over time to make them look more hellish
-      //mountains become less and less red and more and more black
-      stroke(r, 0, 0);
-      //ADDED: made brightning and fading of red of mountains more progressive
-      if (isBrightning==true) {
-        r+=0.009;
-      } else {
-        r-=0.009;
-      }
-      //the mountains start to get red again once they are black
-      if (r<2) {
-        isBrightning=true;
-      }
-      //the mountains starts to fade to black when maximum redness is reached
-      if (r>255) {
-        isBrightning=false;
-      }
-      line(i, m[i], i, height);
-      popStyle();
-    }
-
-
-    //making the mountains move to the left
-    //changed the limit
-    for (int i=0; i<1299; i++) {
-      m[i] = m[i+1];
-    }
-
-    //CHANGED: last element of the array
-    //CHANGE: made the mountains go up less high
-    m[1299] = height/1.80+ noise(yoff)*height/1.80;
-    yoff += yincrement;
+    textFont(courierFont);
+    //ADDED: put the text above the spheres
+    textSize(60);
+    text(feministHell, 500, 700);
 
     //updates the avatar
     avatar.update();
@@ -240,12 +249,6 @@ void draw() {
     avatar.display();
     //checks if avatar collides with spheres
     avatar.collide();
-
-
-    textFont(courierFont);
-    //ADDED: put the text above the spheres
-    textSize(60);
-    text(feministHell, 500, 700);
   }
 }
 
@@ -260,12 +263,29 @@ void mouseDragged() {
     //if the mouse is touching a box when it is clicked then
     if (withinXPositionOfBoxes && withinYPositionOfBoxes) {
       //the boxes are removed
+      //boxY=mouseY;
+      //boxX=mouseX;
+      //box(mouseX, mouseY);
+      //xValueOfBoxes.get(i)=mouseX;
+
+      // boxes.add(mouseX, mouseY);
+      //xValueOfBoxes.add(mouseX,mouseY);
+      //yValueOfBoxes.add(mouseX, mouseY);
+
       boxes.remove(i);
       xValueOfBoxes.remove(i);
       yValueOfBoxes.remove(i);
     }
   }
 }
+
+//void mouseReleased(){
+//if (mouseY>800) {
+//      boxes.remove(i);
+//      xValueOfBoxes.remove(i);
+//      yValueOfBoxes.remove(i);
+//}
+//}
 
 void keyPressed() {
   //call the avatar's key pressed method

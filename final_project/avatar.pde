@@ -7,7 +7,6 @@ class Avatar {
 
   /////////////// Properties ///////////////
 
-
   //initializing avatar (image of a girl)
   PImage img = loadImage("girl.png");
 
