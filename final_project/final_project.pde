@@ -17,13 +17,15 @@ float yoff = 0;
 float yincrement = 0.03;
 //removed noiseVar
 
+float sphereY;
+
 
 //making an array for the spheres to increase number. had to make it an array float list to be able to remove the spheres from the array later
 FloatList spheres = new FloatList();
 //array to store the x value of the spheres 
 //FloatList xValueOfspheres= new FloatList();
-FloatList yOffOfSpheres= new FloatList();
-
+FloatList yValueOfSpheres= new FloatList();
+FloatList xValueOfSpheres= new FloatList();
 
 
 //making an array for boxes to increase number. had to make it an array float list to be able to remove the box from the array later
@@ -71,7 +73,8 @@ void setup() {
   for (int i=0; i< 10; i = i+1) {
     //setting the random value of this list 
     spheres.set(i, random(10, 500));
-    yOffOfSpheres.set(i, yoff * random(0, height));
+    xValueOfSpheres.set(i,(i*100)+30);
+     
   }
 
   //setting up perlin noise mountains. 
@@ -115,22 +118,11 @@ void draw() {
 
     //drawing the spheres. the spheres will loop according to the size of the list in the current array (changes whether of not spheres have been clicked)
     for (int i=0; i<spheres.size(); i=i+1) {
-      float sphereX=spheres.get(i);
-      float sphereY=height*noise(yOffOfSpheres.get(i));
-      yOffOfSpheres.set(i, sphereY+yincrement);
+      float sphereY=height*noise(spheres.get(i));
+      float sphereX=xValueOfSpheres.get(i);
+          sphereY = constrain(sphereY, 0, 500);
 
-
-      //moving the spheres to go off the right of the screen
-      float newX = spheres.get(i)+3;
-      float newY = height*noise(spheres.get(i));
-      //CHANGED direction of the spheres
-      //if the spheres are off the right of the screen, put them back on the left of the screen to create a continuous flow
-      if ((newX >1330)) {
-        newX = -30;
-      }
-      spheres.set(i, newX);
-      spheres.set(i, newY);
-
+     
 
       //ADDED lights to spheres
       //lights();
@@ -138,7 +130,7 @@ void draw() {
       //spheres will be placed at intervals of 50 pixels on y axis
       pushMatrix();
       //CHANGED the spheres to be more separated on the y axis and made the entire sphere show on the screen
-      translate(sphereX, height * noise(sphereY));
+      translate(sphereX, sphereY);
       //ADDITION: Made the spheres rotate on X axis so the the text could be seen more clearly
       rotateX(6);
       fill(240);
@@ -153,10 +145,25 @@ void draw() {
       popMatrix();
 
       //made the spheres move pretty slowly so you can semi-easily click them. the arraylist requires us to write the code this weird way. 
-      spheres.set(i, spheres.get(i)+1); 
+      spheres.set(i, spheres.get(i)+0.001); 
       //store the X value of the sphere so we can access it during the click
       //xValueOfspheres.set(i, sphereX);
-      yOffOfSpheres.set(i, yOffOfSpheres.get(i)+1);
+      yValueOfSpheres.set(i, sphereY);
+      xValueOfSpheres.set(i,sphereX+=2);
+      
+            //moving the spheres to go off the right of the screen
+      float newX = spheres.get(i)+0.002;
+      //float newY = height*noise(spheres.get(i));
+      //CHANGED direction of the spheres
+      //if the spheres are off the right of the screen, put them back on the left of the screen to create a continuous flow
+      if ((newX >1330)) {
+        newX = -30;
+      }
+      spheres.set(i, newX);
+      //spheres.set(i, newY);
+
+      
+      
     }
 
 
