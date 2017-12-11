@@ -376,18 +376,20 @@ void mouseDragged() {
 }
 
 //when mouse is released, the dragging stops
+//CHANGED: when mouse is released and is in bottom 100 pixels of screen on y axis, 
+//then the boxes disappear and score increases by 1.
 void mouseReleased()
 {
-  draggingBox = false;
-  draggingIndex =-1;
-  //if (mouseY>800) {
-  //  xValueOfBoxes.remove(i);
-  //  yValueOfBoxes.remove(i);
-  //  score=score+1;
-  //}
+  
+  if (draggingIndex!=-1 && mouseY>700) {
+      xValueOfBoxes.remove(draggingIndex);
+      yValueOfBoxes.remove(draggingIndex);
+      score=score+1;
+      println("SCORE"+score);
 }
-
-
+ draggingBox = false;
+  draggingIndex =-1;
+}
 
 void keyPressed() {
   //call the avatar's key pressed method
