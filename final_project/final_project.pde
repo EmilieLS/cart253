@@ -249,7 +249,23 @@ void draw() {
   }
 }
 
+//ADDED: mouse dragged function to be able to drag the boxes into feminist hell 
+void mouseDragged() {
+  for (int i=0; i<boxes.size(); i=i+1) {
+    //it is true that the mouse is within the X position of the ball if its within its 20 pixel diameter
+    boolean withinXPositionOfBoxes= (mouseX> (xValueOfBoxes.get(i)-20)) && (mouseX< (xValueOfBoxes.get(i)+20));
+    //it is true that the mouse is within the y position of the ball if its within its 20 pixel height
+    boolean withinYPositionOfBoxes=(mouseY> (yValueOfBoxes.get(i)-20)) && (mouseY< (yValueOfBoxes.get(i)+20));
 
+    //if the mouse is touching a box when it is clicked then
+    if (withinXPositionOfBoxes && withinYPositionOfBoxes) {
+      //the boxes are removed
+      boxes.remove(i);
+      xValueOfBoxes.remove(i);
+      yValueOfBoxes.remove(i);
+    }
+  }
+}
 
 void keyPressed() {
   //call the avatar's key pressed method
