@@ -327,21 +327,21 @@ void draw() {
 void mouseDragged() {
   for (int i=0; i<yValueOfBoxes.size(); i=i+1) {
     //it is true that the mouse is within the X position of the ball if its within its 20 pixel diameter
-    boolean withinXPositionOfBoxes= (mouseX> (xValueOfBoxes.get(i)-20)) && (mouseX< (xValueOfBoxes.get(i)+20));
+    boolean withinXPositionOfBox= (mouseX> (xValueOfBoxes.get(i)-30) && mouseX< (xValueOfBoxes.get(i)+30));
     //it is true that the mouse is within the y position of the ball if its within its 20 pixel height
-    boolean withinYPositionOfBoxes=(mouseY> (yValueOfBoxes.get(i)-20)) && (mouseY< (yValueOfBoxes.get(i)+20));
+    boolean withinYPositionOfBox=(mouseY> (yValueOfBoxes.get(i)-30) && mouseY< (yValueOfBoxes.get(i)+30));
 
     //if the mouse is touching a box when it is clicked then
-    if (withinXPositionOfBoxes && withinYPositionOfBoxes) {
+    if (withinXPositionOfBox && withinYPositionOfBox) {
       //the boxes are removed
       //boxY=mouseY;
       //boxX=mouseX;
       //box(mouseX, mouseY);
-      //xValueOfBoxes.get(i)=mouseX;
+     //xValueOfBoxes.get(i)=mouseX;
 
       // boxes.add(mouseX, mouseY);
       //xValueOfBoxes.add(mouseX,mouseY);
-      //yValueOfBoxes.add(mouseX, mouseY);
+     //yValueOfBoxes.add(mouseX, mouseY);
 
       xValueOfBoxes.remove(i);
       yValueOfBoxes.remove(i);

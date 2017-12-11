@@ -67,29 +67,14 @@ class Avatar {
   }
 
   ////ADDED: function to determine if the avatar collides with a sphere. if it does, the sphere disappears
-  //void collide() {
-  //  for (int i=0; i<yValueOfSpheres.size(); i=i+1) {
-  //    //it is true that the avatar is within the X and Y position of the sphere if the avatar is within 40 pixels of the sphere 
-  //    boolean withinXPositionOfSphere=(x> (xValueOfSpheres.get(i)-10) && x <(xValueOfSpheres.get(i)+10));
-  //    boolean withinYPositionOfSphere=(y> (yValueOfSpheres.get(i)-10) && y < (yValueOfSpheres.get(i)+10));
-
-  //    //if the avatar touches a sphere, it disappears
-  //    if (withinXPositionOfSphere && withinYPositionOfSphere) {
-
-  //      xValueOfSpheres.remove(i);
-  //      yValueOfSpheres.remove(i);
-  //    }
-  //  }
-  //}
-
-  void collide() {
-    for (int i=0; i<yValueOfSpheres.size(); i=i+1) {
+void collide() {
+    for (int i=yValueOfSpheres.size()-1; i>=0; i=i-1) {
 
       // Calculate if avatar overlaps with the spheres side by side
-      boolean insideLeft = (x + SIZE/2 > xValueOfSpheres.get(i) - 10);
-      boolean insideRight = (x - SIZE/2 < xValueOfSpheres.get(i) + 10);
-      boolean insideTop = (y + SIZE/2 > yValueOfSpheres.get(i) +10);
-      boolean insideBottom = (y - SIZE/2 < yValueOfSpheres.get(i) - 10);
+      boolean insideLeft = (xValueOfSpheres.get(i) >x+SIZE/2);
+      boolean insideRight =(xValueOfSpheres.get(i)<x+SIZE/2+SIZE);
+      boolean insideTop =   (yValueOfSpheres.get(i) >y+SIZE/2);
+      boolean insideBottom = (yValueOfSpheres.get(i)<y+SIZE/2+SIZE);
 
       // Check if the avatar overlaps with a spheres
       if (insideLeft && insideRight && insideTop && insideBottom) {
@@ -98,7 +83,6 @@ class Avatar {
       }
     }
   }
-
 
   // display()
   //
