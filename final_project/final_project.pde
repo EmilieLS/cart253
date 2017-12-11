@@ -22,7 +22,7 @@ color backgroundColor = color(255);
 //ADDED:declaring variables to be able to manipulate the y position of the spheres and boxes
 float sphereY;
 
-//arrays that store y and x values of spheres. 
+//arrays that store y and x values of spheres. had to make them array float lists to be able to remove the spheres from the array later 
 FloatList yValueOfSpheres = new FloatList();
 //removed spheres array
 FloatList xValueOfSpheres= new FloatList();
@@ -30,9 +30,10 @@ FloatList xValueOfSpheres= new FloatList();
 FloatList noiseMarkerSpheres= new FloatList();
 
 
-//making an array for boxes to increase number. had to make it an array float list to be able to remove the box from the array later
-FloatList boxes= new FloatList();
-//array to store the x and y value of the boxes 
+
+//stores array that makes it easier to deal with noise function
+FloatList noiseMarkerBoxes= new FloatList();
+//array to store the x and y value of the boxes. had to make them array float lists to be able to remove the boxes from the array later
 FloatList xValueOfBoxes= new FloatList();
 FloatList yValueOfBoxes= new FloatList();
 
@@ -71,8 +72,6 @@ void setup() {
   //CHANGED size 
   //ADDED 3D feature
   size(1300, 800, P3D);
-  //ADDED frame rate
-  frameRate(30);
 
   //CHANGE: moved all code for mountains before everything else to make text appear in front of the mountains
   //setting up perlin noise mountains. 
@@ -90,16 +89,18 @@ void setup() {
     yValueOfSpheres.set(i, random(0, height));
     //setting x values of spheres here. will have 110 pixels in between each sphere
     xValueOfSpheres.set(i, (i*120));
-    //setting random vale of this list which is useful for the noise
+    //setting random value of this list which is useful for the noise
     noiseMarkerSpheres.set(i, random(0, 1000));
   }
 
   //putting 9 boxes on screen
   for (int i=0; i< 9; i = i+1) {
     //setting the random value of this list 
-    boxes.set(i, random(0, width));
+    yValueOfBoxes.set(i, random(0, width));
     //setting x values of boxes. 110 pixels in between each box
-    xValueOfBoxes.set(i, (i*110));
+    xValueOfBoxes.set(i, (i*120));
+    //setting random value of this list which is useful for the noise
+    noiseMarkerBoxes.set(i, random(0, 1000));
   }
 
   // Create the avatar at the centre of the screen
@@ -190,9 +191,9 @@ void draw() {
       popStyle();
       popMatrix();
 
-    //storing the X value of the ball so we can access it for the collision
+      //storing the X value of the ball so we can access it for the collision
       xValueOfSpheres.set(i, sphereX);
-       //constraining the spheres not to go below the mountains
+      //constraining the spheres not to go below the mountains
       yValueOfSpheres.set(i, constrain(sphereY, 0, 500));
       //made the spheres move pretty slowly so player can semi-easily collide with them
       noiseMarkerSpheres.set(i, noiseMarkerSpheres.get(i)+0.005); 
@@ -208,12 +209,11 @@ void draw() {
 
 
     //drawing the boxes. the boxes will loop according to the size of the list in the current array 
-    for (int i=0; i<boxes.size(); i=i+1) {
+    for (int i=0; i<yValueOfBoxes.size(); i=i+1) {
       // position of boxes on x axis is every 110 pixels, and position of boxes on the y axis is controlled by the noise function to give cool movement.
-      float boxX=xValueOfBoxes.get(i);
-      float boxY=height*noise(boxes.get(i));
-      //boxes dont go below the mountains
-      boxY=constrain(boxY, 0, 500);
+      float boxX=xValueOfBoxes.get(i)+5;
+      float boxY=height*noise(noiseMarkerBoxes.get(i));
+
 
       //ADDED: making the boxes
       //ADDED lights to boxes
@@ -233,12 +233,13 @@ void draw() {
       popStyle();
       popMatrix();
 
-
-      //made the boxes move pretty slowly so you can semi-easily click them.  
-      boxes.set(i, boxes.get(i) + 0.008);
-      //making boxes move to the right of the screen
-      yValueOfBoxes.set(i, boxY);
-      xValueOfBoxes.set(i, boxX+=5);
+      //storing the X value of the ball so we can access it for the collision
+      xValueOfBoxes.set(i, boxX);
+      //constraining the spheres not to go below the mountains
+      yValueOfBoxes.set(i, constrain(boxY, 0, 500));
+      //float yValueOfBoxes=constrain(boxY,0,300);
+      //made the spheres move pretty slowly so player can semi-easily collide with them
+      noiseMarkerBoxes.set(i, noiseMarkerBoxes.get(i)+0.005); 
 
       //if the boxes are off the right of the screen, put them back on the left of the screen to create a continuous flow
       float newX = xValueOfBoxes.get(i);
@@ -324,7 +325,7 @@ void draw() {
 
 //ADDED: mouse dragged function to be able to drag the boxes into feminist hell 
 void mouseDragged() {
-  for (int i=0; i<boxes.size(); i=i+1) {
+  for (int i=0; i<yValueOfBoxes.size(); i=i+1) {
     //it is true that the mouse is within the X position of the ball if its within its 20 pixel diameter
     boolean withinXPositionOfBoxes= (mouseX> (xValueOfBoxes.get(i)-20)) && (mouseX< (xValueOfBoxes.get(i)+20));
     //it is true that the mouse is within the y position of the ball if its within its 20 pixel height
@@ -342,7 +343,6 @@ void mouseDragged() {
       //xValueOfBoxes.add(mouseX,mouseY);
       //yValueOfBoxes.add(mouseX, mouseY);
 
-      boxes.remove(i);
       xValueOfBoxes.remove(i);
       yValueOfBoxes.remove(i);
     }
