@@ -19,8 +19,8 @@ class Avatar {
   int SIZE=50;
 
   // The position and velocity of the avatar
-  int avatarX;
-  int avatarY;
+  int x;
+  int y;
   int vx;
   int vy;
 
@@ -68,8 +68,23 @@ class Avatar {
     //ADDED: constrains the avatar's x position to be in the window
     x = constrain(x, 0, 1230);
   }
-  
- 
+
+  //ADDED: function to determine if the avatar collides with a sphere. if it does, the sphere disappears
+  void collide() {
+    for (int i=0; i<spheres.size(); i=i+1) {
+      //it is true that the avatar is within the X and Y position of the sphere if the avatar is within 40 pixels of the sphere 
+      boolean withinXPositionOfSphere=(x> (xValueOfSpheres.get(i)-20) && x <(xValueOfSpheres.get(i)+20));
+      boolean withinYPositionOfSphere=(y> (yValueOfSpheres.get(i)-20) && y <(yValueOfSpheres.get(i)+20));
+
+      //if the avatar touches a sphere, it disappears
+      if (withinXPositionOfSphere && withinYPositionOfSphere) {
+        spheres.remove(i);
+        xValueOfSpheres.remove(i);
+        yValueOfSpheres.remove(i);
+      }
+    }
+  }
+
   // display()
   //
   // Display the paddle at its location
