@@ -249,38 +249,6 @@ void draw() {
   }
 }
 
-////for now, not dealing with this function
-////this function will  determine what to do when the mouse is pressed on one of the spheres (the sphere will disappear!)
-//void mousePressed() {
-//  for (int i=0; i<spheres.size(); i=i+1) {
-//    //it is true that the mouse is within the X position of the sphere if its within its 20 pixel diameter
-//    boolean withinXPositionOfsphere= (mouseX> (xValueOfspheres.get(i)-50)) && (mouseX< (xValueOfspheres.get(i)+50));
-//    //it is true that the mouse is within the y position of the sphere if its within its 20 pixel height
-//    //CHANGED parameters accordingly with the new interval of the spheres on the y axis
-//    boolean withinYPositionOfsphere=(mouseY> (i*50)) && (mouseY< (i*50)+60);
-
-//    //if the mouse is touching a sphere when it is clicked then
-//    if (withinXPositionOfsphere && withinYPositionOfsphere) {
-//      // newX=mouseX;
-
-//      //the sphere that was clicked is removed
-//      spheres.remove(i);
-//      //had to do this because postiion of spheres on x axis were defined separately because the noise was generated accoridng to x value
-//      xValueOfspheres.remove(i);
-//    }
-//  }
-//}
-
-
-// collide(Avatar avatar)
-//
-// Checks whether this ball is colliding with the avatar passed as an argument
-// If it is, it makes the ball bounce away from the avatar by reversing its
-// x velocity
-
-
-
-
 
 
 void keyPressed() {
