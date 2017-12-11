@@ -109,9 +109,9 @@ void setup() {
     noiseMarkerBoxes.set(i, random(0, 1000));
   }
 
-  // Create the avatar at the centre of the screen
+  // Create the avatar at the top centre of the screen
   //the keys used to control "up" and "down" are "w" for up and "s" for down, "a" for left, and "d" for right.
-  avatar = new Avatar (width/2, height/2, 'w', 's', 'a', 'd');
+  avatar = new Avatar (width/2, 60, 'w', 's', 'a', 'd');
 }
 
 
@@ -119,10 +119,9 @@ void draw() {
 
   //ADDITION: if it is true that the game is being played, then do everything until line x (don't know when game ends yet).
   //if (homeGame=="ongoing game") {
-
   background(backgroundColor);
 
-//ADDED: text for score
+  //ADDED: text for score
   textSize(40);
   textAlign(CENTER, CENTER);
   //make the score appear in middle top of the screen in the middle of the y-axis in random colours
@@ -303,14 +302,13 @@ void draw() {
   //} 
 
   //  else {
-  //    //the background becomes black
-  //    background(0);
+
   //    //the words  appear in random colours every frame "Girl, you did it.\nYOUR JOURNEY OF SELF-CARE AND LOVE, READING FEMINIST LITERATURE AND NURTURING YOUR COMMUNITY HELPED YOU STAY CLEAR OF\nFEMINIST HELL";
   //    fill(random(0, 255), random(0, 255), random(0, 255));
   //    textSize(29);
   //    text (endText+gameOutcome, 500, height/2);
 
-  //    //THIS IS PART OF SETUP. WILL IT WORK HERE
+  //    //THIS IS PART OF SETUP. WILL IT WORK HERE?
   //      //setting up perlin noise mountains. 
   //  for (int i=0; i<1300; i++) {
   //    //CHANGE: made the mountains go up less high
@@ -322,7 +320,8 @@ void draw() {
 
   ////DRAW
   ////image(img,300,0);
-  ////Added mountains to end screen
+  ////Added mountains to end screen. this was in the draw function above, 
+  //wondering if i have to copy the entire code for the mountain again
   //    for (int i=0; i<1300; i++) {
   //      pushStyle();
   //      stroke(r, 0, 0);
@@ -342,21 +341,20 @@ void draw() {
   //    }
 
   //    //making the mountains move to the left
-  //    //changed the limit
   //    for (int i=0; i<1299; i++) {
   //      m[i] = m[i+1];
   //    }
 
-  //    //CHANGED: last element of the array
-  //    //CHANGE: made the mountains go up less high
   //    m[1299] = height/1.80+ noise(yoff)*height/1.80;
   //    yoff += yincrement;
   //  }
+  
+  
 }
 
 //ADDED: mouse dragged function to be able to drag the boxes into feminist hell 
 void mouseDragged() {
-  
+
   if (draggingBox ==false) {
     draggingIndex =-1;
 
@@ -372,22 +370,21 @@ void mouseDragged() {
         draggingBox = true;
         draggingIndex =i;
         break;
-        
       }
     }
   }
 }
 
-//what to do when mouse is released (when dragging stops)
+//when mouse is released, the dragging stops
 void mouseReleased()
 {
   draggingBox = false;
   draggingIndex =-1;
-  if (mouseY>800) {
-      xValueOfBoxes.remove(i);
-      yValueOfBoxes.remove(i);
-      score=score+1;
-}
+  //if (mouseY>800) {
+  //  xValueOfBoxes.remove(i);
+  //  yValueOfBoxes.remove(i);
+  //  score=score+1;
+  //}
 }
 
 
