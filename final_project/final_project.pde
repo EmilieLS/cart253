@@ -17,7 +17,9 @@ float yoff = 0;
 float yincrement = 0.03;
 //removed noiseVar
 
+//ADDED:declaring variables to be able to manipulate the y position of the spheres and boxes
 float sphereY;
+float boxY;
 
 
 //making an array for the spheres to increase number. had to make it an array float list to be able to remove the spheres from the array later
@@ -32,7 +34,7 @@ FloatList xValueOfSpheres= new FloatList();
 FloatList boxes= new FloatList();
 //array to store the x value of the boxes 
 FloatList xValueOfBoxes= new FloatList();
-//FloatList yOffOfSpheres= new FloatList();
+FloatList yValueOfBoxes= new FloatList();
 
 //ADDED: array to make specific words for each feminist cube
 String []feministSpheresArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS\nBOOK", "SEXUAL EMPOWEREMENT", "SELF\nCARE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "TRANS\nINCLUSIVITY"};
@@ -45,6 +47,7 @@ PImage img;
 //ADDITION: declaring and initializing of score and making the score start at 0 
 int score=0;
 
+//ADDED: Text for the mountains
 String feministHell= "Feminist Hell";
 
 //ADDITION: declaring and initializing new variable which will tells the game that the player won making the message below appear
@@ -72,9 +75,9 @@ void setup() {
   //putting 10 spheres on screen
   for (int i=0; i< 10; i = i+1) {
     //setting the random value of this list 
-    spheres.set(i, random(10, 500));
-    xValueOfSpheres.set(i,(i*100)+30);
-     
+    spheres.set(i, random(0, width));
+    //setting x values of spheres here. will have 110 pixels in between each sphere
+    xValueOfSpheres.set(i, (i*110));
   }
 
   //setting up perlin noise mountains. 
@@ -89,6 +92,8 @@ void setup() {
   for (int i=0; i< 9; i = i+1) {
     //setting the random value of this list 
     boxes.set(i, random(0, width));
+    //setting x values of boxes. 110 pixels in between each box
+    xValueOfBoxes.set(i, (i*110));
   }
   // Create the avatar at the centre of the screen
   //the keys used to control "up" and "down" are "w" for up and "s" for down, "a" for left, and "d" for right.
@@ -98,38 +103,30 @@ void setup() {
 
 void draw() {
 
-  //ADDITION: if it is true that the game is being played, then do everything until line 179
+  //ADDITION: if it is true that the game is being played, then do everything until line x (don't know when game ends yet).
   if (playGame==true) {
 
-
-   
-    
     background(backgroundColor);
-
-    ////REMOVED avatar controlled by noise function 
 
     //ADDED Pfint to change the font.
     //CHANGED font ot be smaller
-    PFont courierFont = createFont("Courier",13);
+    PFont courierFont = createFont("Courier", 13);
     textAlign(CENTER, CENTER);
 
 
-    
-
     //drawing the spheres. the spheres will loop according to the size of the list in the current array (changes whether of not spheres have been clicked)
     for (int i=0; i<spheres.size(); i=i+1) {
-      float sphereY=height*noise(spheres.get(i));
+      //position of spheres on x axis is every 110 pixels, and position of spheres on y axis is controlled by the noise function to give cool movement.
       float sphereX=xValueOfSpheres.get(i);
-          sphereY = constrain(sphereY, 0, 500);
+      float sphereY=height*noise(spheres.get(i));
+      //constraining the spheres not to go below the mountains
+      sphereY = constrain(sphereY, 0, 500);
 
-     
 
       //ADDED lights to spheres
       //lights();
       //ADDED: making the spheres
-      //spheres will be placed at intervals of 50 pixels on y axis
       pushMatrix();
-      //CHANGED the spheres to be more separated on the y axis and made the entire sphere show on the screen
       translate(sphereX, sphereY);
       //ADDITION: Made the spheres rotate on X axis so the the text could be seen more clearly
       rotateX(6);
@@ -144,67 +141,60 @@ void draw() {
       text(feministSpheresArray[i], 0, -50);
       popMatrix();
 
-      //made the spheres move pretty slowly so you can semi-easily click them. the arraylist requires us to write the code this weird way. 
-      spheres.set(i, spheres.get(i)+0.001); 
-      //store the X value of the sphere so we can access it during the click
-      //xValueOfspheres.set(i, sphereX);
+      //made the spheres move pretty slowly so you can semi-easily click them. 
+      spheres.set(i, spheres.get(i)+0.008); 
+      //making spheres move to the right of the screen
+      xValueOfSpheres.set(i, sphereX+=5);
       yValueOfSpheres.set(i, sphereY);
-      xValueOfSpheres.set(i,sphereX+=2);
-      
-            //moving the spheres to go off the right of the screen
-      float newX = spheres.get(i)+0.002;
-      //float newY = height*noise(spheres.get(i));
-      //CHANGED direction of the spheres
+
       //if the spheres are off the right of the screen, put them back on the left of the screen to create a continuous flow
+      float newX = xValueOfSpheres.get(i);
       if ((newX >1330)) {
         newX = -30;
       }
-      spheres.set(i, newX);
-      //spheres.set(i, newY);
-
-      
-      
+      xValueOfSpheres.set(i, newX);
     }
 
 
     //drawing the boxes. the boxes will loop according to the size of the list in the current array 
     for (int i=0; i<boxes.size(); i=i+1) {
-      float boxX=boxes.get(i);
-      //moving the boxess to go off the right of the screen
-      float newX = boxes.get(i)+2;
-
-
-
-      //if the boxes are off the right of the screen, put them back on the left of the screen to create a continuous flow
-      if ((newX >1330)) {
-        newX = -30;
-      }
-      boxes.set(i, newX);
+      // position of boxes on x axis is every 110 pixels, and position of boxes on the y axis is controlled by the noise function to give cool movement.
+      float boxX=xValueOfBoxes.get(i);
+      float boxY=height*noise(boxes.get(i));
+      //boxes dont go below the mountains
+      boxY=constrain(boxY, 0, 500);
 
 
       //ADDED: making the boxes
       //ADDED lights to boxes
       //lights();
       pushMatrix();
-      //boxes will be placed at intervals of 50 pixels on y axis
-      translate(boxX, (i*50)+75);
+      translate(boxX, boxY);
       rotateX(6);
       fill(240);
       box(30);
       //ADDED: made the text red
       fill(255, 0, 0);
       textFont(courierFont);
-       textSize(13);
+      textSize(13);
       //ADDED: put the text above the boxes
       text(boxesArray[i], 0, -50);
       popMatrix();
 
-      //made the boxes move pretty slowly so you can semi-easily click them. the arraylist requires us to write the code this weird way. 
-      boxes.set(i, boxes.get(i) + 0.004);
-      //store the X value of the boxes so we can access it during the click
-      //xValueOfspheres.set(i, boxX);
-    }
 
+      //made the boxes move pretty slowly so you can semi-easily click them.  
+      boxes.set(i, boxes.get(i) + 0.008);
+      //making boxes move to the right of the screen
+      yValueOfBoxes.set(i, boxY);
+      xValueOfBoxes.set(i, boxX+=5);
+
+      //if the boxes are off the right of the screen, put them back on the left of the screen to create a continuous flow
+      float newX = xValueOfBoxes.get(i);
+      if ((newX >1330)) {
+        newX = -30;
+      }
+      xValueOfBoxes.set(i, newX);
+    }
 
     //removed mouse pressed function
 
@@ -249,12 +239,12 @@ void draw() {
     avatar.update();
     //displays the avatar
     avatar.display();
-    
-    
-     textFont(courierFont);
+
+
+    textFont(courierFont);
     //ADDED: put the text above the spheres
     textSize(60);
-    text(feministHell, 500, 700); 
+    text(feministHell, 500, 700);
   }
 }
 
