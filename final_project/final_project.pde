@@ -21,32 +21,28 @@ color backgroundColor = color(255);
 
 //ADDED:declaring variables to be able to manipulate the y position of the spheres and boxes
 float sphereY;
-float boxY;
-float boxX;
 
-
-//making an array for the spheres to increase number. had to make it an array float list to be able to remove the spheres from the array later
+//arrays that store y and x values of spheres. 
 FloatList yValueOfSpheres = new FloatList();
-//array to store the x value of the spheres 
 //removed spheres array
 FloatList xValueOfSpheres= new FloatList();
+//stores array that makes it easier to deal with noise function
 FloatList noiseMarkerSpheres= new FloatList();
 
 
 //making an array for boxes to increase number. had to make it an array float list to be able to remove the box from the array later
 FloatList boxes= new FloatList();
-//array to store the x value of the boxes 
+//array to store the x and y value of the boxes 
 FloatList xValueOfBoxes= new FloatList();
 FloatList yValueOfBoxes= new FloatList();
 
 //ADDED: array to make specific words for each feminist cube
-String []feministSpheresArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS\nBOOK", "SEXUAL EMPOWEREMENT", "SELF\nCARE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "TRANS\nINCLUSIVITY"};
+String []feministSpheresArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS", "EMPOWEREMENT", "SELF\nCARE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "INCLUSIVITY"};
 //ADDED: array to make specific words for each box of offensive crap
-String [] boxesArray= {"SLUT\nSHAMING", "MIKE\nPENCE", "FAT\nSHAMING", "I'M\nNOT\nRACIST!\nBUT", "THAT'S\nSO\nGAY", "FRAT\nBOYZ", "TRANSPHOBIA", "STRAIGHT\nCIS\nWHITE\nGUYS", "TOXIC\nMASCULINITY"};
+String [] boxesArray= {"SLUT\nSHAMING", "MIKE\nPENCE", "FAT\nSHAMING", "UNPAID\nLABOR", "THAT'S\nSO\nGAY", "FRAT\nBOYZ", "TRANSPHOBIA", "IGNORENCE", "TOXIC\nMASCULINITY"};
 
 //ADDITION: declaring variable imgage
 //PImage img = loadImage("lost image.jpg");
-
 
 
 //ADDITION: declaring and initializing of score and making the score start at 0 
@@ -78,6 +74,7 @@ void setup() {
   //ADDED frame rate
   frameRate(30);
 
+  //CHANGE: moved all code for mountains before everything else to make text appear in front of the mountains
   //setting up perlin noise mountains. 
   for (int i=0; i<1300; i++) {
     //CHANGE: made the mountains go up less high
@@ -92,7 +89,8 @@ void setup() {
     //setting the random value of this list 
     yValueOfSpheres.set(i, random(0, height));
     //setting x values of spheres here. will have 110 pixels in between each sphere
-    xValueOfSpheres.set(i, (i*110));
+    xValueOfSpheres.set(i, (i*120));
+    //setting random vale of this list which is useful for the noise
     noiseMarkerSpheres.set(i, random(0, 1000));
   }
 
@@ -155,16 +153,17 @@ void draw() {
     yoff += yincrement;
 
 
-
     //ADDED Pfont to change the font.
     //CHANGED font ot be smaller
-    PFont courierFont = createFont("Courier", 13);
+    PFont courierFont = createFont("Courier", 60);
     textAlign(CENTER, CENTER);
+    //ADDED a new font for the "feminist hell" text at bottom of the screen.
+    PFont appleChancery=createFont("Apple-Chancery", 60);
 
 
-    //drawing the spheres. the spheres will loop according to the size of the list in the current array (changes whether of not spheres have been clicked)
+    //drawing the spheres. the spheres will loop according to the size of the list in the current array (changes whether of not spheres have been collided with)
     for (int i=0; i<yValueOfSpheres.size(); i=i+1) {
-      //position of spheres on x axis is every 110 pixels, and position of spheres on y axis is controlled by the noise function to give cool movement.
+      //position of spheres on x axis is every 120 pixels and moves to the right, and position of spheres on y axis is controlled by the noise function to give cool movement.
       float sphereX=xValueOfSpheres.get(i)+5;
       float sphereY=height*noise(noiseMarkerSpheres.get(i));
 
@@ -180,25 +179,22 @@ void draw() {
       // stroke(50);
       //CHANGED spheres to spheres
       sphere(20);
+      //push and pop style because I didn't want colour of text to affect avatar
       pushStyle();
       //ADDED: made the text red
       fill(255, 0, 0);
-      textSize(13);
       textFont(courierFont);
+      textSize(13);
       //ADDED: put the text above the spheres
       text(feministSpheresArray[i], 0, -40);
       popStyle();
       popMatrix();
 
-      //float sphereY=height*noise(spheres.get(i));
-      //constraining the spheres not to go below the mountains
-      //sphereY = constrain(sphereY, 0, 500);
-
-
-      //making spheres move to the right of the screen
+    //storing the X value of the ball so we can access it for the collision
       xValueOfSpheres.set(i, sphereX);
+       //constraining the spheres not to go below the mountains
       yValueOfSpheres.set(i, constrain(sphereY, 0, 500));
-      //made the spheres move pretty slowly so you can semi-easily click them. 
+      //made the spheres move pretty slowly so player can semi-easily collide with them
       noiseMarkerSpheres.set(i, noiseMarkerSpheres.get(i)+0.005); 
 
 
@@ -253,19 +249,19 @@ void draw() {
     }
 
 
-
-pushStyle();
+    //ADDED: text feminist hell at bottom of  screen in new font
+    pushStyle();
     pushMatrix();
-    translate(600, 750, 10);
-    textFont(courierFont);
+    translate(650, 750, 10);
+    textFont(appleChancery);
     //ADDED: put the text above the spheres
     textSize(40);
     fill(0);
     text(feministHell, 0, 0);
     popMatrix();
- popStyle();
- 
- 
+    popStyle();
+
+
     //updates the avatar
     avatar.update();
     //displays the avatar
