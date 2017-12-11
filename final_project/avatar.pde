@@ -10,6 +10,8 @@ class Avatar {
   //initializing avatar (image of a girl)
   PImage img = loadImage("girl.png");
 
+
+
   // Default values for speed and size
   //CHANGE: made speed faster
   int SPEED = 7;
@@ -27,6 +29,7 @@ class Avatar {
   //ADDED: left and right key to control avatar
   char leftKey;
   char rightKey;
+
 
 
   /////////////// Constructor ///////////////
@@ -67,7 +70,7 @@ class Avatar {
   }
 
   ////ADDED: function to determine if the avatar collides with a sphere. if it does, the sphere disappears
-void collide() {
+  void collide() {
     for (int i=yValueOfSpheres.size()-1; i>=0; i=i-1) {
 
       // Calculate if avatar overlaps with the spheres side by side
@@ -80,6 +83,8 @@ void collide() {
       if (insideLeft && insideRight && insideTop && insideBottom) {
         xValueOfSpheres.remove(i);
         yValueOfSpheres.remove(i);
+        //ADDED: scores goes up every time avatar collides with a sphere
+        score=score+1;
       }
     }
   }
