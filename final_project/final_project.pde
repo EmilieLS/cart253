@@ -81,6 +81,8 @@ int draggingIndex =-1;
 //This variable will tell processing whether game is still being played or not.
 boolean playGame =true;
 
+//ADDED: a boolean to see whether or not the player has pressed shift (which stars the game)
+boolean isShiftPressed=false;
 
 void setup() {
   //CHANGED size 
@@ -133,8 +135,8 @@ void draw() {
   PFont courierFont = createFont("Courier", 60);
   textAlign(CENTER, CENTER);
 
-  //ADDED: if the program has been run for less than a few seconds, then instructions for the game are shown then...
-  if (time <10000) {
+  //ADDED: if shift has not yet been pressed, then show the code below which is the homescreen
+  if (isShiftPressed==false) {
     //background is black
     background (0);
     //text is red
@@ -188,7 +190,9 @@ void draw() {
     //CHANGE: made the mountains go up less high
     m[1299] = height/1.80+ noise(yoff)*height/1.80;
     yoff += yincrement;
-  } else {
+  } 
+  //if shift has been pressed, start the game.
+  else {
 
 
     //ADDITION: if it is true that the game is being played, then do everything until line x (don't know when the program ends).
@@ -394,45 +398,44 @@ void draw() {
       //the background becomes black
       background (0);
       //the words of gameOutcome appear in random colours, and they depend on if player won or not)
-      fill(255,0,0);
+      fill(255, 0, 0);
       textSize(29);
       text (gameOutcome, 680, height/2);
-      
+
       //ADDED moutains to end screen
       for (int i=0; i<1300; i++) {
-      pushStyle();
-      //CHANGED stroke to be able to change colour of mountains over time to make them look more hellish
-      //mountains become less and less red and more and more black
-      stroke(r, 0, 0);
-      //ADDED: made brightning and fading of red of mountains more progressive
-      if (isBrightning==true) {
-        r+=0.001;
-      } else {
-        r-=0.001;
+        pushStyle();
+        //CHANGED stroke to be able to change colour of mountains over time to make them look more hellish
+        //mountains become less and less red and more and more black
+        stroke(r, 0, 0);
+        //ADDED: made brightning and fading of red of mountains more progressive
+        if (isBrightning==true) {
+          r+=0.001;
+        } else {
+          r-=0.001;
+        }
+        //the mountains start to get red again once they are black
+        if (r<2) {
+          isBrightning=true;
+        }
+        //the mountains starts to fade to black when maximum redness is reached
+        if (r>255) {
+          isBrightning=false;
+        }
+        line(i, m[i], i, height);
+        popStyle();
       }
-      //the mountains start to get red again once they are black
-      if (r<2) {
-        isBrightning=true;
-      }
-      //the mountains starts to fade to black when maximum redness is reached
-      if (r>255) {
-        isBrightning=false;
-      }
-      line(i, m[i], i, height);
-      popStyle();
-    }
-    
-       //making the mountains move to the left
-    //changed the limit
-    for (int i=0; i<1299; i++) {
-      m[i] = m[i+1];
-    }
 
-    //CHANGED: last element of the array
-    //CHANGE: made the mountains go up less high
-    m[1299] = height/1.80+ noise(yoff)*height/1.80;
-    yoff += yincrement;
+      //making the mountains move to the left
+      //changed the limit
+      for (int i=0; i<1299; i++) {
+        m[i] = m[i+1];
+      }
 
+      //CHANGED: last element of the array
+      //CHANGE: made the mountains go up less high
+      m[1299] = height/1.80+ noise(yoff)*height/1.80;
+      yoff += yincrement;
     }
   }
 }
@@ -482,8 +485,11 @@ void mouseReleased()
 void keyPressed() {
   //call the avatar's key pressed method
   avatar.keyPressed();
-//if (key==CODED) {
-//  if(keyCode==
+  if (key==CODED) {
+    if (keyCode==SHIFT) {
+      isShiftPressed=true;
+    }
+  }
 }
 
 
