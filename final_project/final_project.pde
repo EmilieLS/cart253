@@ -228,7 +228,7 @@ void draw() {
       textSize(40);
       textAlign(CENTER, CENTER);
       //make the score appear in middle top of the screen in the middle of the y-axis in random colours
-      fill(random(0, 255), random(0, 255), random(0, 255));
+      fill(random(0, 255), random(0,255), random(0, 255));
       text(score, width/2, 40);
 
       //changed the limit
@@ -404,7 +404,7 @@ void draw() {
         //the game stops
         playGame =false;
         //and the text below is drawn
-        gameOutcome="GIRL, YOU DID IT.\nYOUR JOURNEY OF SELF-CARE AND LOVE, READING FEMINIST LITERATURE AND NURTURING YOUR COMMUNITY HELPED YOU STAY CLEAR OF\nFEMINIST HELL";
+        gameOutcome="GIRL, YOU DID IT.\nYOUR JOURNEY OF SELF-CARE AND LOVE,\n READING FEMINIST LITERATURE AND NURTURING\n YOUR COMMUNITY HELPED YOU STAY CLEAR OF\nFEMINIST HELL";
       }
 
 
@@ -413,7 +413,7 @@ void draw() {
         //the game stops
         playGame =false;
         //and the text below is drawn
-        gameOutcome="GIRL IT'S OKAY.\nKEEP FIGHTING THE POWER BY INVESTING IN YOURSELF AND OTHER FEMMES.\nYOU'LL DO BETTER NEXT TIME";
+        gameOutcome="GIRL IT'S OKAY.\nKEEP FIGHTING THE POWER BY INVESTING\n IN YOURSELF AND OTHER FEMMES.\nYOU'LL DO BETTER NEXT TIME";
       }
     }
     //if it isn't true that the game is being played...
