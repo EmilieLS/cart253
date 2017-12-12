@@ -1,4 +1,11 @@
-// array for the moutains. m is every pixel position for the mountains //<>//
+//Game: Becoming a better feminist //<>//
+
+//the point is to make 19 points in less then 30 seconds (?)
+//the player can make points by 1)dragging the boxes (which are negative for someone's feminist growth)
+//into feminist hell and 2) by moving the avatr and making it collide with the spheres.
+//One point is made for each box dragged into feminist hell, and one point is made each time the avatar collides with a sphere
+
+// array for the moutains. m is every pixel position for the mountains
 float m[] = new float[1300];
 //offset on the y axis begins at 0 ???
 float yoff = 0;
