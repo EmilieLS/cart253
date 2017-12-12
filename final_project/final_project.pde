@@ -1,4 +1,7 @@
-//ADDED: Import the sound library //<>//
+//ADDED: Import the video library for webcam //<>//
+import processing.video.*;
+
+//ADDED: Import the sound library
 import processing.sound.*;
 
 //Game: Becoming a better feminist
