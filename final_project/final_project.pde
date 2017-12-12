@@ -22,6 +22,7 @@ float r=100;
 //ADDED: for better fading and brightning of red on mountains
 boolean isBrightning=false;
 
+
 //ADDED: The background colour during play (black)
 color backgroundColor = color(255);
 
@@ -64,9 +65,11 @@ String feministHell= "Feminist Hell";
 String endText="GIRL";
 
 //ADDITION: The text that shows up on home screen
-String homeScreenWhiteText="HEY GIRL!!!";
-String homeScreenRedText= "\nLOOKING TO BE A BETTER FEMINIST?\n AVOID FEMINIST HELL BY MAKING 20\n POINTS UNDER 30 SECONDS.";
-String homeScreenPurpleText="\n-DRAGGING A STUPID CUBE INTO\nFEMINIST HELL = 1 POINT\n-USING ARROWS TO MAKE GIRL COLLIDE\n WITH FEMINIST SPHERES = 1 POINT ";
+String intro= "\nLOOKING TO BE A BETTER FEMINIST?\n AVOID FEMINIST HELL BY MAKING 20\n POINTS UNDER 30 SECONDS.";
+String rules="\n-DRAGGING A STUPID CUBE INTO\nFEMINIST HELL = 1 POINT\n-USING ARROWS TO MAKE GIRL COLLIDE\n WITH FEMINIST SPHERES = 1 POINT ";
+//ADDITION: text saying to press shift to start
+String pressShift="PRESS SHIFT TO BEGIN";
+
 //ADDITION: declaring and initializing new variable which will tells the game that the player won making the message below appear
 String gameOutcome=" ";
 //REMOVED code for text appearing and disappearing
@@ -139,22 +142,21 @@ void draw() {
   if (isShiftPressed==false) {
     //background is black
     background (0);
-    //text is red
-    fill(255, 0, 0);
     //draws image of girl  avatar
-    image(img, width/2-100, 100, 130, 130);
+    image(img, width/2-65, 50, 130, 130);
     textFont(courierFont);
-    textSize(27); 
-    //Text is white
-    fill(255);
-    text(homeScreenWhiteText, width/2, 260);
+    //text is blue
+    fill(10, 0, 255);
+    textSize(22); 
+    text (intro, width/2, 230);
     //text is red
-    fill(255, 0, 0);
-    textSize(24); 
-    text (homeScreenRedText, width/2, 300);
-    //text is purple
-    fill(255, 0, 255);
-    text (homeScreenPurpleText, width/2, 430);
+    fill(255, 0, 30);
+    textSize(20); 
+    text (rules, width/2, 340);
+    //text is blue
+    fill(10, 0, 255);
+    textSize(19);
+    text (pressShift, width/2, 460);
     //ADDED mountains for homescreen as well
     for (int i=0; i<1300; i++) {
       pushStyle();
