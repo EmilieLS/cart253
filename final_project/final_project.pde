@@ -120,8 +120,8 @@ void setup() {
   }
 
   // Create the avatar at the top centre of the screen
-  //the keys used to control "up" and "down" are "w" for up and "s" for down, "a" for left, and "d" for right.
-  avatar = new Avatar (width/2, 60, 'w', 's', 'a', 'd');
+  //removed code for old keys, as new keys are simply the arrows.
+  avatar = new Avatar (width/2, 60);
 }
 
 
@@ -482,7 +482,8 @@ void mouseReleased()
 void keyPressed() {
   //call the avatar's key pressed method
   avatar.keyPressed();
-  
+//if (key==CODED) {
+//  if(keyCode==
 }
 
 
