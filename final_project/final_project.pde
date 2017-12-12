@@ -65,10 +65,12 @@ String feministHell= "Feminist Hell";
 String endText="GIRL";
 
 //ADDITION: The text that shows up on home screen
-String intro= "\nLOOKING TO BE A BETTER FEMINIST?\n AVOID FEMINIST HELL BY MAKING 20\n POINTS    UNDER    30    SECONDS.";
+String intro= "\nWANT TO BE A  BETTER  FEMINIST?\n AVOID FEMINIST HELL BY MAKING 20\n POINTS   UNDER    30    SECONDS.";
 String rules="\n-DRAGGING A STUPID CUBE INTO\n FEMINIST HELL   =   1 POINT\n-USING ARROWS TO MAKE GIRL COLLIDE\n WITH FEMINIST SPHERES  =  1 POINT ";
 //ADDITION: text saying to press shift to start
-String pressShift="PRESS SHIFT TO BEGIN";
+String pressShift="PRESS SHIFT TO BEGIN :)";
+//ADDED text to make sure player knows its easier to play this game with a partner :)
+String friend="PLAY IN A TEAM WITH A FRIEND!";
 
 //ADDITION: declaring and initializing new variable which will tells the game that the player won making the message below appear
 String gameOutcome=" ";
@@ -140,13 +142,13 @@ void draw() {
 
   //ADDED: if shift has not yet been pressed, then show the code below which is the homescreen
   if (isShiftPressed==false) {
-    
+
     //background is black
     background (0);
-    
+
     //draws image of girl  avatar
     image(img, width/2-50, 50, 100, 100);
-    
+
     //TEXT TO BE SHOWN ON HOME SCREEN
     textFont(courierFont);
     //text is purple and then turns into blue as code below show
@@ -169,12 +171,12 @@ void draw() {
     }
     //removed separate fill for text
     textSize(20); 
-    text (rules, width/2, 360);
-    //text is blue
-    fill(255,0,0);
+    text (rules, width/2, 350);
     textSize(19);
+    text(friend, width/2, 450);
+    textSize(19); 
     text (pressShift, width/2, 500);
-    
+
     //ADDED mountains for homescreen as well
     for (int i=0; i<1300; i++) {
       pushStyle();
