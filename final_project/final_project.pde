@@ -1,6 +1,9 @@
-//Game: Becoming a better feminist //<>//
+//ADDED: Import the sound library //<>//
+import processing.sound.*;
 
-//the point is to make 19 points in less then 30 seconds (?)
+//Game: Becoming a better feminist
+
+//the point is to make 19 points in less then 1 minute
 //the player can make points by 1)dragging the boxes (which are negative for someone's feminist growth)
 //into feminist hell and 2) by moving the avatr and making it collide with the spheres.
 //One point is made for each box dragged into feminist hell, and one point is made each time the avatar collides with a sphere
@@ -18,7 +21,7 @@ float yincrement = 0.03;
 Avatar avatar;
 
 //ADDED:default value for r (red) is 255
-float r=150;
+float r=255;
 //ADDED: for better fading and brightning of red on mountains
 boolean isBrightning=false;
 
@@ -65,8 +68,8 @@ String feministHell= "Feminist Hell";
 String endText="GIRL";
 
 //ADDITION: The text that shows up on home screen
-String intro= "\nWANT TO BE A  BETTER  FEMINIST?\n AVOID FEMINIST HELL BY MAKING 20\n POINTS   UNDER    30    SECONDS.";
-String rules="\n-DRAGGING A STUPID CUBE INTO\n FEMINIST HELL   =   1 POINT\n-USING ARROWS TO MAKE GIRL COLLIDE\n WITH FEMINIST SPHERES  =  1 POINT ";
+String intro= "\nWANT TO PRACTICE  FEMINISM?\n AVOID FEMINIST HELL BY MAKING 20\n POINTS   UNDER    1 MIN.";
+String rules="\n-DRAGGING AN OPPRESSIVE CUBE INTO\n FEMINIST HELL   =   1 POINT\n-USING ARROWS TO CATCH\n FEMINIST SPHERES  =  1 POINT ";
 //ADDITION: text saying to press shift to start
 String pressShift="PRESS SHIFT TO BEGIN :)";
 //ADDED text to make sure player knows its easier to play this game with a partner :)
@@ -89,6 +92,9 @@ boolean playGame =true;
 //ADDED: a boolean to see whether or not the player has pressed shift (which stars the game)
 boolean isShiftPressed=false;
 
+//ADDED: storing sound in a variable
+SoundFile songBoxes;
+
 void setup() {
   //CHANGED size 
   //ADDED 3D feature
@@ -96,6 +102,9 @@ void setup() {
 
   //ADDED: image of girl here for the home screen
   img= loadImage("girl.png");
+
+  // ADDED We load a sound by creating a new SoundFile and giving it the path to the file
+  songBoxes = new SoundFile(this, "hell.mp3");
 
   //CHANGE: moved all code for mountains before everything else to make text appear in front of the mountains
   //setting up perlin noise mountains. making them grow on the y axis.
@@ -228,7 +237,7 @@ void draw() {
       textSize(40);
       textAlign(CENTER, CENTER);
       //make the score appear in middle top of the screen in the middle of the y-axis in random colours
-      fill(random(0, 255), random(0,255), random(0, 255));
+      fill(random(0, 255), random(0, 255), random(0, 255));
       text(score, width/2, 40);
 
       //changed the limit
@@ -240,9 +249,9 @@ void draw() {
         stroke(r, 0, 0);
         //ADDED: made brightning and fading of red of mountains more progressive
         if (isBrightning==true) {
-          r+=0.009;
+          r+=0.004;
         } else {
-          r-=0.009;
+          r-=0.004;
         }
         //the mountains start to get red again once they are black
         if (r<2) {
@@ -269,9 +278,7 @@ void draw() {
       yoff += yincrement;
 
 
-
-      //ADDED a new font for the "feminist hell" text at bottom of the screen.
-      PFont appleChancery=createFont("Apple-Chancery", 60);
+      //removed second pfont 
 
 
       //drawing the spheres. the spheres will loop according to the size of the list in the current array (changes whether of not spheres have been collided with)
@@ -333,7 +340,7 @@ void draw() {
         float boxY =0;
         if (draggingIndex!=i)
         {
-          boxX=xValueOfBoxes.get(i)+5;
+          boxX=xValueOfBoxes.get(i)+4;
           boxY=height*noise(noiseMarkerBoxes.get(i));
         } else
         {
@@ -346,7 +353,7 @@ void draw() {
         //lights();
         pushMatrix();
         translate(boxX, boxY);
-        rotateX(6);
+        //removed rotate
         fill(240);
         box(30);
         //ADDED: made the text red
@@ -382,11 +389,10 @@ void draw() {
       //ADDED: text feminist hell at bottom of  screen in new font
       pushStyle();
       pushMatrix();
-      translate(650, 750, 10);
-      textFont(appleChancery);
-      //ADDED: put the text above the spheres
-      textSize(40);
-      fill(0);
+      textAlign(CENTER, CENTER);
+      translate(width/2, 760, 10);
+      textSize(28);
+      fill(255, 0, 0);
       text(feministHell, 0, 0);
       popMatrix();
       popStyle();
@@ -399,8 +405,8 @@ void draw() {
       //checks if avatar collides with spheres
       avatar.collide();
 
-      //ADDITION: if it is true that the player's score is bigger than 19 and fewer then 31 seconds has passed...
-      if (score>=20 && time<31000) {
+      //ADDITION: if it is true that the player's score is bigger than 20 and fewer then 61 seconds has passed...
+      if (score>=20 && time<61000) {
         //the game stops
         playGame =false;
         //and the text below is drawn
@@ -408,12 +414,12 @@ void draw() {
       }
 
 
-      //ADDITION: if it is true that the player's score is smaller than 19 and more then 30 seconds has passed...
-      if (score<=20 && time>30000) {
+      //ADDITION: if it is true that the player's score is smaller than 20 and more then 60 seconds has passed...
+      if (score<=20 && time>60000) {
         //the game stops
         playGame =false;
         //and the text below is drawn
-        gameOutcome="GIRL IT'S OKAY.\nKEEP FIGHTING THE POWER BY INVESTING\n IN YOURSELF AND OTHER FEMMES.\nYOU'LL DO BETTER NEXT TIME";
+        gameOutcome="GIRL, YOU LOST, BUT IT'S OKAY!\nKEEP FIGHTING THE POWER BY INVESTING\n IN YOURSELF AND OTHER FEMMES.\nYOU'LL DO BETTER NEXT TIME";
       }
     }
     //if it isn't true that the game is being played...
@@ -500,6 +506,8 @@ void mouseReleased()
     yValueOfBoxes.remove(draggingIndex);
     score=score+1;
     println("SCORE"+score);
+    //Added: made a fire sound (hell song for the boxes) play when boxes are dropped into feminist hell
+    songBoxes.play();
   }
   draggingBox = false;
   draggingIndex =-1;
