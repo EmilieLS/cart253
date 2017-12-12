@@ -65,8 +65,8 @@ String endText="GIRL";
 
 //ADDITION: The text that shows up on home screen
 String homeScreenWhiteText="HEY GIRL!!!";
-String homeScreenRedText= "\nLOOKING TO BE A BETTER FEMINIST?\nAVOID FEMINIST HELL BY MAKING 20 POINTS UNDER 30 SECONDS.";
-String homeScreenPurpleText="\nDRAGGING A STUPID CUBE INTO FEMINIST HELL\n = 1 POINT\nUSING ARROWS TO MAKE GIRL COLLIDE WITH FEMINIST SPHERES\n = 1 POINT ";
+String homeScreenRedText= "\nLOOKING TO BE A BETTER FEMINIST?\n AVOID FEMINIST HELL BY MAKING 20\n POINTS UNDER 30 SECONDS.";
+String homeScreenPurpleText="\n-DRAGGING A STUPID CUBE INTO\nFEMINIST HELL = 1 POINT\n-USING ARROWS TO MAKE GIRL COLLIDE\n WITH FEMINIST SPHERES = 1 POINT ";
 //ADDITION: declaring and initializing new variable which will tells the game that the player won making the message below appear
 String gameOutcome=" ";
 //REMOVED code for text appearing and disappearing
@@ -145,14 +145,14 @@ void draw() {
     textSize(27); 
     //Text is white
     fill(255);
-    text(homeScreenWhiteText, 630, 260);
+    text(homeScreenWhiteText, width/2, 260);
     //text is red
     fill(255, 0, 0);
     textSize(24); 
-    text (homeScreenRedText, 630, 300);
+    text (homeScreenRedText, width/2, 300);
     //text is purple
     fill(255, 0, 255);
-    text (homeScreenPurpleText, 630, 430);
+    text (homeScreenPurpleText, width/2, 430);
     //ADDED mountains for homescreen as well
     for (int i=0; i<1300; i++) {
       pushStyle();
@@ -482,6 +482,7 @@ void mouseReleased()
 void keyPressed() {
   //call the avatar's key pressed method
   avatar.keyPressed();
+  
 }
 
 
