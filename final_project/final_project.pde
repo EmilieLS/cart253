@@ -47,7 +47,7 @@ FloatList yValueOfBoxes= new FloatList();
 //ADDED: array to make specific words for each feminist cube
 String []feministSpheresArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS", "EMPOWEREMENT", "SELF\nCARE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "INCLUSIVITY"};
 //ADDED: array to make specific words for each box of offensive crap
-String [] boxesArray= {"SLUT\nSHAMING", "MIKE\nPENCE", "FAT\nSHAMING", "UNPAID\nLABOR", "THAT'S\nSO\nGAY", "FRAT\nBOYZ", "TRANSPHOBIA", "IGNORENCE", "TOXIC\nMASCULINITY"};
+String [] boxesArray= {"SLUT\nSHAMING", "MIKE\nPENCE", "FAT\nSHAMING", "UNPAID\nLABOR", "REPUBLICANS", "NOT\nALL\nMEN", "FRAT\nBOYZ", "TRANSPHOBIA", "IGNORENCE", "TOXIC\nMASCULINITY"};
 
 //ADDITION: declaring variable imgage
 //PImage img;
@@ -110,18 +110,19 @@ void setup() {
   for (int i=0; i< 10; i = i+1) {
     //setting the random value of this list 
     yValueOfSpheres.set(i, random(0, height));
-    //setting x values of spheres here. will have 110 pixels in between each sphere
-    xValueOfSpheres.set(i, (i*120));
+    //setting x values of spheres here. will have 137 pixels in between each sphere
+    xValueOfSpheres.set(i, (i*137));
     //setting random value of this list which is useful for the noise
     noiseMarkerSpheres.set(i, random(0, 1000));
   }
 
-  //putting 9 boxes on screen
-  for (int i=0; i< 9; i = i+1) {
+  //added one box
+  //putting 10 boxes on screen
+  for (int i=0; i< 10; i = i+1) {
     //setting the random value of this list 
     yValueOfBoxes.set(i, random(0, width));
-    //setting x values of boxes. 110 pixels in between each box
-    xValueOfBoxes.set(i, (i*120));
+    //setting x values of boxes. 137 pixels in between each box
+    xValueOfBoxes.set(i, (i*137));
     //setting random value of this list which is useful for the noise
     noiseMarkerBoxes.set(i, random(0, 1000));
   }
@@ -399,7 +400,7 @@ void draw() {
       avatar.collide();
 
       //ADDITION: if it is true that the player's score is bigger than 19 and fewer then 31 seconds has passed...
-      if (score>=19 && time<31000) {
+      if (score>=20 && time<31000) {
         //the game stops
         playGame =false;
         //and the text below is drawn
@@ -408,7 +409,7 @@ void draw() {
 
 
       //ADDITION: if it is true that the player's score is smaller than 19 and more then 30 seconds has passed...
-      if (score<=19 && time>30000) {
+      if (score<=20 && time>30000) {
         //the game stops
         playGame =false;
         //and the text below is drawn
