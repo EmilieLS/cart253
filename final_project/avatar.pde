@@ -10,8 +10,6 @@ class Avatar {
   //initializing avatar (image of a girl)
   PImage img = loadImage("girl.png");
 
-
-
   // Default values for speed and size
   //CHANGE: made speed faster
   int SPEED = 7;
