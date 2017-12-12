@@ -60,6 +60,9 @@ String feministHell= "Feminist Hell";
 
 //ADDITION: The beginning of the text of when the game is over
 String endText="GIRL";
+
+//ADDITION: The text that shows up on home screen
+String homeScreenText= "Hey! Point of the game is to make 19 points under 30 seconds.\n Press spacebar to start.";
 //ADDITION: declaring and initializing new variable which will tells the game that the player won making the message below appear
 String gameOutcome=" ";
 //ADDITION: declaring long variable (type for long integers) that tells processing the time the timer starts (when a player scores)
@@ -73,8 +76,8 @@ boolean isAppearing =false;
 //ADDITION: declaring and initializing variable which tells processing
 //which screen to show. This variable will tell processing whether game is being played or not.
 //String homeGame="home";
-//String playGame="play";
-//String endGame="end";
+String playGame="play";
+String endGame="end";
 
 //ADDED a global boolean to see if the player is dragging
 boolean draggingBox =false;
@@ -124,8 +127,20 @@ void setup() {
 
 void draw() {
 
+  //if (homeGame=="home")  {
+  //  background (0);
+  //  fill(random(0, 255), random(0, 255), random(0, 255));
+  //  textSize(29);
+  //  text (homeScreenText, 300, height/2);
+  //}
+
   //ADDITION: if it is true that the game is being played, then do everything until line x (don't know when game ends yet).
   //if (homeGame=="ongoing game") {
+
+  //millis calculates how much time has passed since starting the program
+  int time=millis();
+
+
   background(backgroundColor);
 
   //ADDED: text for score
@@ -286,7 +301,6 @@ void draw() {
     }
   }
 
-
   //ADDED: text feminist hell at bottom of  screen in new font
   pushStyle();
   pushMatrix();
@@ -306,58 +320,86 @@ void draw() {
   avatar.display();
   //checks if avatar collides with spheres
   avatar.collide();
-  //} 
 
-  //  else {
+  //ADDITION: if it is true that the player's score is bigger than 19 and fewer then 31 seconds has passed...
+  if (score>=19 && time<31000) {
+    //the game stops
+    endGame="end";
+    //and the text below is drawn
+    gameOutcome=" YOU DID IT.\nYOUR JOURNEY OF SELF-CARE AND LOVE, READING FEMINIST LITERATURE AND NURTURING YOUR COMMUNITY HELPED YOU STAY CLEAR OF\nFEMINIST HELL";
+  }
 
-  //    //the words  appear in random colours every frame "Girl, you did it.\nYOUR JOURNEY OF SELF-CARE AND LOVE, READING FEMINIST LITERATURE AND NURTURING YOUR COMMUNITY HELPED YOU STAY CLEAR OF\nFEMINIST HELL";
-  //    fill(random(0, 255), random(0, 255), random(0, 255));
-  //    textSize(29);
-  //    text (endText+gameOutcome, 500, height/2);
-
-  //    //THIS IS PART OF SETUP. WILL IT WORK HERE?
-  //      //setting up perlin noise mountains. 
-  //  for (int i=0; i<1300; i++) {
-  //    //CHANGE: made the mountains go up less high
-  //    m[i] = height/1.80 + noise(yoff)*height/1.80;
-  //    //WHAT IS THIS ?
-  //    yoff += yincrement;
-  //  }
+  //ADDITION: if it is true that the player's score is smaller than 19 and more then 30 seconds has passed...
+  if (score<=19 && time>30000) {
+    //the game stops
+    endGame="end";
+    //and the text below is drawn
+    gameOutcome=" IT'S OKAY.\nKEEP FIGHTING THE POWER BY INVESTING IN YOURSELF AND OTHER FEMMES.\nYOU'LL DO BETTER NEXT TIME";
+  }
 
 
-  ////DRAW
-  ////image(img,300,0);
-  ////Added mountains to end screen. this was in the draw function above, 
-  //wondering if i have to copy the entire code for the mountain again
-  //    for (int i=0; i<1300; i++) {
-  //      pushStyle();
-  //      stroke(r, 0, 0);
-  //      if (isBrightning==true) {
-  //        r+=0.009;
-  //      } else {
-  //        r-=0.009;
-  //      }
-  //      if (r<2) {
-  //        isBrightning=true;
-  //      }
-  //      if (r>255) {
-  //        isBrightning=false;
-  //      }
-  //      line(i, m[i], i, height);
-  //      popStyle();
-  //    }
-
-  //    //making the mountains move to the left
-  //    for (int i=0; i<1299; i++) {
-  //      m[i] = m[i+1];
-  //    }
-
-  //    m[1299] = height/1.80+ noise(yoff)*height/1.80;
-  //    yoff += yincrement;
-  //  }
-  
-  
+if (endGame=="end") {
+  //the background becomes black
+  background (0);
+  //the words of gameOutcome appear in random colours, and they depend on if player won or not)
+  fill(random(0, 255), random(0, 255), random(0, 255));
+  textSize(29);
+  text (endText+gameOutcome, 700, height/2);
 }
+}
+
+//} 
+
+//  else {
+
+//    //the words  appear in random colours every frame "Girl, you did it.\nYOUR JOURNEY OF SELF-CARE AND LOVE, READING FEMINIST LITERATURE AND NURTURING YOUR COMMUNITY HELPED YOU STAY CLEAR OF\nFEMINIST HELL";
+//    fill(random(0, 255), random(0, 255), random(0, 255));
+//    textSize(29);
+//    text (endText+gameOutcome, 500, height/2);
+
+//    //THIS IS PART OF SETUP. WILL IT WORK HERE?
+//      //setting up perlin noise mountains. 
+//  for (int i=0; i<1300; i++) {
+//    //CHANGE: made the mountains go up less high
+//    m[i] = height/1.80 + noise(yoff)*height/1.80;
+//    //WHAT IS THIS ?
+//    yoff += yincrement;
+//  }
+
+
+////DRAW
+////image(img,300,0);
+////Added mountains to end screen. this was in the draw function above, 
+//wondering if i have to copy the entire code for the mountain again
+//    for (int i=0; i<1300; i++) {
+//      pushStyle();
+//      stroke(r, 0, 0);
+//      if (isBrightning==true) {
+//        r+=0.009;
+//      } else {
+//        r-=0.009;
+//      }
+//      if (r<2) {
+//        isBrightning=true;
+//      }
+//      if (r>255) {
+//        isBrightning=false;
+//      }
+//      line(i, m[i], i, height);
+//      popStyle();
+//    }
+
+//    //making the mountains move to the left
+//    for (int i=0; i<1299; i++) {
+//      m[i] = m[i+1];
+//    }
+
+//    m[1299] = height/1.80+ noise(yoff)*height/1.80;
+//    yoff += yincrement;
+//  }
+
+
+//}
 
 //ADDED: mouse dragged function to be able to drag the boxes into feminist hell 
 void mouseDragged() {
@@ -387,14 +429,14 @@ void mouseDragged() {
 //then the boxes disappear and score increases by 1.
 void mouseReleased()
 {
-  
+
   if (draggingIndex!=-1 && mouseY>700) {
-      xValueOfBoxes.remove(draggingIndex);
-      yValueOfBoxes.remove(draggingIndex);
-      score=score+1;
-      println("SCORE"+score);
-}
- draggingBox = false;
+    xValueOfBoxes.remove(draggingIndex);
+    yValueOfBoxes.remove(draggingIndex);
+    score=score+1;
+    println("SCORE"+score);
+  }
+  draggingBox = false;
   draggingIndex =-1;
 }
 

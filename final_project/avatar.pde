@@ -29,6 +29,7 @@ class Avatar {
   //ADDED: left and right key to control avatar
   char leftKey;
   char rightKey;
+//  char spaceKey;
 
 
 
@@ -126,6 +127,9 @@ class Avatar {
       //if the above condition is true have the velosity change according to the speed when we press the rightkey
       vx=+SPEED;
     }
+    //if (key==spaceKey) {
+      
+    //}
   }
 
   // keyReleased()
