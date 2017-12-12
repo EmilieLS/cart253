@@ -18,7 +18,7 @@ float yincrement = 0.03;
 Avatar avatar;
 
 //ADDED:default value for r (red) is 255
-float r=100;
+float r=150;
 //ADDED: for better fading and brightning of red on mountains
 boolean isBrightning=false;
 
@@ -65,8 +65,8 @@ String feministHell= "Feminist Hell";
 String endText="GIRL";
 
 //ADDITION: The text that shows up on home screen
-String intro= "\nLOOKING TO BE A BETTER FEMINIST?\n AVOID FEMINIST HELL BY MAKING 20\n POINTS UNDER 30 SECONDS.";
-String rules="\n-DRAGGING A STUPID CUBE INTO\nFEMINIST HELL = 1 POINT\n-USING ARROWS TO MAKE GIRL COLLIDE\n WITH FEMINIST SPHERES = 1 POINT ";
+String intro= "\nLOOKING TO BE A BETTER FEMINIST?\n AVOID FEMINIST HELL BY MAKING 20\n POINTS    UNDER    30    SECONDS.";
+String rules="\n-DRAGGING A STUPID CUBE INTO\n FEMINIST HELL   =   1 POINT\n-USING ARROWS TO MAKE GIRL COLLIDE\n WITH FEMINIST SPHERES  =  1 POINT ";
 //ADDITION: text saying to press shift to start
 String pressShift="PRESS SHIFT TO BEGIN";
 
@@ -126,7 +126,7 @@ void setup() {
 
   // Create the avatar at the top centre of the screen
   //removed code for old keys, as new keys are simply the arrows.
-  avatar = new Avatar (width/2, 60);
+  avatar = new Avatar (1000, 20);
 }
 
 
@@ -140,23 +140,41 @@ void draw() {
 
   //ADDED: if shift has not yet been pressed, then show the code below which is the homescreen
   if (isShiftPressed==false) {
+    
     //background is black
     background (0);
+    
     //draws image of girl  avatar
-    image(img, width/2-65, 50, 130, 130);
+    image(img, width/2-50, 50, 100, 100);
+    
+    //TEXT TO BE SHOWN ON HOME SCREEN
     textFont(courierFont);
-    //text is blue
-    fill(10, 0, 255);
+    //text is purple and then turns into blue as code below show
+    fill(r, 0, 200);
     textSize(22); 
     text (intro, width/2, 230);
-    //text is red
-    fill(255, 0, 30);
+    //ADDED: made brightning and fading of red of the text more progressive, making it change between purple and blue.
+    if (isBrightning==true) {
+      r+=0.009;
+    } else {
+      r-=0.009;
+    }
+    //the text start to get blue again once they are purple
+    if (r<2) {
+      isBrightning=true;
+    }
+    //the text starts to go blue again when maximum redness (so purple, as red+blue is purple) is reached.
+    if (r>255) {
+      isBrightning=false;
+    }
+    //removed separate fill for text
     textSize(20); 
-    text (rules, width/2, 340);
+    text (rules, width/2, 360);
     //text is blue
-    fill(10, 0, 255);
+    fill(255,0,0);
     textSize(19);
-    text (pressShift, width/2, 460);
+    text (pressShift, width/2, 500);
+    
     //ADDED mountains for homescreen as well
     for (int i=0; i<1300; i++) {
       pushStyle();
