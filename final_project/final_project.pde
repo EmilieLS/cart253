@@ -377,7 +377,7 @@ void draw() {
         //the game stops
         playGame =false;
         //and the text below is drawn
-        gameOutcome=" YOU DID IT.\nYOUR JOURNEY OF SELF-CARE AND LOVE, READING FEMINIST LITERATURE AND NURTURING YOUR COMMUNITY HELPED YOU STAY CLEAR OF\nFEMINIST HELL";
+        gameOutcome="GIRL, YOU DID IT.\nYOUR JOURNEY OF SELF-CARE AND LOVE, READING FEMINIST LITERATURE AND NURTURING YOUR COMMUNITY HELPED YOU STAY CLEAR OF\nFEMINIST HELL";
       }
 
 
@@ -386,7 +386,7 @@ void draw() {
         //the game stops
         playGame =false;
         //and the text below is drawn
-        gameOutcome=" IT'S OKAY.\nKEEP FIGHTING THE POWER BY INVESTING IN YOURSELF AND OTHER FEMMES.\nYOU'LL DO BETTER NEXT TIME";
+        gameOutcome="GIRL IT'S OKAY.\nKEEP FIGHTING THE POWER BY INVESTING IN YOURSELF AND OTHER FEMMES.\nYOU'LL DO BETTER NEXT TIME";
       }
     }
     //if it isn't true that the game is being played...
@@ -394,9 +394,45 @@ void draw() {
       //the background becomes black
       background (0);
       //the words of gameOutcome appear in random colours, and they depend on if player won or not)
-      fill(random(0, 255), random(0, 255), random(0, 255));
+      fill(255,0,0);
       textSize(29);
-      text (gameOutcome, 700, height/2);
+      text (gameOutcome, 680, height/2);
+      
+      //ADDED moutains to end screen
+      for (int i=0; i<1300; i++) {
+      pushStyle();
+      //CHANGED stroke to be able to change colour of mountains over time to make them look more hellish
+      //mountains become less and less red and more and more black
+      stroke(r, 0, 0);
+      //ADDED: made brightning and fading of red of mountains more progressive
+      if (isBrightning==true) {
+        r+=0.001;
+      } else {
+        r-=0.001;
+      }
+      //the mountains start to get red again once they are black
+      if (r<2) {
+        isBrightning=true;
+      }
+      //the mountains starts to fade to black when maximum redness is reached
+      if (r>255) {
+        isBrightning=false;
+      }
+      line(i, m[i], i, height);
+      popStyle();
+    }
+    
+       //making the mountains move to the left
+    //changed the limit
+    for (int i=0; i<1299; i++) {
+      m[i] = m[i+1];
+    }
+
+    //CHANGED: last element of the array
+    //CHANGE: made the mountains go up less high
+    m[1299] = height/1.80+ noise(yoff)*height/1.80;
+    yoff += yincrement;
+
     }
   }
 }
