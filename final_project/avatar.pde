@@ -27,7 +27,7 @@ class Avatar {
   //ADDED: left and right key to control avatar
   char leftKey;
   char rightKey;
-//  char spaceKey;
+  //  char spaceKey;
 
 
 
@@ -36,14 +36,14 @@ class Avatar {
   // Sets the position and controls based on arguments,
   // starts the velocity at 0
 
-//removed code for old keys here, as changed keys to up,down, left, right arrows.
+  //removed code for old keys here, as changed keys to up,down, left, right arrows.
   Avatar(int _x, int _y) {
     x = _x;
     y = _y;
     vx = 0;
     vy = 0;
 
-//removed code for up key, down key, etc as I'm using keyCode variable
+    //removed code for up key, down key, etc as I'm using keyCode variable
     //upKey = _upKey;
     //downKey = _downKey;
     //leftKey=_leftKey;
@@ -84,6 +84,8 @@ class Avatar {
       if (insideLeft && insideRight && insideTop && insideBottom) {
         xValueOfSpheres.remove(i);
         yValueOfSpheres.remove(i);
+        //ADDED: twinkle song plays with every collision
+        songSpheres.play();
         //ADDED: scores goes up every time avatar collides with a sphere
         score=score+1;
       }
@@ -109,28 +111,27 @@ class Avatar {
   //
   // Called when keyPressed is called in the main program
 
-//CHANGED keys to up, down, left, right arrows.
+  //CHANGED keys to up, down, left, right arrows.
   void keyPressed() {
     // Check if the key is our up key
     if (key==CODED) {
-    if (keyCode == UP) {
-      //if the above condition is true have the velosity change according to the speed when we press the upkey
-      vy=-SPEED;
-    } // Otherwise check if the key is our down key 
-    else if (keyCode == DOWN) {
-      //if the above condition is true have the velosity change according to the speed when we press the downkey
-      vy=+SPEED;
+      if (keyCode == UP) {
+        //if the above condition is true have the velosity change according to the speed when we press the upkey
+        vy=-SPEED;
+      } // Otherwise check if the key is our down key 
+      else if (keyCode == DOWN) {
+        //if the above condition is true have the velosity change according to the speed when we press the downkey
+        vy=+SPEED;
+      }
+      if (keyCode == LEFT) {
+        //if the above condition is true have the velosity change according to the speed when we press the left key
+        vx=-SPEED;
+      } // Otherwise check if the key is our down key 
+      else if (keyCode == RIGHT) {
+        //if the above condition is true have the velosity change according to the speed when we press the rightkey
+        vx=+SPEED;
+      }
     }
-    if (keyCode == LEFT) {
-      //if the above condition is true have the velosity change according to the speed when we press the left key
-      vx=-SPEED;
-    } // Otherwise check if the key is our down key 
-    else if (keyCode == RIGHT) {
-      //if the above condition is true have the velosity change according to the speed when we press the rightkey
-      vx=+SPEED;
-    }
-
-  }
   }
 
   // keyReleased()
@@ -140,25 +141,25 @@ class Avatar {
   void keyReleased() {
     //Check if the key is our up key and the avatar is moving up
     if (key==CODED) {
-    if (keyCode == UP && vy < 0) {
-      //If so it should stop
-      vy = 0;
-    } 
-    // Otherwise check if the key is our down key and avatar is moving down 
-    else if (keyCode == DOWN && vy > 0) {
-      // If so it should stop
-      vy = 0;
+      if (keyCode == UP && vy < 0) {
+        //If so it should stop
+        vy = 0;
+      } 
+      // Otherwise check if the key is our down key and avatar is moving down 
+      else if (keyCode == DOWN && vy > 0) {
+        // If so it should stop
+        vy = 0;
+      }
+      //Check if the key is our left key and the avatar is moving left
+      if (keyCode == LEFT && vx < 0) {
+        //If so it should stop
+        vx = 0;
+      } 
+      // Otherwise check if the key is our right key and avatar is moving right
+      else if (keyCode == RIGHT && vx > 0) {
+        // If so it should stop
+        vx = 0;
+      }
     }
-    //Check if the key is our left key and the avatar is moving left
-    if (keyCode == LEFT && vx < 0) {
-      //If so it should stop
-      vx = 0;
-    } 
-    // Otherwise check if the key is our right key and avatar is moving right
-    else if (keyCode == RIGHT && vx > 0) {
-      // If so it should stop
-      vx = 0;
-    }
-  }
   }
 }

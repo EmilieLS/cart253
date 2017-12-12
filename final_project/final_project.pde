@@ -48,9 +48,9 @@ FloatList xValueOfBoxes= new FloatList();
 FloatList yValueOfBoxes= new FloatList();
 
 //ADDED: array to make specific words for each feminist cube
-String []feministSpheresArray = {"FEMME\nFRIENDS", "CONSENT", "BELL HOOKS", "EMPOWEREMENT", "SELF\nCARE", "COMMUNITY", "ALLIES", "ACTIVE\nLISTENING", "INTERSECTIONALITY", "INCLUSIVITY"};
+String []feministSpheresArray = {"FEMME FRIENDS", "CONSENT", "BELL HOOKS", "EMPOWEREMENT", "SELF CARE", "COMMUNITY", "ALLIES", "ACTIVE LISTENING", "INTERSECTIONALITY", "INCLUSIVITY"};
 //ADDED: array to make specific words for each box of offensive crap
-String [] boxesArray= {"SLUT\nSHAMING", "MIKE\nPENCE", "FAT\nSHAMING", "UNPAID\nLABOR", "REPUBLICANS", "NOT\nALL\nMEN", "FRAT\nBOYZ", "TRANSPHOBIA", "IGNORENCE", "TOXIC\nMASCULINITY"};
+String [] boxesArray= {"SLUT SHAMING", "MIKE PENCE", "FAT SHAMING", "UNPAID LABOR", "REPUBLICANS", "NOT ALL MEN", "FRAT BOYZ", "TRANSPHOBIA", "IGNORENCE", "TOXIC\nMASCULINITY"};
 
 //ADDITION: declaring variable imgage
 //PImage img;
@@ -79,8 +79,6 @@ String friend="PLAY IN A TEAM WITH A FRIEND!";
 String gameOutcome=" ";
 //REMOVED code for text appearing and disappearing
 
-
-
 //ADDED a global boolean to see if the player is dragging
 boolean draggingBox =false;
 int draggingIndex =-1;
@@ -94,6 +92,10 @@ boolean isShiftPressed=false;
 
 //ADDED: storing sound in a variable
 SoundFile songBoxes;
+SoundFile songSpheres;
+SoundFile songLost;
+SoundFile songWon;
+
 
 void setup() {
   //CHANGED size 
@@ -105,6 +107,11 @@ void setup() {
 
   // ADDED We load a sound by creating a new SoundFile and giving it the path to the file
   songBoxes = new SoundFile(this, "hell.mp3");
+  songSpheres = new SoundFile(this, "twinkle.mp3");
+  songLost = new SoundFile(this, "lost.mp3");
+  songWon = new SoundFile(this, "won.mp3");
+  //start this song after 50 seconds
+  songWon.cue(50);
 
   //CHANGE: moved all code for mountains before everything else to make text appear in front of the mountains
   //setting up perlin noise mountains. making them grow on the y axis.
@@ -285,8 +292,8 @@ void draw() {
       for (int i=0; i<yValueOfSpheres.size(); i=i+1) {
         //position of spheres on x axis is every 120 pixels and moves to the right, 
         //and position of spheres on y axis is controlled by the noise function to give cool movement.
-        //spheres move to the right at the speed of 5
-        float sphereX=xValueOfSpheres.get(i)+5;
+        //spheres move to the right at the speed of 4
+        float sphereX=xValueOfSpheres.get(i)+4;
         float sphereY=height*noise(noiseMarkerSpheres.get(i));
 
 
@@ -335,12 +342,12 @@ void draw() {
         //ADDED:if the boxes are being dragged, they follow the mouse. otherwise,
         //position of boxes on x axis is every 110 pixels, 
         //and position of boxes on the y axis is controlled by the noise function to give cool movement.
-        //boxes move to the right at speed of 5
+        //boxes move to the right at speed of 3
         float boxX =0;
         float boxY =0;
         if (draggingIndex!=i)
         {
-          boxX=xValueOfBoxes.get(i)+4;
+          boxX=xValueOfBoxes.get(i)+3;
           boxY=height*noise(noiseMarkerBoxes.get(i));
         } else
         {
@@ -362,7 +369,7 @@ void draw() {
         textFont(courierFont);
         textSize(13);
         //ADDED: put the text above the boxes
-        text(boxesArray[i], 0, -50);
+        text(boxesArray[i], 0, -37);
         popStyle();
         popMatrix();
 
@@ -411,6 +418,8 @@ void draw() {
         playGame =false;
         //and the text below is drawn
         gameOutcome="GIRL, YOU DID IT.\nYOUR JOURNEY OF SELF-CARE AND LOVE,\n READING FEMINIST LITERATURE AND NURTURING\n YOUR COMMUNITY HELPED YOU STAY CLEAR OF\nFEMINIST HELL";
+        //Added song when player wins
+        songWon.play();
       }
 
 
@@ -420,6 +429,8 @@ void draw() {
         playGame =false;
         //and the text below is drawn
         gameOutcome="GIRL, YOU LOST, BUT IT'S OKAY!\nKEEP FIGHTING THE POWER BY INVESTING\n IN YOURSELF AND OTHER FEMMES.\nYOU'LL DO BETTER NEXT TIME";
+        //ADDED song when player loses
+        songLost.play();
       }
     }
     //if it isn't true that the game is being played...
