@@ -64,7 +64,9 @@ String feministHell= "Feminist Hell";
 String endText="GIRL";
 
 //ADDITION: The text that shows up on home screen
-String homeScreenText= "Hey! Point of the game is\n to make 19 points under 30 seconds.";
+String homeScreenWhiteText="HEY GIRL!!!";
+String homeScreenRedText= "\nLOOKING TO BE A BETTER FEMINIST?\nAVOID FEMINIST HELL BY MAKING 20 POINTS UNDER 30 SECONDS.";
+String homeScreenPurpleText="\nDRAGGING A STUPID CUBE INTO FEMINIST HELL\n = 1 POINT\nUSING ARROWS TO MAKE GIRL COLLIDE WITH FEMINIST SPHERES\n = 1 POINT ";
 //ADDITION: declaring and initializing new variable which will tells the game that the player won making the message below appear
 String gameOutcome=" ";
 //REMOVED code for text appearing and disappearing
@@ -84,7 +86,7 @@ void setup() {
   //CHANGED size 
   //ADDED 3D feature
   size(1300, 800, P3D);
-  
+
   //ADDED: image of girl here for the home screen
   img= loadImage("girl.png");
 
@@ -126,13 +128,13 @@ void setup() {
 void draw() {
   //millis calculates how much time has passed since starting the program
   int time=millis();
-  
+
   //CHANGE to put Pfont here to use it on home screen
   PFont courierFont = createFont("Courier", 60);
   textAlign(CENTER, CENTER);
 
   //ADDED: if the program has been run for less than a few seconds, then instructions for the game are shown then...
-  if (time <9000) {
+  if (time <10000) {
     //background is black
     background (0);
     //text is red
@@ -140,45 +142,52 @@ void draw() {
     //draws image of girl  avatar
     image(img, width/2-100, 100, 130, 130);
     textFont(courierFont);
-    textSize(29);
-    text (homeScreenText, 630, height/2);
-    
+    textSize(27); 
+    //Text is white
+    fill(255);
+    text(homeScreenWhiteText, 630, 260);
+    //text is red
+    fill(255, 0, 0);
+    textSize(24); 
+    text (homeScreenRedText, 630, 300);
+    //text is purple
+    fill(255, 0, 255);
+    text (homeScreenPurpleText, 630, 430);
     //ADDED mountains for homescreen as well
-      for (int i=0; i<1300; i++) {
-        pushStyle();
-        //CHANGED stroke to be able to change colour of mountains over time to make them look more hellish
-        //mountains become less and less red and more and more black
-        stroke(r, 0, 0);
-        //ADDED: made brightning and fading of red of mountains more progressive
-        if (isBrightning==true) {
-          r+=0.001;
-        } else {
-          r-=0.001;
-        }
-        //the mountains start to get red again once they are black
-        if (r<2) {
-          isBrightning=true;
-        }
-        //the mountains starts to fade to black when maximum redness is reached
-        if (r>255) {
-          isBrightning=false;
-        }
-        line(i, m[i], i, height);
-        popStyle();
+    for (int i=0; i<1300; i++) {
+      pushStyle();
+      //CHANGED stroke to be able to change colour of mountains over time to make them look more hellish
+      //mountains become less and less red and more and more black
+      stroke(r, 0, 0);
+      //ADDED: made brightning and fading of red of mountains more progressive
+      if (isBrightning==true) {
+        r+=0.001;
+      } else {
+        r-=0.001;
       }
-
-
-      //making the mountains move to the left
-      //changed the limit
-      for (int i=0; i<1299; i++) {
-        m[i] = m[i+1];
+      //the mountains start to get red again once they are black
+      if (r<2) {
+        isBrightning=true;
       }
+      //the mountains starts to fade to black when maximum redness is reached
+      if (r>255) {
+        isBrightning=false;
+      }
+      line(i, m[i], i, height);
+      popStyle();
+    }
 
-      //CHANGED: last element of the array
-      //CHANGE: made the mountains go up less high
-      m[1299] = height/1.80+ noise(yoff)*height/1.80;
-      yoff += yincrement;
 
+    //making the mountains move to the left
+    //changed the limit
+    for (int i=0; i<1299; i++) {
+      m[i] = m[i+1];
+    }
+
+    //CHANGED: last element of the array
+    //CHANGE: made the mountains go up less high
+    m[1299] = height/1.80+ noise(yoff)*height/1.80;
+    yoff += yincrement;
   } else {
 
 
