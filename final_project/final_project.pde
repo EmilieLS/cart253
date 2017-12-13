@@ -101,11 +101,18 @@ SoundFile songSpheres;
 SoundFile songLost;
 SoundFile songWon;
 
+//Added variables for font
+PFont snellRoundHandBold;
+PFont courierFont;
 
 void setup() {
   //CHANGED size 
   //ADDED 3D feature
   size(1300, 800, P3D);
+
+  //initialized font variables
+  snellRoundHandBold = createFont("SnellRoundhand-Bold", 60);
+  courierFont = createFont("Courier", 60);
 
   //setting up how big webcam screen will be, and the framerate.
   video= new Capture (this, 640, 480, 30);
@@ -164,7 +171,6 @@ void draw() {
   int time=millis();
 
   //CHANGE to put Pfont here to use it on home screen
-  PFont courierFont = createFont("Courier", 60);
   textAlign(CENTER, CENTER);
 
   //ADDED: if shift has not yet been pressed, then show the code below which is the homescreen
@@ -302,8 +308,8 @@ void draw() {
       for (int i=0; i<yValueOfSpheres.size(); i=i+1) {
         //position of spheres on x axis is every 120 pixels and moves to the right, 
         //and position of spheres on y axis is controlled by the noise function to give cool movement.
-        //spheres move to the right at the speed of 5
-        float sphereX=xValueOfSpheres.get(i)+5;
+        //spheres move to the right at the speed of 4
+        float sphereX=xValueOfSpheres.get(i)+4;
         float sphereY=height*noise(noiseMarkerSpheres.get(i));
 
 
@@ -449,7 +455,6 @@ void draw() {
     if (playGame==false) {
       //if "control" hasn't been pressed, then do all the stuff below.
       if (isControlPressed==false) {
-        PFont snellRoundHandBold = createFont("SnellRoundhand-Bold", 60);
         textAlign(CENTER, CENTER);
         //the background becomes black
         background (0);
