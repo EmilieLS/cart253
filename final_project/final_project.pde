@@ -63,7 +63,7 @@ String []feministSpheresArray = {"FEMME FRIENDS", "CONSENT", "BELL HOOKS", "EMPO
 //ADDED: array to make specific words for each box of offensive crap
 String [] boxesArray= {"SLUT SHAMING", "MANSPLAINING", "FAT SHAMING", "UNPAID LABOR", "REPUBLICANS", "NOT ALL MEN", "FRAT BOYZ", "TRANSPHOBIA", "CAT CALLING", "TOXIC\nMASCULINITY"};
 //ADDED: array for the word "deprication" to appear above new point-deducting cubes.
-String [] DepricationArray={"SELF-DEPRICATION", "SELF-DEPRICATION", "SELF-DEPRICATION", "SELF-DEPRICATION"};
+String [] DepricationArray={"SELF-DEPRICATION", "SELF-DEPRICATION", "SELF-DEPRICATION", "SELF-DEPRICATION", "SELF-DEPRICATION"};
 
 //ADDITION: declaring variables imgage and heart
 PImage girl;
@@ -77,7 +77,7 @@ String feministHell= "Feminist Hell";
 
 
 //ADDITION: The text that shows up on home screen
-String intro= "\nWANT  TO PRACTICE  FEMINISM?\n\nAVOID FEMINIST HELL BY MAKING AT \nLEAST 15 POINTS UNDER  1  MINUTE.\n\n";
+String intro= "\nWANT  TO PRACTICE  FEMINISM?\n\nAVOID FEMINIST HELL BY MAKING AT \nLEAST 16 POINTS UNDER  1  MINUTE.\n\n";
 String rules="\n\n- DRAGGING AN OPPRESSIVE CUBE INTO FEMINIST HELL = +1\n\n-USING  ARROWS  TO  CATCH FEMINIST SPHERES = +1\n\n-COLLIDING WITH A deprication CUBE = -1";
 //ADDITION: text saying to press shift to start
 String pressShift="\nPRESS 'SHIFT' TO BEGIN :)";
@@ -184,12 +184,12 @@ void setup() {
     noiseMarkerBoxes.set(i, random(0, 1000));
   }
 
-  //ADDED: putting 4 cubes on the screen which deduct one point from the score if avatar hits them
-  for (int i=0; i<4; i=i+1) {
+  //ADDED: putting 5 cubes on the screen which deduct one point from the score if avatar hits them
+  for (int i=0; i<5; i=i+1) {
     //y position of cubes is random
     yValueOfDeprication.set(i, random(0, height));
-    //cubes are separated by 400 pixels on x axis
-    xValueOfDeprication.set(i, i*400);
+    //cubes are separated by 320 pixels on x axis
+    xValueOfDeprication.set(i, i*320);
     //setting random value of this list which is useful for the noise
     noiseMarkerDeprication.set(i, random(0, 1000));
   }
