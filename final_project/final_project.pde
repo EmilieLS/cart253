@@ -440,7 +440,17 @@ void draw() {
         }
       }
 
- 
+ //ADDED: drawing the mansplainer cubes. 
+ //the cubes will loop according to the size of the list in the current array 
+ //(changes whether of not cubes have been collided with)
+      for (int i=0; i<yValueOfMansplainers.size(); i=i+1) {
+        //position of cube on x axis is every 400 pixels and moves to the right, 
+        //and position of cubes on y axis is controlled by the noise function to give cool movement.
+        //cubes move to the right at the speed of 4
+        float mansplainerX=xValueOfMansplainers.get(i)+4;
+        float mansplainerY=height*noise(noiseMarkerMansplainers.get(i));
+
+
 
 
       //ADDED: text feminist hell at bottom of  screen in new font
