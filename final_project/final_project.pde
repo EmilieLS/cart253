@@ -63,7 +63,7 @@ String []feministSpheresArray = {"FEMME FRIENDS", "CONSENT", "BELL HOOKS", "EMPO
 //ADDED: array to make specific words for each box of offensive crap
 String [] boxesArray= {"SLUT SHAMING", "MIKE PENCE", "FAT SHAMING", "UNPAID LABOR", "REPUBLICANS", "NOT ALL MEN", "FRAT BOYZ", "TRANSPHOBIA", "CAT CALLING", "TOXIC\nMASCULINITY"};
 //ADDED: array for the word "mansplainer" to appear above new point-deducting cubes.
-String [] PurpleCubesArray={"MANSPLAINER", "MANSPLAINER", "MANSPLAINER", "MANSPLAINER"};
+String [] MansplainersArray={"MANSPLAINER", "MANSPLAINER", "MANSPLAINER", "MANSPLAINER"};
 
 //ADDITION: declaring variables imgage and heart
 PImage girl;
@@ -178,11 +178,11 @@ void setup() {
   //ADDED: putting 4 cubes on the screen which deduct one point from the score if avatar hits them
   for (int i=0; i<4; i=i+1) {
     //y position of cubes is random
-    yValueOfPurpleCubes.set(i, random(0, height));
+    yValueOfMansplainers.set(i, random(0, height));
     //cubes are separated by 400 pixels on x axis
-    xValueOfPurpleCubes.set(i, i*400);
+    xValueOfMansplainers.set(i, i*400);
     //setting random value of this list which is useful for the noise
-    noiseMarkerPurpleCubes.set(i, random(0, 1000));
+    noiseMarkerMansplainers.set(i, random(0, 1000));
   }
 
 
@@ -440,6 +440,7 @@ void draw() {
         }
       }
 
+ 
 
 
       //ADDED: text feminist hell at bottom of  screen in new font
