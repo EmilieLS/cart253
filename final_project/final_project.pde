@@ -69,10 +69,10 @@ String feministHell= "Feminist Hell";
 //removed random text for the end
 
 //ADDITION: The text that shows up on home screen
-String intro= "\nWANT TO PRACTICE  FEMINISM?\n AVOID FEMINIST HELL BY MAKING 20\n POINTS   UNDER    1 MIN.";
-String rules="\n-DRAGGING AN OPPRESSIVE CUBE INTO\n FEMINIST HELL   =   1 POINT\n-USING ARROWS TO CATCH\n FEMINIST SPHERES  =  1 POINT ";
+String intro= "\nWANT  TO PRACTICE  FEMINISM?\nAVOID   FEMINIST   HELL   BY\nMAKING 20 POINTS UNDER 1 MIN.";
+String rules="\n- DRAGGING AN OPPRESSIVE CUBE\nINTO FEMINIST HELL = 1 POINT\n\n-USING  ARROWS  TO  CATCH\nFEMINIST SPHERES = 1 POINT ";
 //ADDITION: text saying to press shift to start
-String pressShift="PRESS SHIFT TO BEGIN :)";
+String pressShift="PRESS 'SHIFT' TO BEGIN :)";
 //ADDED text to make sure player knows its easier to play this game with a partner :)
 String friend="PLAY IN A TEAM WITH A FRIEND!";
 
@@ -181,7 +181,7 @@ void draw() {
     //text is purple and then turns into blue as code below show
     fill(r, 0, 200);
     textSize(22); 
-    text (intro, width/2, 230);
+    text (intro, width/2, 210);
     //ADDED: made brightning and fading of red of the text more progressive, making it change between purple and blue.
     if (isBrightning==true) {
       r+=0.009;
@@ -198,10 +198,10 @@ void draw() {
     }
     //removed separate fill for text
     textSize(20); 
-    text (rules, width/2, 350);
+    text (rules, width/2, 340);
     textSize(19);
-    text(friend, width/2, 450);
-    textSize(19); 
+    text(friend, width/2, 460);
+    textSize(18); 
     text (pressShift, width/2, 500);
 
     //ADDED mountains for homescreen as well
@@ -423,11 +423,11 @@ void draw() {
       avatar.collide();
 
       //ADDITION: if it is true that the player's score is bigger than 20 and fewer then 61 seconds has passed...
-      if (score>=0 && time<61000) {
+      if (score>=20 && time<61000) {
         //the game stops
         playGame =false;
         //and the text below is drawn
-        gameOutcome="GIRL(S), YOU DID IT.\nYOUR JOURNEY OF SELF-CARE AND LOVE,\n READING FEMINIST LITERATURE AND\nNURTURING YOUR COMMUNITY HELPED YOU\n GROW AS A FEMINIST.\nPRESS 'CONTROL' TO SEE\nHOW WONDERFUL YOU ARE! :)";
+        gameOutcome= "Girl(s), you did it.\nYour journey of self-care and love,\n and nurturing your community helped you\n grow as a feminist.\n\nPress 'control' to see\nhow wonderful you are! :)";
         //Added song when player wins
         songWon.play();
       }
@@ -438,7 +438,7 @@ void draw() {
         //the game stops
         playGame =false;
         //and the text below is drawn
-        gameOutcome="GIRL(S), YOU LOST, BUT IT'S OKAY!\nKEEP FIGHTING THE POWER BY INVESTING\n IN YOURSELF AND OTHER FEMMES.\nYOU'LL DO BETTER NEXT TIME.\nPRESS 'CONTROL' TO SEE\nHOW WONDERFUL YOU ARE! :)";
+        gameOutcome="Girl(s), you lost, but it's okay!\nKeep fighting the power by investing\nin yourself and other femmes.\n\nPress 'control' to see\nhow wonderful you are! :)";
         //ADDED song when player loses
         songLost.play();
       }
@@ -449,12 +449,15 @@ void draw() {
     if (playGame==false) {
       //if "control" hasn't been pressed, then do all the stuff below.
       if (isControlPressed==false) {
+        PFont snellRoundHandBold = createFont("SnellRoundhand-Bold", 60);
+        textAlign(CENTER, CENTER);
         //the background becomes black
         background (0);
         //the words of gameOutcome appear in random colours, and they depend on if player won or not)
         fill(255, 0, 0);
-        textSize(29);
-        text (gameOutcome, 680, height/2);
+        textFont(snellRoundHandBold);
+        textSize(35);
+        text (gameOutcome, 680, 300);
 
         //ADDED moutains to end screen
         for (int i=0; i<1300; i++) {
