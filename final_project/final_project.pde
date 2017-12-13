@@ -115,6 +115,14 @@ SoundFile songMinusOne;
 PFont snellRoundHandBold;
 PFont courierFont;
 
+//millis calculates how much time has passed since starting the program
+int time=millis();
+//ADDITION: declaring long variable (type for long integers) that tells processing the time the timer starts (when a the game starts)
+long homeScreenTime;
+//ADDITION: declaring variable that tells processing how much time has passed since the timer was started (since the game was started)
+long timePassed;
+//ADDITION: declaring and initializing variable which stops the timer after 60 seconds
+int expireTime =60000;
 
 void setup() {
   //CHANGED size 
@@ -142,7 +150,6 @@ void setup() {
   songWon.cue(50);
   //ADDED: song loaded for when a point is lost
   songMinusOne= new SoundFile(this, "minusOne.mp3");
-
 
   //CHANGE: moved all code for mountains before everything else to make text appear in front of the mountains
   //setting up perlin noise mountains. making them grow on the y axis.
@@ -193,8 +200,6 @@ void setup() {
 
 
 void draw() {
-  //millis calculates how much time has passed since starting the program
-  int time=millis();
 
   //CHANGE to put Pfont here to use it on home screen
   textAlign(CENTER, CENTER);
@@ -277,11 +282,11 @@ void draw() {
 
     //ADDITION: if it is true that the game is being played, then do everything until line x (don't know when the program ends).
     if (playGame ==true) {
+
       //printing how much time has passed since the program started
       println(time);
 
       background(15);
-
 
       //ADDED: text for score
       textSize(40);
@@ -505,9 +510,9 @@ void draw() {
       //checks if avatar collides with spheres
       avatar.collide();
 
-      //ADDITION: if it is true that the player's score is bigger than 20 and fewer then 61 seconds has passed...
+      //ADDITION: if it is true that the player's score is bigger than 20 and fewer then 60 seconds has passed...
       //fix this.
-      if (score>=16 && time<61000) {
+      if (score>=16 && time<60000) {
         //the game stops
         playGame =false;
         //and the text below is drawn
@@ -515,7 +520,6 @@ void draw() {
         //Added song when player wins
         songWon.play();
       }
-
 
       //ADDITION: if it is true that the player's score is smaller than 20 and more then 60 seconds has passed...
       if (score<=16 && time>60000) {
