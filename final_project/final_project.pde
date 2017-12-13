@@ -48,6 +48,13 @@ SoundFile songLost;
 SoundFile songWon;
 SoundFile songMinusOne;
 
+/* The base for the code for the mountains comes from here:
+ By Joan Soler-Adillon
+ www.joan.cat
+ processing.joan.cat
+ @jsoleradillon
+*/
+
 // array for the moutains. m is every pixel position for the mountains
 float m[] = new float[1300];
 //offset on the y axis begins at 0.

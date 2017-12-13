@@ -111,10 +111,10 @@ class Avatar {
 
   // display()
   //
-  // Display the paddle at its location
+  // Display the avatar at its location
 
   void display() {
-    //limiting these properties to the avatar
+    //limiting these properties to the avatar as this was changing the backgroun of the game
     pushStyle();
     // Set display properties
     noStroke();
@@ -132,8 +132,9 @@ class Avatar {
 
   //CHANGED keys to up, down, left, right arrows.
   void keyPressed() {
-    // Check if the key is our up key
+    //need to use key code variable for keys like UP,DOWN, LEFT, RIGHT.
     if (key==CODED) {
+      // Check if the key is our up key
       if (keyCode == UP) {
         //if the above condition is true have the velosity change according to the speed when we press the upkey
         vy=-SPEED;
@@ -158,8 +159,8 @@ class Avatar {
   // Called when keyReleased is called in the main program
 
   void keyReleased() {
-    //Check if the key is our up key and the avatar is moving up
     if (key==CODED) {
+      //Check if the key is our up key and if the avatar is moving up
       if (keyCode == UP && vy < 0) {
         //If so it should stop
         vy = 0;
