@@ -32,8 +32,7 @@ float r=255;
 //ADDED: for better fading and brightning of red on mountains
 boolean isBrightning=false;
 
-//ADDED: The background colour during play (white)
-color backgroundColor = color(255);
+//removed background colour
 
 //ADDED:declaring variables to be able to manipulate the y position of the spheres and boxes
 float sphereY;
@@ -45,19 +44,26 @@ FloatList xValueOfSpheres= new FloatList();
 //stores array that makes it easier to deal with noise function
 FloatList noiseMarkerSpheres= new FloatList();
 
-
 //stores array that makes it easier to deal with noise function
 FloatList noiseMarkerBoxes= new FloatList();
 //array to store the x and y value of the boxes. had to make them array float lists to be able to remove the boxes from the array later
 FloatList xValueOfBoxes= new FloatList();
 FloatList yValueOfBoxes= new FloatList();
 
+//ADDED: new array to store x and y values of mansplainer cubes which will deduct a point from the score if avatar collides with them.
+// had to makearray float lists to be able to remove the cubes from the array later
+FloatList xValueOfMansplainers= new FloatList();
+FloatList yValueOfMansplainers= new FloatList();
+//ADDED: stores array that makes it easier to deal with noise function
+FloatList noiseMarkerMansplainers= new FloatList();
+
 
 //ADDED: array to make specific words for each feminist cube
 String []feministSpheresArray = {"FEMME FRIENDS", "CONSENT", "BELL HOOKS", "EMPOWEREMENT", "SELF CARE", "COMMUNITY", "ALLIES", "ACTIVE LISTENING", "INTERSECTIONALITY", "INCLUSIVITY"};
 //ADDED: array to make specific words for each box of offensive crap
 String [] boxesArray= {"SLUT SHAMING", "MIKE PENCE", "FAT SHAMING", "UNPAID LABOR", "REPUBLICANS", "NOT ALL MEN", "FRAT BOYZ", "TRANSPHOBIA", "CAT CALLING", "TOXIC\nMASCULINITY"};
-
+//ADDED: array for the word "mansplainer" to appear above new point-deducting cubes.
+String [] PurpleCubesArray={"MANSPLAINER", "MANSPLAINER", "MANSPLAINER", "MANSPLAINER"};
 
 //ADDITION: declaring variables imgage and heart
 PImage girl;
@@ -69,7 +75,6 @@ int score=0;
 //ADDED: Text for the mountains
 String feministHell= "Feminist Hell";
 
-//removed random text for the end
 
 //ADDITION: The text that shows up on home screen
 String intro= "\nWANT  TO PRACTICE  FEMINISM?\nAVOID   FEMINIST   HELL   BY\nMAKING 20 POINTS UNDER 1 MIN.";
@@ -103,6 +108,8 @@ SoundFile songBoxes;
 SoundFile songSpheres;
 SoundFile songLost;
 SoundFile songWon;
+//ADDED: storing sound in a variable for when a point is lost
+SoundFile songMinusOne;
 
 //Added variables for font
 PFont snellRoundHandBold;
@@ -133,6 +140,8 @@ void setup() {
   songWon = new SoundFile(this, "won.mp3");
   //start this song after 50 seconds
   songWon.cue(50);
+  //ADDED: song loaded for when a point is lost
+  songMinusOne= new SoundFile(this, "minusOne.mp3");
 
 
   //CHANGE: moved all code for mountains before everything else to make text appear in front of the mountains
@@ -165,6 +174,17 @@ void setup() {
     //setting random value of this list which is useful for the noise
     noiseMarkerBoxes.set(i, random(0, 1000));
   }
+
+  //ADDED: putting 4 cubes on the screen which deduct one point from the score if avatar hits them
+  for (int i=0; i<4; i=i+1) {
+    //y position of cubes is random
+    yValueOfPurpleCubes.set(i, random(0, height));
+    //cubes are separated by 400 pixels on x axis
+    xValueOfPurpleCubes.set(i, i*400);
+    //setting random value of this list which is useful for the noise
+    noiseMarkerPurpleCubes.set(i, random(0, 1000));
+  }
+
 
   // Create the avatar at the top centre of the screen
   //removed code for old keys, as new keys are simply the arrows.
@@ -419,6 +439,8 @@ void draw() {
           xValueOfBoxes.set(i, newX);
         }
       }
+
+
 
       //ADDED: text feminist hell at bottom of  screen in new font
       pushStyle();
