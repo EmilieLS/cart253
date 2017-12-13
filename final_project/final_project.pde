@@ -440,9 +440,9 @@ void draw() {
         }
       }
 
- //ADDED: drawing the mansplainer cubes. 
- //the cubes will loop according to the size of the list in the current array 
- //(changes whether of not cubes have been collided with)
+      //ADDED: drawing the mansplainer cubes. 
+      //the cubes will loop according to the size of the list in the current array 
+      //(changes whether of not cubes have been collided with)
       for (int i=0; i<yValueOfMansplainers.size(); i=i+1) {
         //position of cube on x axis is every 400 pixels and moves to the right, 
         //and position of cubes on y axis is controlled by the noise function to give cool movement.
@@ -451,6 +451,39 @@ void draw() {
         float mansplainerY=height*noise(noiseMarkerMansplainers.get(i));
 
 
+        //ADDED: making the mainsplainer cubes
+        pushMatrix();
+        translate(mansplainerX, mansplainerY);
+        pushStyle();
+        fill(4);
+        //they will be blue
+        stroke(0, 0, 255);
+        //CHANGED spheres to spheres
+        box(20);
+        //text is blue
+        fill(0, 0, 255);
+        textFont(courierFont);
+        textSize(15);
+        //put text above spheres
+        text(MansplainersArray[i], 0, -30);
+        popStyle();
+        popMatrix();
+
+        //storing the X and y value of the cubes so we can access it for the collision
+        xValueOfMansplainers.set(i, mansplainerX);
+        //constraining the spheres not to go below the mountains.
+        yValueOfMansplainers.set(i, constrain(mansplainerY, 0, 500));
+        //made the cubes move pretty slowly so player can semi-easily collide with them
+        noiseMarkerMansplainers.set(i, noiseMarkerMansplainers.get(i)+0.0005); 
+
+
+        //if the cubes are off the right of the screen, put them back on the left of the screen to create a continuous flow
+        float newX = xValueOfMansplainers.get(i);
+        if ((newX >1330)) {
+          newX = -30;
+        }
+        xValueOfMansplainers.set(i, newX);
+      }
 
 
       //ADDED: text feminist hell at bottom of  screen in new font
