@@ -77,12 +77,12 @@ String feministHell= "Feminist Hell";
 
 
 //ADDITION: The text that shows up on home screen
-String intro= "\nWANT  TO PRACTICE  FEMINISM?\nAVOID   FEMINIST   HELL   BY\nMAKING 20 POINTS UNDER 1 MIN.";
-String rules="\n- DRAGGING AN OPPRESSIVE CUBE\nINTO FEMINIST HELL = 1 POINT\n\n-USING  ARROWS  TO  CATCH\nFEMINIST SPHERES = 1 POINT ";
+String intro= "\nWANT  TO PRACTICE  FEMINISM?\n\nAVOID FEMINIST HELL BY MAKING AT \nLEAST 15 POINTS UNDER  1  MINUTE.\n\n";
+String rules="\n\n- DRAGGING AN OPPRESSIVE CUBE INTO FEMINIST HELL = +1\n\n-USING  ARROWS  TO  CATCH FEMINIST SPHERES = +1\n\n-COLLIDING WITH A MANSPLAINER CUBE = -1";
 //ADDITION: text saying to press shift to start
-String pressShift="PRESS 'SHIFT' TO BEGIN :)";
+String pressShift="\nPRESS 'SHIFT' TO BEGIN :)";
 //ADDED text to make sure player knows its easier to play this game with a partner :)
-String friend="PLAY IN A TEAM WITH A FRIEND!";
+String friend="\nPLAY IN A TEAM WITH A FRIEND!";
 
 //ADDITION: declaring and initializing new variable which will tells the game that the player won making the message below appear
 String gameOutcome=" ";
@@ -206,7 +206,7 @@ void draw() {
     background (0);
 
     //draws image of girl  avatar
-    image(girl, width/2-50, 50, 100, 100);
+    image(girl, width/2-50, 30, 100, 100);
 
     //TEXT TO BE SHOWN ON HOME SCREEN
     textFont(courierFont);
@@ -229,7 +229,7 @@ void draw() {
       isBrightning=false;
     }
     //removed separate fill for text
-    textSize(20); 
+    textSize(19); 
     text (rules, width/2, 340);
     textSize(19);
     text(friend, width/2, 460);
@@ -335,8 +335,8 @@ void draw() {
       for (int i=0; i<yValueOfSpheres.size(); i=i+1) {
         //position of spheres on x axis is every 120 pixels and moves to the right, 
         //and position of spheres on y axis is controlled by the noise function to give cool movement.
-        //spheres move to the right at the speed of 3
-        float sphereX=xValueOfSpheres.get(i)+3;
+        //spheres move to the right at the speed of 2.5
+        float sphereX=xValueOfSpheres.get(i)+2.5;
         float sphereY=height*noise(noiseMarkerSpheres.get(i));
 
 
@@ -410,7 +410,7 @@ void draw() {
         //removed rotate
         fill(10);
         stroke(255, 0, 0);
-        box(30);
+        box(25);
         //ADDED: made the text red
         fill(255, 0, 0);
         textFont(courierFont);
@@ -447,7 +447,7 @@ void draw() {
         //position of cube on x axis is every 400 pixels and moves to the right, 
         //and position of cubes on y axis is controlled by the noise function to give cool movement.
         //cubes move to the left at the speed of 1
-        float mansplainerX=xValueOfMansplainers.get(i)+1;
+        float mansplainerX=xValueOfMansplainers.get(i)+2;
         float mansplainerY=height*noise(noiseMarkerMansplainers.get(i));
 
 
@@ -507,7 +507,7 @@ void draw() {
 
       //ADDITION: if it is true that the player's score is bigger than 20 and fewer then 61 seconds has passed...
       //fix this.
-      if (score>=20 && time<61000) {
+      if (score>=16 && time<61000) {
         //the game stops
         playGame =false;
         //and the text below is drawn
@@ -518,7 +518,7 @@ void draw() {
 
 
       //ADDITION: if it is true that the player's score is smaller than 20 and more then 60 seconds has passed...
-      if (score<=20 && time>60000) {
+      if (score<=16 && time>60000) {
         //the game stops
         playGame =false;
         //and the text below is drawn
