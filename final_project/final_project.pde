@@ -61,7 +61,7 @@ FloatList noiseMarkerDeprication= new FloatList();
 //ADDED: array to make specific words for each feminist cube
 String []feministSpheresArray = {"FEMME FRIENDS", "CONSENT", "BELL HOOKS", "EMPOWEREMENT", "SELF CARE", "COMMUNITY", "ALLIES", "ACTIVE LISTENING", "INTERSECTIONALITY", "INCLUSIVITY"};
 //ADDED: array to make specific words for each box of offensive crap
-String [] boxesArray= {"SLUT SHAMING", "MANSPLAINING", "FAT SHAMING", "UNPAID LABOR", "REPUBLICANS", "NOT ALL MEN", "FRAT BOYZ", "TRANSPHOBIA", "CAT CALLING", "TOXIC\nMASCULINITY"};
+String [] boxesArray= {"SLUT SHAMING", "MANSPLAINERS", "FAT SHAMING", "UNPAID LABOR", "REPUBLICANS", "NOT ALL MEN", "FRAT BOYZ", "TRANSPHOBIA", "CAT CALLING", "TOXIC\nMASCULINITY"};
 //ADDED: array for the word "deprication" to appear above new point-deducting cubes.
 String [] DepricationArray={"SELF-DEPRICATION", "SELF-DEPRICATION", "SELF-DEPRICATION", "SELF-DEPRICATION", "SELF-DEPRICATION"};
 
@@ -78,7 +78,7 @@ String feministHell= "Feminist Hell";
 
 //ADDITION: The text that shows up on home screen
 String intro= "\nWANT  TO PRACTICE  FEMINISM?\n\nAVOID FEMINIST HELL BY MAKING AT \nLEAST 16 POINTS UNDER  1  MINUTE.\n\n";
-String rules="\n\n- DRAGGING AN OPPRESSIVE CUBE INTO FEMINIST HELL = +1\n\n-USING  ARROWS  TO  CATCH FEMINIST SPHERES = +1\n\n-COLLIDING WITH A deprication CUBE = -1";
+String rules="\n\n- DRAGGING AN OPPRESSIVE CUBE INTO FEMINIST HELL = +1\n\n-USING  ARROWS  TO  CATCH FEMINIST SPHERES = +1\n\n-COLLIDING WITH A SELF-DEPRICATING CUBE = -1";
 //ADDITION: text saying to press shift to start
 String pressShift="\nPRESS 'SHIFT' TO BEGIN :)";
 //ADDED text to make sure player knows its easier to play this game with a partner :)
@@ -110,20 +110,16 @@ SoundFile songLost;
 SoundFile songWon;
 //ADDED: storing sound in a variable for when a point is lost
 SoundFile songMinusOne;
-//SoundFile songPlay;
 
 //Added variables for font
 PFont snellRoundHandBold;
 PFont courierFont;
 
 //millis calculates how much time has passed since starting the program
-int time=millis();
-//ADDITION: declaring long variable (type for long integers) that tells processing the time the timer starts (when a the game starts)
-long homeScreenTime;
+long time=millis();
 //ADDITION: declaring variable that tells processing how much time has passed since the timer was started (since the game was started)
 long timePassed;
-//ADDITION: declaring and initializing variable which stops the timer after 60 seconds
-int expireTime =60000;
+
 
 void setup() {
   //CHANGED size 
@@ -142,7 +138,7 @@ void setup() {
   //added hearts to end screens
   heart=loadImage("heart.jpg");
 
-  // ADDED We load a sound by creating a new SoundFile and giving it the path to the file
+  //ADDED We load a sound by creating a new SoundFile and giving it the path to the file
   songBoxes = new SoundFile(this, "hell.mp3");
   songSpheres = new SoundFile(this, "twinkle.mp3");
   songLost = new SoundFile(this, "lost.mp3");
@@ -151,7 +147,6 @@ void setup() {
   songWon.cue(50);
   //ADDED: song loaded for when a point is lost
   songMinusOne= new SoundFile(this, "minusOne.mp3");
-  //songPlay=new SoundFile(this, "play.mp3");
 
   //CHANGE: moved all code for mountains before everything else to make text appear in front of the mountains
   //setting up perlin noise mountains. making them grow on the y axis.
@@ -184,7 +179,7 @@ void setup() {
     noiseMarkerBoxes.set(i, random(0, 1000));
   }
 
-  //ADDED: putting 5 cubes on the screen which deduct one point from the score if avatar hits them
+  //ADDED: putting 4 cubes on the screen which deduct one point from the score if avatar hits them
   for (int i=0; i<5; i=i+1) {
     //y position of cubes is random
     yValueOfDeprication.set(i, random(0, height));
@@ -285,12 +280,13 @@ void draw() {
     //ADDITION: if it is true that the game is being played, then do everything until line x (don't know when the program ends).
     if (playGame ==true) {
 
-      //songPlay.play();
+      //ADDED: for getting how much time has passed
+      timePassed = millis() -time;
 
       //printing how much time has passed since the program started
-      println(time);
+      println(timePassed);
 
-      background(20);
+      background(15);
 
       //ADDED: text for score
       textSize(40);
@@ -515,8 +511,7 @@ void draw() {
       avatar.collide();
 
       //ADDITION: if it is true that the player's score is bigger than 20 and fewer then 60 seconds has passed...
-      //fix this.
-      if (score>=16 && time<60000) {
+      if (score>=16 && timePassed<60000) {
         //the game stops
         playGame =false;
         //and the text below is drawn
@@ -526,7 +521,7 @@ void draw() {
       }
 
       //ADDITION: if it is true that the player's score is smaller than 20 and more then 60 seconds has passed...
-      if (score<=16 && time>60000) {
+      if (score<=16 && timePassed>60000) {
         //the game stops
         playGame =false;
         //and the text below is drawn
@@ -667,6 +662,8 @@ void keyPressed() {
   if (key==CODED) {
     if (keyCode==SHIFT) {
       isShiftPressed=true;
+      //ADDED: time of the program begins when shift is pressed
+      time = millis();
     }
     if (keyCode==CONTROL) {
       isControlPressed=true;

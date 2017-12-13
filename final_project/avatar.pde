@@ -75,10 +75,10 @@ class Avatar {
     for (int i=yValueOfSpheres.size()-1; i>=0; i=i-1) {
 
       // Calculate if avatar overlaps with the spheres side by side
-      boolean insideLeft = (xValueOfSpheres.get(i) >x-SIZE/2);
-      boolean insideRight =(xValueOfSpheres.get(i)<x+SIZE);
-      boolean insideTop =   (yValueOfSpheres.get(i) >y-SIZE/2);
-      boolean insideBottom = (yValueOfSpheres.get(i)<y+SIZE);
+      boolean insideLeft = (xValueOfSpheres.get(i) >x+SIZE/2);
+      boolean insideRight =(xValueOfSpheres.get(i)<x+SIZE/2+SIZE);
+      boolean insideTop =   (yValueOfSpheres.get(i) >y+SIZE/2);
+      boolean insideBottom = (yValueOfSpheres.get(i)<y+SIZE/2+SIZE);
 
       // Check if the avatar overlaps with a spheres
       if (insideLeft && insideRight && insideTop && insideBottom) {
@@ -90,13 +90,13 @@ class Avatar {
         score=score+1;
       }
     }
-    
-     for (int i=yValueOfDeprication.size()-1; i>=0; i=i-1) {
 
-      // Calculate if avatar overlaps with the deprication cubes side by side
-      boolean insideLeft = (xValueOfDeprication.get(i) >x-SIZE/2);
+    for (int i=yValueOfDeprication.size()-1; i>=0; i=i-1) {
+
+      // Calculate if avatar overlaps with the spheres side by side
+      boolean insideLeft = (xValueOfDeprication.get(i) >x+SIZE/2);
       boolean insideRight =(xValueOfDeprication.get(i)<x+SIZE/2+SIZE);
-      boolean insideTop =   (yValueOfDeprication.get(i) >y-SIZE/2);
+      boolean insideTop =   (yValueOfDeprication.get(i) >y+SIZE/2);
       boolean insideBottom = (yValueOfDeprication.get(i)<y+SIZE/2+SIZE);
 
       // Check if the avatar overlaps with a deprication cube
