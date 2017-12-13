@@ -1,7 +1,7 @@
-// ADDED: object Avatar
+//ADDED: class Avatar
 //code from paddle class from pong game
 // A class that defines an avatar that can be moved up and down, left and right on the screen
-// using keys passed through to the constructor.
+// using arrows keys passed through to the constructor.
 
 class Avatar {
 
@@ -10,7 +10,7 @@ class Avatar {
   //initializing avatar (image of a girl)
   PImage img = loadImage("girl.png");
 
-  // Default values for speed and size
+  // Default values for speed and size of avatar
   //CHANGE: made speed faster
   int SPEED = 7;
   int SIZE=70;
@@ -27,16 +27,11 @@ class Avatar {
   //ADDED: left and right key to control avatar
   char leftKey;
   char rightKey;
-  //  char spaceKey;
-
-
 
   /////////////// Constructor ///////////////
 
   // Sets the position and controls based on arguments,
-  // starts the velocity at 0
-
-  //removed code for old keys here, as changed keys to up,down, left, right arrows.
+  // starts the velocity at 0.
   Avatar(int _x, int _y) {
     x = _x;
     y = _y;
@@ -44,10 +39,6 @@ class Avatar {
     vy = 0;
 
     //removed code for up key, down key, etc as I'm using keyCode variable
-    //upKey = _upKey;
-    //downKey = _downKey;
-    //leftKey=_leftKey;
-    //rightKey=_rightKey;
   }
 
 
@@ -55,57 +46,61 @@ class Avatar {
 
   // update()
   //
-  // Updates position based on velocity and constraints the avatar to the window
+  // Updates position based on velocity and constrains the avatar to the window
 
   void update() {
-    // Update position with velocity (to move the avatar)
+    // Update position of avatar on x axis with velocity (to move the avatar)
     x += vx;
-    // updating position of the paddle with velosity y axis
+    // updating position of the avatar with velosity on y axis
     y += vy;
 
-    // Constrain the avatar's y position to be in the window, and (CHANGED) not be able to go to the bottom of the hellish mountains
-    //y = constrain(y, 0, height - HEIGHT);
-    y = constrain(y, 0, 600);
+    // Constrain the avatar's y position to be in the window, and (CHANGED) to not be able to go to the bottom of the hellish mountains
+    //changed constraints a bit to fit with new rectMode center.
+    y = constrain(y, 40, 600);
     //ADDED: constrains the avatar's x position to be in the window
-    x = constrain(x, 0, 1230);
+    x = constrain(x, 30, 1265);
   }
 
   ////ADDED: function to determine if the avatar collides with a sphere. if it does, the sphere disappears
   void collide() {
+
+    //removed old collision code because it wasn't working very well
+    //ADDED new collision code between spheres and avatar
     for (int i=yValueOfSpheres.size()-1; i>=0; i=i-1) {
+      //variable distance is the distance between the position of the avatar and the position of the sphere
+      float distance = dist(x, y, xValueOfSpheres.get(i), yValueOfSpheres.get(i));
+      //the radius of sphere = 1/2 of its size ==20/2 =10
+      float sumRadius = SIZE/2 + 10;
 
-      // Calculate if avatar overlaps with the spheres side by side
-      boolean insideLeft = (xValueOfSpheres.get(i) >x+SIZE/2);
-      boolean insideRight =(xValueOfSpheres.get(i)<x+SIZE/2+SIZE);
-      boolean insideTop =   (yValueOfSpheres.get(i) >y+SIZE/2);
-      boolean insideBottom = (yValueOfSpheres.get(i)<y+SIZE/2+SIZE);
-
-      // Check if the avatar overlaps with a spheres
-      if (insideLeft && insideRight && insideTop && insideBottom) {
+      //if the distance between the position of the avatar and the position of the sphere is smaller than 20,
+      if (distance < sumRadius) {
+        //the sphere disappears
         xValueOfSpheres.remove(i);
         yValueOfSpheres.remove(i);
         //ADDED: twinkle song plays with every collision
         songSpheres.play();
         //ADDED: scores goes up every time avatar collides with a sphere
         score=score+1;
+        //ends the execution of this structure
+        break;
       }
     }
 
-    for (int i=yValueOfDeprication.size()-1; i>=0; i=i-1) {
+    for (int i=yValueOfDeprecation.size()-1; i>=0; i=i-1) {
 
       // Calculate if avatar overlaps with the spheres side by side
-      boolean insideLeft = (xValueOfDeprication.get(i) >x+SIZE/2);
-      boolean insideRight =(xValueOfDeprication.get(i)<x+SIZE/2+SIZE);
-      boolean insideTop =   (yValueOfDeprication.get(i) >y+SIZE/2);
-      boolean insideBottom = (yValueOfDeprication.get(i)<y+SIZE/2+SIZE);
+      boolean insideLeft = (xValueOfDeprecation.get(i) >x+SIZE/2);
+      boolean insideRight =(xValueOfDeprecation.get(i)<x+SIZE/2+SIZE);
+      boolean insideTop =   (yValueOfDeprecation.get(i) >y+SIZE/2);
+      boolean insideBottom = (yValueOfDeprecation.get(i)<y+SIZE/2+SIZE);
 
-      // Check if the avatar overlaps with a deprication cube
+      // Check if the avatar overlaps with a Deprecation cube
       if (insideLeft && insideRight && insideTop && insideBottom) {
-        xValueOfDeprication.remove(i);
-        yValueOfDeprication.remove(i);
+        xValueOfDeprecation.remove(i);
+        yValueOfDeprecation.remove(i);
         //ADDED: minusOne song plays with every collision
         songMinusOne.play();
-        //ADDED: scores down by 1 every time avatar collides with a deprication
+        //ADDED: scores down by 1 every time avatar collides with a Deprecation
         score=score-1;
       }
     }
@@ -120,7 +115,9 @@ class Avatar {
     pushStyle();
     // Set display properties
     noStroke();
+    //ADDED rect mode center
     rectMode(CENTER);
+    imageMode(CENTER);
     // draw avatar as girl image
     image(img, x, y, SIZE, SIZE);
     popStyle();
