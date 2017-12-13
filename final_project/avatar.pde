@@ -91,21 +91,21 @@ class Avatar {
       }
     }
     
-     for (int i=yValueOfMansplainers.size()-1; i>=0; i=i-1) {
+     for (int i=yValueOfDeprication.size()-1; i>=0; i=i-1) {
 
-      // Calculate if avatar overlaps with the mansplainer cubes side by side
-      boolean insideLeft = (xValueOfMansplainers.get(i) >x+SIZE/2);
-      boolean insideRight =(xValueOfMansplainers.get(i)<x+SIZE/2+SIZE);
-      boolean insideTop =   (yValueOfMansplainers.get(i) >y+SIZE/2);
-      boolean insideBottom = (yValueOfMansplainers.get(i)<y+SIZE/2+SIZE);
+      // Calculate if avatar overlaps with the deprication cubes side by side
+      boolean insideLeft = (xValueOfDeprication.get(i) >x+SIZE/2);
+      boolean insideRight =(xValueOfDeprication.get(i)<x+SIZE/2+SIZE);
+      boolean insideTop =   (yValueOfDeprication.get(i) >y+SIZE/2);
+      boolean insideBottom = (yValueOfDeprication.get(i)<y+SIZE/2+SIZE);
 
-      // Check if the avatar overlaps with a mansplainer cube
+      // Check if the avatar overlaps with a deprication cube
       if (insideLeft && insideRight && insideTop && insideBottom) {
-        xValueOfMansplainers.remove(i);
-        yValueOfMansplainers.remove(i);
+        xValueOfDeprication.remove(i);
+        yValueOfDeprication.remove(i);
         //ADDED: minusOne song plays with every collision
         songMinusOne.play();
-        //ADDED: scores down by 1 every time avatar collides with a mansplainer
+        //ADDED: scores down by 1 every time avatar collides with a deprication
         score=score-1;
       }
     }

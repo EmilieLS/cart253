@@ -50,20 +50,20 @@ FloatList noiseMarkerBoxes= new FloatList();
 FloatList xValueOfBoxes= new FloatList();
 FloatList yValueOfBoxes= new FloatList();
 
-//ADDED: new array to store x and y values of mansplainer cubes which will deduct a point from the score if avatar collides with them.
+//ADDED: new array to store x and y values of deprication cubes which will deduct a point from the score if avatar collides with them.
 // had to makearray float lists to be able to remove the cubes from the array later
-FloatList xValueOfMansplainers= new FloatList();
-FloatList yValueOfMansplainers= new FloatList();
+FloatList xValueOfDeprication= new FloatList();
+FloatList yValueOfDeprication= new FloatList();
 //ADDED: stores array that makes it easier to deal with noise function
-FloatList noiseMarkerMansplainers= new FloatList();
+FloatList noiseMarkerDeprication= new FloatList();
 
 
 //ADDED: array to make specific words for each feminist cube
 String []feministSpheresArray = {"FEMME FRIENDS", "CONSENT", "BELL HOOKS", "EMPOWEREMENT", "SELF CARE", "COMMUNITY", "ALLIES", "ACTIVE LISTENING", "INTERSECTIONALITY", "INCLUSIVITY"};
 //ADDED: array to make specific words for each box of offensive crap
-String [] boxesArray= {"SLUT SHAMING", "MIKE PENCE", "FAT SHAMING", "UNPAID LABOR", "REPUBLICANS", "NOT ALL MEN", "FRAT BOYZ", "TRANSPHOBIA", "CAT CALLING", "TOXIC\nMASCULINITY"};
-//ADDED: array for the word "mansplainer" to appear above new point-deducting cubes.
-String [] MansplainersArray={"MANSPLAINER", "MANSPLAINER", "MANSPLAINER", "MANSPLAINER"};
+String [] boxesArray= {"SLUT SHAMING", "Deprication", "FAT SHAMING", "UNPAID LABOR", "REPUBLICANS", "NOT ALL MEN", "FRAT BOYZ", "TRANSPHOBIA", "CAT CALLING", "TOXIC\nMASCULINITY"};
+//ADDED: array for the word "deprication" to appear above new point-deducting cubes.
+String [] DepricationArray={"SELF-DEPRICATION","SELF-DEPRICATION","SELF-DEPRICATION","SELF-DEPRICATION"};
 
 //ADDITION: declaring variables imgage and heart
 PImage girl;
@@ -78,7 +78,7 @@ String feministHell= "Feminist Hell";
 
 //ADDITION: The text that shows up on home screen
 String intro= "\nWANT  TO PRACTICE  FEMINISM?\n\nAVOID FEMINIST HELL BY MAKING AT \nLEAST 15 POINTS UNDER  1  MINUTE.\n\n";
-String rules="\n\n- DRAGGING AN OPPRESSIVE CUBE INTO FEMINIST HELL = +1\n\n-USING  ARROWS  TO  CATCH FEMINIST SPHERES = +1\n\n-COLLIDING WITH A MANSPLAINER CUBE = -1";
+String rules="\n\n- DRAGGING AN OPPRESSIVE CUBE INTO FEMINIST HELL = +1\n\n-USING  ARROWS  TO  CATCH FEMINIST SPHERES = +1\n\n-COLLIDING WITH A deprication CUBE = -1";
 //ADDITION: text saying to press shift to start
 String pressShift="\nPRESS 'SHIFT' TO BEGIN :)";
 //ADDED text to make sure player knows its easier to play this game with a partner :)
@@ -185,11 +185,11 @@ void setup() {
   //ADDED: putting 4 cubes on the screen which deduct one point from the score if avatar hits them
   for (int i=0; i<4; i=i+1) {
     //y position of cubes is random
-    yValueOfMansplainers.set(i, random(0, height));
+    yValueOfDeprication.set(i, random(0, height));
     //cubes are separated by 400 pixels on x axis
-    xValueOfMansplainers.set(i, i*400);
+    xValueOfDeprication.set(i, i*400);
     //setting random value of this list which is useful for the noise
-    noiseMarkerMansplainers.set(i, random(0, 1000));
+    noiseMarkerDeprication.set(i, random(0, 1000));
   }
 
 
@@ -445,20 +445,20 @@ void draw() {
         }
       }
 
-      //ADDED: drawing the mansplainer cubes. 
+      //ADDED: drawing the deprication cubes. 
       //the cubes will loop according to the size of the list in the current array 
       //(changes whether of not cubes have been collided with)
-      for (int i=0; i<yValueOfMansplainers.size(); i=i+1) {
+      for (int i=0; i<yValueOfDeprication.size(); i=i+1) {
         //position of cube on x axis is every 400 pixels and moves to the right, 
         //and position of cubes on y axis is controlled by the noise function to give cool movement.
         //cubes move to the left at the speed of 1
-        float mansplainerX=xValueOfMansplainers.get(i)+2;
-        float mansplainerY=height*noise(noiseMarkerMansplainers.get(i));
+        float depricationX=xValueOfDeprication.get(i)+2;
+        float depricationY=height*noise(noiseMarkerDeprication.get(i));
 
 
         //ADDED: making the mainsplainer cubes
         pushMatrix();
-        translate(mansplainerX, mansplainerY);
+        translate(depricationX, depricationY);
         pushStyle();
         fill(4);
         //they will be blue
@@ -470,24 +470,24 @@ void draw() {
         textFont(courierFont);
         textSize(15);
         //put text above spheres
-        text(MansplainersArray[i], 0, -30);
+        text(DepricationArray[i], 0, -30);
         popStyle();
         popMatrix();
 
         //storing the X and y value of the cubes so we can access it for the collision
-        xValueOfMansplainers.set(i, mansplainerX);
+        xValueOfDeprication.set(i, depricationX);
         //constraining the spheres not to go below the mountains.
-        yValueOfMansplainers.set(i, constrain(mansplainerY, 0, 500));
+        yValueOfDeprication.set(i, constrain(depricationY, 0, 500));
         //made the cubes move pretty slowly so player can semi-easily collide with them
-        noiseMarkerMansplainers.set(i, noiseMarkerMansplainers.get(i)+0.0005); 
+        noiseMarkerDeprication.set(i, noiseMarkerDeprication.get(i)+0.0005); 
 
 
         //if the cubes are off the right of the screen, put them back on the left of the screen to create a continuous flow
-        float newX = xValueOfMansplainers.get(i);
+        float newX = xValueOfDeprication.get(i);
         if ((newX >1310)) {
           newX = -25;
         }
-        xValueOfMansplainers.set(i, newX);
+        xValueOfDeprication.set(i, newX);
       }
 
 
