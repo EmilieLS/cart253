@@ -1,15 +1,18 @@
-//ADDED: Import the video library for webcam //<>//
-import processing.video.*;
-
-//ADDED: Import the sound library
-import processing.sound.*;
-
-//Game: Becoming a better feminist
+//Game: Becoming a better feminist! //<>//
 
 //the point is to make 19 points in less then 1 minute
 //the player can make points by 1)dragging the boxes (which are negative for someone's feminist growth)
 //into feminist hell and 2) by moving the avatr and making it collide with the spheres.
 //One point is made for each box dragged into feminist hell, and one point is made each time the avatar collides with a sphere
+
+//ADDED: Import the video library for webcam
+import processing.video.*;
+
+//ADDED: Import the sound library
+import processing.sound.*;
+
+//The capture object for reading from the webcam
+Capture video;
 
 // array for the moutains. m is every pixel position for the mountains
 float m[] = new float[1300];
@@ -28,10 +31,8 @@ float r=255;
 //ADDED: for better fading and brightning of red on mountains
 boolean isBrightning=false;
 
-
-//ADDED: The background colour during play (black)
+//ADDED: The background colour during play (white)
 color backgroundColor = color(255);
-
 
 //ADDED:declaring variables to be able to manipulate the y position of the spheres and boxes
 float sphereY;
@@ -55,11 +56,9 @@ String []feministSpheresArray = {"FEMME FRIENDS", "CONSENT", "BELL HOOKS", "EMPO
 //ADDED: array to make specific words for each box of offensive crap
 String [] boxesArray= {"SLUT SHAMING", "MIKE PENCE", "FAT SHAMING", "UNPAID LABOR", "REPUBLICANS", "NOT ALL MEN", "FRAT BOYZ", "TRANSPHOBIA", "IGNORENCE", "TOXIC\nMASCULINITY"};
 
-//ADDITION: declaring variable imgage
-//PImage img;
-PImage img;
-//PImage img= loadImage("girl.png");
-
+//ADDITION: declaring variables imgage and heart
+PImage girl;
+PImage heart;
 
 //ADDITION: declaring and initializing of score and making the score start at 0 
 int score=0;
@@ -67,8 +66,7 @@ int score=0;
 //ADDED: Text for the mountains
 String feministHell= "Feminist Hell";
 
-//ADDITION: The beginning of the text of when the game is over
-String endText="GIRL";
+//removed random text for the end
 
 //ADDITION: The text that shows up on home screen
 String intro= "\nWANT TO PRACTICE  FEMINISM?\n AVOID FEMINIST HELL BY MAKING 20\n POINTS   UNDER    1 MIN.";
@@ -80,6 +78,7 @@ String friend="PLAY IN A TEAM WITH A FRIEND!";
 
 //ADDITION: declaring and initializing new variable which will tells the game that the player won making the message below appear
 String gameOutcome=" ";
+
 //REMOVED code for text appearing and disappearing
 
 //ADDED a global boolean to see if the player is dragging
@@ -90,8 +89,11 @@ int draggingIndex =-1;
 //This variable will tell processing whether game is still being played or not.
 boolean playGame =true;
 
-//ADDED: a boolean to see whether or not the player has pressed shift (which stars the game)
+//ADDED: a boolean to see whether or not the player has pressed shift (which starts the game)
 boolean isShiftPressed=false;
+//ADDED: a boolean to see whether or not the player has pressed control (which starts the webcam)
+boolean isControlPressed=false;
+
 
 //ADDED: storing sound in a variable
 SoundFile songBoxes;
@@ -105,8 +107,13 @@ void setup() {
   //ADDED 3D feature
   size(1300, 800, P3D);
 
+  //setting up how big webcam screen will be, and the framerate.
+  video= new Capture (this, 640, 480, 30);
+
   //ADDED: image of girl here for the home screen
-  img= loadImage("girl.png");
+  girl= loadImage("girl.png");
+  //added hearts to end screens
+  heart=loadImage("heart.jpg");
 
   // ADDED We load a sound by creating a new SoundFile and giving it the path to the file
   songBoxes = new SoundFile(this, "hell.mp3");
@@ -167,7 +174,7 @@ void draw() {
     background (0);
 
     //draws image of girl  avatar
-    image(img, width/2-50, 50, 100, 100);
+    image(girl, width/2-50, 50, 100, 100);
 
     //TEXT TO BE SHOWN ON HOME SCREEN
     textFont(courierFont);
@@ -416,11 +423,11 @@ void draw() {
       avatar.collide();
 
       //ADDITION: if it is true that the player's score is bigger than 20 and fewer then 61 seconds has passed...
-      if (score>=20 && time<61000) {
+      if (score>=0 && time<61000) {
         //the game stops
         playGame =false;
         //and the text below is drawn
-        gameOutcome="GIRL, YOU DID IT.\nYOUR JOURNEY OF SELF-CARE AND LOVE,\n READING FEMINIST LITERATURE AND NURTURING\n YOUR COMMUNITY HELPED YOU STAY CLEAR OF\nFEMINIST HELL";
+        gameOutcome="GIRL(S), YOU DID IT.\nYOUR JOURNEY OF SELF-CARE AND LOVE,\n READING FEMINIST LITERATURE AND\nNURTURING YOUR COMMUNITY HELPED YOU\n GROW AS A FEMINIST.\nPRESS 'CONTROL' TO SEE\nHOW WONDERFUL YOU ARE! :)";
         //Added song when player wins
         songWon.play();
       }
@@ -431,58 +438,80 @@ void draw() {
         //the game stops
         playGame =false;
         //and the text below is drawn
-        gameOutcome="GIRL, YOU LOST, BUT IT'S OKAY!\nKEEP FIGHTING THE POWER BY INVESTING\n IN YOURSELF AND OTHER FEMMES.\nYOU'LL DO BETTER NEXT TIME";
+        gameOutcome="GIRL(S), YOU LOST, BUT IT'S OKAY!\nKEEP FIGHTING THE POWER BY INVESTING\n IN YOURSELF AND OTHER FEMMES.\nYOU'LL DO BETTER NEXT TIME.\nPRESS 'CONTROL' TO SEE\nHOW WONDERFUL YOU ARE! :)";
         //ADDED song when player loses
         songLost.play();
       }
     }
+
+
     //if it isn't true that the game is being played...
     if (playGame==false) {
-      //the background becomes black
-      background (0);
-      //the words of gameOutcome appear in random colours, and they depend on if player won or not)
-      fill(255, 0, 0);
-      textSize(29);
-      text (gameOutcome, 680, height/2);
+      //if "control" hasn't been pressed, then do all the stuff below.
+      if (isControlPressed==false) {
+        //the background becomes black
+        background (0);
+        //the words of gameOutcome appear in random colours, and they depend on if player won or not)
+        fill(255, 0, 0);
+        textSize(29);
+        text (gameOutcome, 680, height/2);
 
-      //ADDED moutains to end screen
-      for (int i=0; i<1300; i++) {
-        pushStyle();
-        //CHANGED stroke to be able to change colour of mountains over time to make them look more hellish
-        //mountains become less and less red and more and more black
-        stroke(r, 0, 0);
-        //ADDED: made brightning and fading of red of mountains more progressive
-        if (isBrightning==true) {
-          r+=0.001;
-        } else {
-          r-=0.001;
+        //ADDED moutains to end screen
+        for (int i=0; i<1300; i++) {
+          pushStyle();
+          //CHANGED stroke to be able to change colour of mountains over time to make them look more hellish
+          //mountains become less and less red and more and more black
+          stroke(r, 0, 0);
+          //ADDED: made brightning and fading of red of mountains more progressive
+          if (isBrightning==true) {
+            r+=0.001;
+          } else {
+            r-=0.001;
+          }
+          //the mountains start to get red again once they are black
+          if (r<2) {
+            isBrightning=true;
+          }
+          //the mountains starts to fade to black when maximum redness is reached
+          if (r>255) {
+            isBrightning=false;
+          }
+          line(i, m[i], i, height);
+          popStyle();
         }
-        //the mountains start to get red again once they are black
-        if (r<2) {
-          isBrightning=true;
+
+        //making the mountains move to the left
+        //changed the limit
+        for (int i=0; i<1299; i++) {
+          m[i] = m[i+1];
         }
-        //the mountains starts to fade to black when maximum redness is reached
-        if (r>255) {
-          isBrightning=false;
-        }
-        line(i, m[i], i, height);
-        popStyle();
+
+        //CHANGED: last element of the array
+        //CHANGE: made the mountains go up less high
+        m[1299] = height/1.80+ noise(yoff)*height/1.80;
+        yoff += yincrement;
       }
-
-      //making the mountains move to the left
-      //changed the limit
-      for (int i=0; i<1299; i++) {
-        m[i] = m[i+1];
+      //if control has been pressed, then...
+      if (isControlPressed==true) {
+        //background is black
+        background (0);
+        //start the webcam
+        video.start();
+        // Draw the video frame to the screen
+        image(video, width/2-305, height/2-240);
+        //draw the images of hearts around the webcam.
+        image(heart, 1000, 200, 100, 100);
+        image(heart, 1100, 300, 80, 80);
+        image(heart, 120, 400, 100, 100);
       }
-
-      //CHANGED: last element of the array
-      //CHANGE: made the mountains go up less high
-      m[1299] = height/1.80+ noise(yoff)*height/1.80;
-      yoff += yincrement;
     }
   }
 }
 
+//function reads the current video frame
+void captureEvent(Capture video) {
+  video.read();
+}
 
 //removed code i was trying out but wasn't working for end screens.
 
@@ -509,6 +538,13 @@ void mouseDragged() {
   }
 }
 
+//void handleVideoInput() {
+
+
+//  // If we're here, there IS a frame to look at so read it in
+//  video.read();
+//}
+
 //when mouse is released, the dragging stops
 //CHANGED: when mouse is released and is in bottom 100 pixels of screen on y axis, 
 //then the boxes disappear and score increases by 1.
@@ -533,6 +569,9 @@ void keyPressed() {
   if (key==CODED) {
     if (keyCode==SHIFT) {
       isShiftPressed=true;
+    }
+    if (keyCode==CONTROL) {
+      isControlPressed=true;
     }
   }
 }
