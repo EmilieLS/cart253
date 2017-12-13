@@ -86,22 +86,25 @@ class Avatar {
       }
     }
 
+    //removed old collision code because it wasn't working very well
+    //ADDED new collision code between self depecration cubes and avatar
     for (int i=yValueOfDeprecation.size()-1; i>=0; i=i-1) {
+      //variable distance is the distance between the position of the avatar and the position of the self-deprecation cube
+      float distance = dist(x, y, xValueOfDeprecation.get(i), yValueOfDeprecation.get(i));
+      //the radius of sphere = 1/2 of its size ==20/2 =10
+      float sumRadius = SIZE/2 + 10;
 
-      // Calculate if avatar overlaps with the spheres side by side
-      boolean insideLeft = (xValueOfDeprecation.get(i) >x+SIZE/2);
-      boolean insideRight =(xValueOfDeprecation.get(i)<x+SIZE/2+SIZE);
-      boolean insideTop =   (yValueOfDeprecation.get(i) >y+SIZE/2);
-      boolean insideBottom = (yValueOfDeprecation.get(i)<y+SIZE/2+SIZE);
-
-      // Check if the avatar overlaps with a Deprecation cube
-      if (insideLeft && insideRight && insideTop && insideBottom) {
+      //if the distance between the position of the avatar and the position of the self-deprecation cube is smaller than 20,
+      if (distance < sumRadius) {
+        //the self-deprecating cube disappears
         xValueOfDeprecation.remove(i);
         yValueOfDeprecation.remove(i);
-        //ADDED: minusOne song plays with every collision
+        //ADDED: minus one song plays with every collision
         songMinusOne.play();
-        //ADDED: scores down by 1 every time avatar collides with a Deprecation
+        //ADDED: scores goes up every time avatar collides with a sphere
         score=score-1;
+        //ends the execution of this structure
+        break;
       }
     }
   }
