@@ -1,9 +1,35 @@
-//Game: Becoming a better feminist! //<>//
+/*Artist's statement: //<>//
 
-//the point is to make 19 points in less then 1 minute
-//the player can make points by 1)dragging the boxes (which are negative for someone's feminist growth)
-//into feminist hell and 2) by moving the avatr and making it collide with the spheres.
-//One point is made for each box dragged into feminist hell, and one point is made each time the avatar collides with a sphere
+I decided I would be very motivated to create my game if it were to be inspired by a concept I cared and knew about a lot. Feminism is very important to me, so I chose to make a 
+game that shows people how to become better feminists. This theme gave me ample ideas for things the improving feminist player could "reject" (i.e. republicans, mainsplainers, 
+cat calling, etc., as well as self-deprecation, which every improving feminist should avoid). This theme also gave me many ideas for things the player could strive to have
+(thus the "femme friends", "Bell Hooks", and "intersectional" feminist spheres). This dualism that arose in my feminist theme allowed me to develop a game in which two actions
+are needed to win: dragging the oppressive cubes into feminist hell with a mouse, and using the arrows to make the avatar collide with feminist concepts (and avoid self-Deprecation!).
+I think this dual action is creative, especially that these actions were coded with the fact that this game should be a cooperative game in mind. Indeed, feminism is a movement 
+towards community building and anti-individualism, and I wanted my feminist game to reflect that. Therefore, two players work together to win!
+Additionally, songs by Rihanna and Beyoncé - feminist idols - play at the end of the game, making women feel warm and welcomed, whether they won or lost! 
+A webcam at the end also shows the player how wonderful they are (I was careful not to say "beautiful", because women's worth is sadly mostly placed on their beauty). I was also careful to 
+use language directed at women on the end screens, because women can use a space to feel specifically welcomed, as many spaces are unwelcoming to us.
+
+I believe a specifically interesting coding technique I used was the coding for the movement of the boxes, spheres, and self-Deprecating cubes.
+It was difficult figuring out how to make them move in a flowing way with the noise function on the y axis without the speed of the cubes on the x axis influencing
+the movement of the objects on the y axis. A totally separate array needed to be created to implement the noise. It was also hard figuring out how to make elements of arrays
+disappear, as we had not really looked at that much in the exercises nor in class. A floatList was what was necessary to remove elements from the arrays.
+
+I designed my work on the programming knowledge I gained over the course almost exclusively. I used the exercises we did in class as well as the 
+midterm "Pong" as models. Thanks to the class and these coded examples, I was able to use classes, arrays, sound, the webcam, an internal timer for 
+the game, 3D rendering, how to change fonts, how to make objects collide, how to implement functions like keyPressed() and mouseDragged(), and more. 
+I tried to take something we learned from every week and implement it into my game.
+
+I hope you enjoy learning to be a better feminist!
+
+*/
+
+/*Game: Becoming a better feminist!
+the point is to make 19 points in less then 1 minute
+the player can make points by 1)dragging the boxes (which are negative for someone's feminist growth)
+into feminist hell and 2) by moving the avatr and making it collide with the spheres.
+One point is made for each box dragged into feminist hell, and one point is made each time the avatar collides with a sphere */
 
 //ADDED: Import the video library for webcam
 import processing.video.*;
@@ -15,7 +41,7 @@ Capture video;
 import processing.sound.*;
 
 //ADDED: storing sound in a variable for when boxes are dropped into feminist hell,
-//when avatar collides with spheres and self-deprication cubes, for when game is lost, and for when game is won.
+//when avatar collides with spheres and self-Deprecation cubes, for when game is lost, and for when game is won.
 SoundFile songBoxes;
 SoundFile songSpheres;
 SoundFile songLost;
@@ -51,19 +77,19 @@ FloatList noiseMarkerBoxes= new FloatList();
 FloatList xValueOfBoxes= new FloatList();
 FloatList yValueOfBoxes= new FloatList();
 
-//ADDED: new array to store x and y values of deprication cubes which will deduct a point from the score if avatar collides with them.
+//ADDED: new array to store x and y values of Deprecation cubes which will deduct a point from the score if avatar collides with them.
 // had to make array float lists to be able to remove the cubes from the array later
-FloatList xValueOfDeprication= new FloatList();
-FloatList yValueOfDeprication= new FloatList();
+FloatList xValueOfDeprecation= new FloatList();
+FloatList yValueOfDeprecation= new FloatList();
 //ADDED: stores array that makes it easier to deal with noise function
-FloatList noiseMarkerDeprication= new FloatList();
+FloatList noiseMarkerDeprecation= new FloatList();
 
 //ADDED: array to make specific words for each feminist cube
 String []feministSpheresArray = {"FEMME FRIENDS", "CONSENT", "BELL HOOKS", "EMPOWEREMENT", "SELF CARE", "COMMUNITY", "ALLIES", "ACTIVE LISTENING", "INTERSECTIONALITY", "INCLUSIVITY"};
 //ADDED: array to make specific words for each box of offensive crap
 String [] boxesArray= {"SLUT SHAMING", "MANSPLAINERS", "FAT SHAMING", "UNPAID LABOR", "REPUBLICANS", "NOT ALL MEN", "FRAT BOYZ", "TRANSPHOBIA", "CAT CALLING", "TOXIC\nMASCULINITY"};
-//ADDED: array for the word "deprication" to appear above point-deducting cubes.
-String [] DepricationArray={"SELF-DEPRICATION", "SELF-DEPRICATION", "SELF-DEPRICATION", "SELF-DEPRICATION", "SELF-DEPRICATION"};
+//ADDED: array for the word "Deprecation" to appear above point-deducting cubes.
+String [] DeprecationArray={"SELF-DEPRECATION", "SELF-DEPRECATION", "SELF-DEPRECATION", "SELF-DEPRECATION", "SELF-DEPRECATION"};
 
 //ADDITION: declaring variables imgage and heart
 PImage girl;
@@ -77,7 +103,7 @@ String feministHell= "Feminist Hell";
 
 //ADDITION: All the text that shows up on home screen
 String intro= "\nWANT  TO PRACTICE  FEMINISM?\n\nAVOID FEMINIST HELL BY MAKING AT \nLEAST 16 POINTS UNDER  1  MINUTE.\n\n";
-String rules="\n\n- DRAGGING AN OPPRESSIVE CUBE INTO FEMINIST HELL = +1\n\n-USING  ARROWS  TO  CATCH FEMINIST SPHERES = +1\n\n-COLLIDING WITH A SELF-DEPRICATING CUBE = -1";
+String rules="\n\n- DRAGGING AN OPPRESSIVE CUBE INTO FEMINIST HELL = +1\n\n-USING  ARROWS  TO  CATCH FEMINIST SPHERES = +1\n\n-COLLIDING WITH A SELF-DEPRECATING CUBE = -1";
 //ADDITION: text saying to press shift to start
 String pressShift="\nPRESS 'SHIFT' TO BEGIN :)";
 //ADDED text to make sure player knows this game should be played in a team with a partner. 
@@ -165,13 +191,12 @@ void setup() {
   //ADDED: putting 5 cubes on the screen which deduct one point from the score if avatar collides with them
   for (int i=0; i<5; i=i+1) {
     //y position of cubes is random
-    yValueOfDeprication.set(i, random(0, height));
+    yValueOfDeprecation.set(i, random(0, height));
     //cubes are separated by 320 pixels on x axis
-    xValueOfDeprication.set(i, i*320);
+    xValueOfDeprecation.set(i, i*320);
     //setting random value of this list which is useful for the noise
-    noiseMarkerDeprication.set(i, random(0, 1000));
+    noiseMarkerDeprecation.set(i, random(0, 1000));
   }
-
 
   // Create the avatar at the top centre of the screen
   //removed code for old keys, as new keys are simply the arrows.
@@ -242,13 +267,13 @@ void draw() {
     }
 
     //making the mountains move to the left
-    //changed the limit
+    //they will stretch all along x axis.
     for (int i=0; i<1299; i++) {
       m[i] = m[i+1];
     }
-
+    //the mountains grow up and down on y axis
     //CHANGED: last element of the array
-    //CHANGE: made the mountains go up less high
+    //CHANGE: made the mountains go up less high.
     m[1299] = height/1.80+ noise(yoff)*height/1.80;
     yoff += yincrement;
   } 
@@ -299,13 +324,11 @@ void draw() {
       }
 
       //making the mountains move to the left
-      //changed the limit
       for (int i=0; i<1299; i++) {
         m[i] = m[i+1];
       }
 
-      //CHANGED: last element of the array
-      //CHANGE: made the mountains go up less high
+      //mountains grow up and down on y axis
       m[1299] = height/1.80+ noise(yoff)*height/1.80;
       yoff += yincrement;
 
@@ -403,20 +426,20 @@ void draw() {
         }
       }
 
-      //ADDED: DRAWING THE SELF-DEPRICATING CUBES.
+      //ADDED: DRAWING THE SELF-Deprecating CUBES.
       //the cubes will loop according to the size of the list in the current array 
       //(changes whether of not cubes have been collided with)
-      for (int i=0; i<yValueOfDeprication.size(); i=i+1) {
+      for (int i=0; i<yValueOfDeprecation.size(); i=i+1) {
         //position of cube on x axis is every 400 pixels and moves to the right, 
         //and position of cubes on y axis is controlled by the noise function to give cool movement.
         //cubes move to the left at the speed of 2
-        float depricationX=xValueOfDeprication.get(i)+2;
-        float depricationY=height*noise(noiseMarkerDeprication.get(i));
+        float DeprecationX=xValueOfDeprecation.get(i)+2;
+        float DeprecationY=height*noise(noiseMarkerDeprecation.get(i));
 
 
-        //ADDED: giving the properties to the self-deprication cubes in order to draw them
+        //ADDED: giving the properties to the self-Deprecation cubes in order to draw them
         pushMatrix();
-        translate(depricationX, depricationY);
+        translate(DeprecationX, DeprecationY);
         fill(4);
         //they will be blue
         stroke(0, 0, 255);
@@ -426,23 +449,23 @@ void draw() {
         textFont(courierFont);
         textSize(15);
         //put text above spheres
-        text(DepricationArray[i], 0, -30);
+        text(DeprecationArray[i], 0, -30);
         popMatrix();
 
         //storing the X and y value of the cubes so we can access it for the collision
-        xValueOfDeprication.set(i, depricationX);
+        xValueOfDeprecation.set(i, DeprecationX);
         //removed constrain on y position of cubes
-        yValueOfDeprication.set(i, depricationY);
+        yValueOfDeprecation.set(i, DeprecationY);
         //made the cubes move pretty slowly so player can semi-easily collide with them
-        noiseMarkerDeprication.set(i, noiseMarkerDeprication.get(i)+0.0005); 
+        noiseMarkerDeprecation.set(i, noiseMarkerDeprecation.get(i)+0.0005); 
 
 
         //if the cubes are off the right of the screen, put them back on the left of the screen to create a continuous flow
-        float newX = xValueOfDeprication.get(i);
+        float newX = xValueOfDeprecation.get(i);
         if ((newX >1310)) {
           newX = -25;
         }
-        xValueOfDeprication.set(i, newX);
+        xValueOfDeprecation.set(i, newX);
       }
 
       //ADDED: draw text "feminist hell" at bottom of screen 
@@ -458,7 +481,7 @@ void draw() {
       avatar.update();
       //displays the avatar
       avatar.display();
-      //checks if avatar collides with spheres or self-deprication cubes
+      //checks if avatar collides with spheres or self-Deprecation cubes
       avatar.collide();
 
       //ADDITION: if it is true that the player's score is bigger or equal to 16 AND fewer then 60 seconds has passed then...
