@@ -61,9 +61,9 @@ FloatList noiseMarkerDeprication= new FloatList();
 //ADDED: array to make specific words for each feminist cube
 String []feministSpheresArray = {"FEMME FRIENDS", "CONSENT", "BELL HOOKS", "EMPOWEREMENT", "SELF CARE", "COMMUNITY", "ALLIES", "ACTIVE LISTENING", "INTERSECTIONALITY", "INCLUSIVITY"};
 //ADDED: array to make specific words for each box of offensive crap
-String [] boxesArray= {"SLUT SHAMING", "Deprication", "FAT SHAMING", "UNPAID LABOR", "REPUBLICANS", "NOT ALL MEN", "FRAT BOYZ", "TRANSPHOBIA", "CAT CALLING", "TOXIC\nMASCULINITY"};
+String [] boxesArray= {"SLUT SHAMING", "MANSPLAINING", "FAT SHAMING", "UNPAID LABOR", "REPUBLICANS", "NOT ALL MEN", "FRAT BOYZ", "TRANSPHOBIA", "CAT CALLING", "TOXIC\nMASCULINITY"};
 //ADDED: array for the word "deprication" to appear above new point-deducting cubes.
-String [] DepricationArray={"SELF-DEPRICATION","SELF-DEPRICATION","SELF-DEPRICATION","SELF-DEPRICATION"};
+String [] DepricationArray={"SELF-DEPRICATION", "SELF-DEPRICATION", "SELF-DEPRICATION", "SELF-DEPRICATION"};
 
 //ADDITION: declaring variables imgage and heart
 PImage girl;
@@ -110,6 +110,7 @@ SoundFile songLost;
 SoundFile songWon;
 //ADDED: storing sound in a variable for when a point is lost
 SoundFile songMinusOne;
+//SoundFile songPlay;
 
 //Added variables for font
 PFont snellRoundHandBold;
@@ -150,6 +151,7 @@ void setup() {
   songWon.cue(50);
   //ADDED: song loaded for when a point is lost
   songMinusOne= new SoundFile(this, "minusOne.mp3");
+  //songPlay=new SoundFile(this, "play.mp3");
 
   //CHANGE: moved all code for mountains before everything else to make text appear in front of the mountains
   //setting up perlin noise mountains. making them grow on the y axis.
@@ -283,10 +285,12 @@ void draw() {
     //ADDITION: if it is true that the game is being played, then do everything until line x (don't know when the program ends).
     if (playGame ==true) {
 
+      //songPlay.play();
+
       //printing how much time has passed since the program started
       println(time);
 
-      background(15);
+      background(20);
 
       //ADDED: text for score
       textSize(40);
@@ -545,6 +549,10 @@ void draw() {
         textFont(snellRoundHandBold);
         textSize(35);
         text (gameOutcome, 680, 300);
+        //ADDED display of score to end screens
+        textFont(courierFont);
+        fill(random(0, 255), 0, random(0, 255));
+        text(score, width/2, 40);
 
         //ADDED moutains to end screen
         for (int i=0; i<1300; i++) {

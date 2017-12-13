@@ -75,9 +75,9 @@ class Avatar {
     for (int i=yValueOfSpheres.size()-1; i>=0; i=i-1) {
 
       // Calculate if avatar overlaps with the spheres side by side
-      boolean insideLeft = (xValueOfSpheres.get(i) >x+SIZE/2);
+      boolean insideLeft = (xValueOfSpheres.get(i) >x+SIZE/2-SIZE);
       boolean insideRight =(xValueOfSpheres.get(i)<x+SIZE/2+SIZE);
-      boolean insideTop =   (yValueOfSpheres.get(i) >y+SIZE/2);
+      boolean insideTop =   (yValueOfSpheres.get(i) >y+SIZE/2-SIZE);
       boolean insideBottom = (yValueOfSpheres.get(i)<y+SIZE/2+SIZE);
 
       // Check if the avatar overlaps with a spheres
