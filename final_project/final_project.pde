@@ -26,6 +26,7 @@ float yincrement = 0.03;
 //declare object avatar
 Avatar avatar;
 
+
 //ADDED:default value for r (red) is 255
 float r=255;
 //ADDED: for better fading and brightning of red on mountains
@@ -51,10 +52,12 @@ FloatList noiseMarkerBoxes= new FloatList();
 FloatList xValueOfBoxes= new FloatList();
 FloatList yValueOfBoxes= new FloatList();
 
+
 //ADDED: array to make specific words for each feminist cube
 String []feministSpheresArray = {"FEMME FRIENDS", "CONSENT", "BELL HOOKS", "EMPOWEREMENT", "SELF CARE", "COMMUNITY", "ALLIES", "ACTIVE LISTENING", "INTERSECTIONALITY", "INCLUSIVITY"};
 //ADDED: array to make specific words for each box of offensive crap
-String [] boxesArray= {"SLUT SHAMING", "MIKE PENCE", "FAT SHAMING", "UNPAID LABOR", "REPUBLICANS", "NOT ALL MEN", "FRAT BOYZ", "TRANSPHOBIA", "IGNORENCE", "TOXIC\nMASCULINITY"};
+String [] boxesArray= {"SLUT SHAMING", "MIKE PENCE", "FAT SHAMING", "UNPAID LABOR", "REPUBLICANS", "NOT ALL MEN", "FRAT BOYZ", "TRANSPHOBIA", "CAT CALLING", "TOXIC\nMASCULINITY"};
+
 
 //ADDITION: declaring variables imgage and heart
 PImage girl;
@@ -105,6 +108,7 @@ SoundFile songWon;
 PFont snellRoundHandBold;
 PFont courierFont;
 
+
 void setup() {
   //CHANGED size 
   //ADDED 3D feature
@@ -130,6 +134,7 @@ void setup() {
   //start this song after 50 seconds
   songWon.cue(50);
 
+
   //CHANGE: moved all code for mountains before everything else to make text appear in front of the mountains
   //setting up perlin noise mountains. making them grow on the y axis.
   for (int i=0; i<1300; i++) {
@@ -148,6 +153,7 @@ void setup() {
     //setting random value of this list which is useful for the noise
     noiseMarkerSpheres.set(i, random(0, 1000));
   }
+
 
   //added one box
   //putting 10 boxes on screen
@@ -249,18 +255,19 @@ void draw() {
   //if shift has been pressed, start the game.
   else {
 
-
     //ADDITION: if it is true that the game is being played, then do everything until line x (don't know when the program ends).
     if (playGame ==true) {
       //printing how much time has passed since the program started
       println(time);
-      background(backgroundColor);
+
+      background(15);
+
 
       //ADDED: text for score
       textSize(40);
       textAlign(CENTER, CENTER);
       //make the score appear in middle top of the screen in the middle of the y-axis in random colours
-      fill(random(0, 255), random(0, 255), random(0, 255));
+      fill(random(0, 255), 0, random(0, 255));
       text(score, width/2, 40);
 
       //changed the limit
@@ -308,28 +315,29 @@ void draw() {
       for (int i=0; i<yValueOfSpheres.size(); i=i+1) {
         //position of spheres on x axis is every 120 pixels and moves to the right, 
         //and position of spheres on y axis is controlled by the noise function to give cool movement.
-        //spheres move to the right at the speed of 4
-        float sphereX=xValueOfSpheres.get(i)+4;
+        //spheres move to the right at the speed of 3
+        float sphereX=xValueOfSpheres.get(i)+3;
         float sphereY=height*noise(noiseMarkerSpheres.get(i));
 
 
         //ADDED: making the spheres
         pushMatrix();
+        //push and pop style because I didn't want colour of text to affect avatar
+        pushStyle();
         //ADDED lights to spheres
-        lights();
+        //lights();
         translate(sphereX, sphereY);
         //ADDITION: Made the spheres rotate on X axis so the the text could be seen more clearly
         rotateX(6);
-        fill(255);
+        stroke(200, 0, 255);
+        fill(0);
         // stroke(50);
         //CHANGED spheres to spheres
         sphere(20);
-        //push and pop style because I didn't want colour of text to affect avatar
-        pushStyle();
         //ADDED: made the text red
-        fill(255, 0, 0);
+        fill(200, 0, 255);
         textFont(courierFont);
-        textSize(13);
+        textSize(14.5);
         //ADDED: put the text above the spheres
         text(feministSpheresArray[i], 0, -40);
         popStyle();
@@ -340,7 +348,7 @@ void draw() {
         //constraining the spheres not to go below the mountains.DOESNT WORK.
         yValueOfSpheres.set(i, constrain(sphereY, 0, 500));
         //made the spheres move pretty slowly so player can semi-easily collide with them
-        noiseMarkerSpheres.set(i, noiseMarkerSpheres.get(i)+0.005); 
+        noiseMarkerSpheres.set(i, noiseMarkerSpheres.get(i)+0.0005); 
 
 
         //if the spheres are off the right of the screen, put them back on the left of the screen to create a continuous flow
@@ -350,6 +358,8 @@ void draw() {
         }
         xValueOfSpheres.set(i, newX);
       }
+
+
 
 
       //drawing the boxes. the boxes will loop according to the size of the list in the current array 
@@ -375,17 +385,18 @@ void draw() {
         //ADDED lights to boxes
         //lights();
         pushMatrix();
+        pushStyle();
         translate(boxX, boxY);
         //removed rotate
-        fill(240);
+        fill(10);
+        stroke(255, 0, 0);
         box(30);
         //ADDED: made the text red
-        pushStyle();
         fill(255, 0, 0);
         textFont(courierFont);
-        textSize(13);
+        textSize(15);
         //ADDED: put the text above the boxes
-        text(boxesArray[i], 0, -37);
+        text(boxesArray[i], 0, -39);
         popStyle();
         popMatrix();
 
@@ -429,6 +440,7 @@ void draw() {
       avatar.collide();
 
       //ADDITION: if it is true that the player's score is bigger than 20 and fewer then 61 seconds has passed...
+      //fix this.
       if (score>=20 && time<61000) {
         //the game stops
         playGame =false;
