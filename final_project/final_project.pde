@@ -446,8 +446,8 @@ void draw() {
       for (int i=0; i<yValueOfMansplainers.size(); i=i+1) {
         //position of cube on x axis is every 400 pixels and moves to the right, 
         //and position of cubes on y axis is controlled by the noise function to give cool movement.
-        //cubes move to the right at the speed of 4
-        float mansplainerX=xValueOfMansplainers.get(i)+4;
+        //cubes move to the left at the speed of 1
+        float mansplainerX=xValueOfMansplainers.get(i)-1;
         float mansplainerY=height*noise(noiseMarkerMansplainers.get(i));
 
 
@@ -479,8 +479,8 @@ void draw() {
 
         //if the cubes are off the right of the screen, put them back on the left of the screen to create a continuous flow
         float newX = xValueOfMansplainers.get(i);
-        if ((newX >1330)) {
-          newX = -30;
+        if ((newX <0)) {
+          newX = 1325;
         }
         xValueOfMansplainers.set(i, newX);
       }
