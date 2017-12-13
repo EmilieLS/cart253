@@ -155,7 +155,7 @@ void setup() {
 
   // Create the avatar at the top centre of the screen
   //removed code for old keys, as new keys are simply the arrows.
-  avatar = new Avatar (1000, 20);
+  avatar = new Avatar (550, 20);
 }
 
 
@@ -302,8 +302,8 @@ void draw() {
       for (int i=0; i<yValueOfSpheres.size(); i=i+1) {
         //position of spheres on x axis is every 120 pixels and moves to the right, 
         //and position of spheres on y axis is controlled by the noise function to give cool movement.
-        //spheres move to the right at the speed of 4
-        float sphereX=xValueOfSpheres.get(i)+4;
+        //spheres move to the right at the speed of 5
+        float sphereX=xValueOfSpheres.get(i)+5;
         float sphereY=height*noise(noiseMarkerSpheres.get(i));
 
 
@@ -352,12 +352,12 @@ void draw() {
         //ADDED:if the boxes are being dragged, they follow the mouse. otherwise,
         //position of boxes on x axis is every 110 pixels, 
         //and position of boxes on the y axis is controlled by the noise function to give cool movement.
-        //boxes move to the right at speed of 3
+        //boxes move to the right at speed of 1.5
         float boxX =0;
         float boxY =0;
         if (draggingIndex!=i)
         {
-          boxX=xValueOfBoxes.get(i)+3;
+          boxX=xValueOfBoxes.get(i)+1.5;
           boxY=height*noise(noiseMarkerBoxes.get(i));
         } else
         {
@@ -407,8 +407,8 @@ void draw() {
       pushStyle();
       pushMatrix();
       textAlign(CENTER, CENTER);
-      translate(width/2, 760, 10);
-      textSize(28);
+      translate(width/2, 780, 10);
+      textSize(26);
       fill(255, 0, 0);
       text(feministHell, 0, 0);
       popMatrix();
