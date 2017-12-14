@@ -8,13 +8,13 @@ are needed to win: dragging the oppressive cubes into feminist hell with a mouse
 I think this dual action is creative, especially that these actions were coded with the fact that this game should be a cooperative game in mind. Indeed, feminism is a movement 
 towards community building and anti-individualism, and I wanted my feminist game to reflect that. Therefore, two players work together to win!
 Additionally, songs by Rihanna and Beyoncé - feminist idols - play at the end of the game, making women feel warm and welcomed, whether they won or lost! 
-A webcam at the end also shows the player how wonderful they are (I was careful not to say "beautiful", because women's worth is sadly mostly placed on their beauty). I was also careful to 
-use language directed at women on the end screens, because women can use a space to feel specifically welcomed, as many spaces are unwelcoming to us.
+A webcam at the end also shows the player how wonderful they are (I was careful not to say "beautiful", because women's worth is sadly mostly placed on their beauty). 
+I was also careful to use language directed at women on the end screens, because women could use a space to feel specifically welcomed, as many spaces are unwelcoming to us.
 
-I believe a specifically interesting coding technique I used was the coding for the movement of the boxes, spheres, and self-Deprecating cubes.
+I believe a specifically interesting coding technique I used was the coding for the movement of the boxes, spheres, and self-deprecating cubes.
 It was difficult figuring out how to make them move in a flowing way with the noise function on the y axis without the speed of the cubes on the x axis influencing
 the movement of the objects on the y axis. A totally separate array needed to be created to implement the noise. It was also hard figuring out how to make elements of arrays
-disappear, as we had not really looked at that much in the exercises nor in class. A floatList was what was necessary to remove elements from the arrays.
+disappear, as we had not really looked at this much in the exercises nor in class. A floatList was what was necessary to remove elements from the arrays.
 
 I designed my work on the programming knowledge I gained over the course almost exclusively. I used the exercises we did in class as well as the 
 midterm "Pong" as models. Thanks to the class and these coded examples, I was able to use classes, arrays, sound, the webcam, an internal timer for 
@@ -109,8 +109,8 @@ int score=0;
 String feministHell= "Feminist Hell";
 
 //ADDITION: All the text that shows up on home screen
-String intro= "\nWANT  TO PRACTICE  FEMINISM?\n\nAVOID FEMINIST HELL BY MAKING AT \nLEAST 16 POINTS UNDER  1  MINUTE.\n\n";
-String rules="\n\n- DRAGGING AN OPPRESSIVE CUBE INTO FEMINIST HELL = +1\n\n-USING  ARROWS  TO  CATCH FEMINIST SPHERES = +1\n\n-COLLIDING WITH A SELF-DEPRECATING CUBE = -1";
+String intro= "\n\nWANT  TO PRACTICE  FEMINISM?\n\nAVOID FEMINIST HELL BY MAKING AT \nLEAST 18 POINTS UNDER  1  MINUTE.\n\n";
+String rules="\n\n- DRAGGING AN OPPRESSIVE CUBE INTO FEMINIST HELL = +1\n\n-USING  ARROWS  TO  COLLIDE WITH FEMINIST SPHERES = +1\n\n-COLLIDING WITH A SELF-DEPRECATING CUBE = -1";
 //ADDITION: text saying to press shift to start
 String pressShift="\nPRESS 'SHIFT' TO BEGIN :)";
 //ADDED text to make sure player knows this game should be played in a team with a partner. 
@@ -370,7 +370,7 @@ void draw() {
         //removed constrain on y position of spheres
         yValueOfSpheres.set(i, sphereY);
         //made the spheres move pretty slowly so player can semi-easily collide with them
-        noiseMarkerSpheres.set(i, noiseMarkerSpheres.get(i)+0.0005); 
+        noiseMarkerSpheres.set(i, noiseMarkerSpheres.get(i)+0.003); 
 
         //if the spheres are off the right of the screen, put them back on the left of the screen to create a continuous flow
         float newX = xValueOfSpheres.get(i);
@@ -386,12 +386,12 @@ void draw() {
         //ADDED:if the boxes are being dragged, they follow the mouse. otherwise,
         //position of boxes on x axis is every 137 pixels, 
         //and position of boxes on the y axis is controlled by the noise function to give cool movement.
-        //boxes move to the right at speed of 1.5
+        //boxes move to the right at speed of 1.7
         float boxX =0;
         float boxY =0;
         if (draggingIndex!=i)
         {
-          boxX=xValueOfBoxes.get(i)+1.5;
+          boxX=xValueOfBoxes.get(i)+1.7;
           boxY=height*noise(noiseMarkerBoxes.get(i));
         } else
         {
@@ -419,7 +419,7 @@ void draw() {
         //removed constrain on y position of boxes
         yValueOfBoxes.set(i, boxY);
         //made the spheres move pretty slowly so player can semi-easily collide with them
-        noiseMarkerBoxes.set(i, noiseMarkerBoxes.get(i)+0.005); 
+        noiseMarkerBoxes.set(i, noiseMarkerBoxes.get(i)+0.004); 
 
         //if boxes are not dragged and
         if (draggingIndex!=i)
@@ -439,8 +439,8 @@ void draw() {
       for (int i=0; i<yValueOfDeprecation.size(); i=i+1) {
         //position of cube on x axis is every 400 pixels and moves to the right, 
         //and position of cubes on y axis is controlled by the noise function to give cool movement.
-        //cubes move to the left at the speed of 2
-        float DeprecationX=xValueOfDeprecation.get(i)+2;
+        //cubes move to the left at the speed of 3.5
+        float DeprecationX=xValueOfDeprecation.get(i)+3.5;
         float DeprecationY=height*noise(noiseMarkerDeprecation.get(i));
 
 
@@ -464,7 +464,7 @@ void draw() {
         //removed constrain on y position of cubes
         yValueOfDeprecation.set(i, DeprecationY);
         //made the cubes move pretty slowly so player can semi-easily collide with them
-        noiseMarkerDeprecation.set(i, noiseMarkerDeprecation.get(i)+0.0005); 
+        noiseMarkerDeprecation.set(i, noiseMarkerDeprecation.get(i)+0.004); 
 
 
         //if the cubes are off the right of the screen, put them back on the left of the screen to create a continuous flow
@@ -491,8 +491,8 @@ void draw() {
       //checks if avatar collides with spheres or self-Deprecation cubes
       avatar.collide();
 
-      //ADDITION: if it is true that the player's score is bigger or equal to 16 AND fewer then 60 seconds has passed then...
-      if (score>=16 && timePassed<60000) {
+      //ADDITION: if it is true that the player's score is bigger or equal to 18 AND fewer then 60 seconds has passed then...
+      if (score>=18 && timePassed<60000) {
         //the game stops
         playGame =false;
         //and the text below is drawn
@@ -501,12 +501,12 @@ void draw() {
         songWon.play();
       }
 
-      //ADDITION: if it is true that the player's score is smaller than 16 and more then 60 seconds has passed then...
-      if (score<=15 && timePassed>60000) {
+      //ADDITION: if it is true that the player's score is smaller than 18 and more then 60 seconds has passed then...
+      if (score<=17 && timePassed>60000) {
         //the game stops
         playGame =false;
         //and the text below is drawn
-        gameOutcome="Girl(s), you lost, but it's okay!\nKeep fighting the power by investing\nin yourself and other femmes.\n\nPress 'control' to see\nhow wonderful you are! :)";
+        gameOutcome="Girl(s), you lost, but it's okay!\nKeep fighting the power by investing\nin yourself and other femmes.\n\nPress 'control' to see\nhow wonderful you are!";
         //ADDED song when player loses
         songLost.play();
       }
