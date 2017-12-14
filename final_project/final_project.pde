@@ -112,7 +112,7 @@ int score=0;
 String feministHell= "Feminist Hell";
 
 //ADDITION: All the text that shows up on home screen
-String intro= "\n\nWANT  TO PRACTICE  FEMINISM?\n\nAVOID FEMINIST HELL BY MAKING AT \nLEAST 18 POINTS UNDER  1  MINUTE.\n\n";
+String intro= "\n\nWANT  TO PRACTICE  FEMINISM?\n\nAVOID FEMINIST HELL BY MAKING AT \nLEAST 17 POINTS UNDER  1  MINUTE.\n\n";
 String rules="\n\n- DRAGGING AN OPPRESSIVE CUBE INTO FEMINIST HELL = +1\n\n-USING  ARROWS  TO  COLLIDE WITH FEMINIST SPHERES = +1\n\n-COLLIDING WITH A SELF-DEPRECATING CUBE = -1";
 //ADDITION: text saying to press shift to start
 String pressShift="\nPRESS 'SHIFT' TO BEGIN :)";
@@ -346,8 +346,8 @@ void draw() {
       for (int i=0; i<yValueOfSpheres.size(); i=i+1) {
         //position of spheres on x axis is every 137 pixels and moves to the right, 
         //and position of spheres on y axis is controlled by the noise function to give cool movement.
-        //spheres move to the right at the speed of 2.5
-        float sphereX=xValueOfSpheres.get(i)+2.5;
+        //spheres move to the right at the speed of 2.8
+        float sphereX=xValueOfSpheres.get(i)+2.8;
         float sphereY=height*noise(noiseMarkerSpheres.get(i));
 
         //ADDED: giving the properties to the spheres
@@ -389,12 +389,12 @@ void draw() {
         //ADDED:if the boxes are being dragged, they follow the mouse. otherwise,
         //position of boxes on x axis is every 137 pixels, 
         //and position of boxes on the y axis is controlled by the noise function to give cool movement.
-        //boxes move to the right at speed of 1.7
+        //boxes move to the right at speed of 2.3
         float boxX =0;
         float boxY =0;
         if (draggingIndex!=i)
         {
-          boxX=xValueOfBoxes.get(i)+1.7;
+          boxX=xValueOfBoxes.get(i)+2.3;
           boxY=height*noise(noiseMarkerBoxes.get(i));
         } else
         {
@@ -442,8 +442,8 @@ void draw() {
       for (int i=0; i<yValueOfDeprecation.size(); i=i+1) {
         //position of cube on x axis is every 400 pixels and moves to the right, 
         //and position of cubes on y axis is controlled by the noise function to give cool movement.
-        //cubes move to the left at the speed of 3.5
-        float DeprecationX=xValueOfDeprecation.get(i)+3.5;
+        //cubes move to the left at the speed of 3.7
+        float DeprecationX=xValueOfDeprecation.get(i)+3.7;
         float DeprecationY=height*noise(noiseMarkerDeprecation.get(i));
 
 
@@ -467,7 +467,7 @@ void draw() {
         //removed constrain on y position of cubes
         yValueOfDeprecation.set(i, DeprecationY);
         //made the cubes move pretty slowly so player can semi-easily collide with them
-        noiseMarkerDeprecation.set(i, noiseMarkerDeprecation.get(i)+0.004); 
+        noiseMarkerDeprecation.set(i, noiseMarkerDeprecation.get(i)+0.006); 
 
 
         //if the cubes are off the right of the screen, put them back on the left of the screen to create a continuous flow
@@ -494,8 +494,8 @@ void draw() {
       //checks if avatar collides with spheres or self-Deprecation cubes
       avatar.collide();
 
-      //ADDITION: if it is true that the player's score is bigger or equal to 18 AND fewer then 60 seconds has passed then...
-      if (score>=18 && timePassed<60000) {
+      //ADDITION: if it is true that the player's score is bigger or equal to 17 AND fewer then 60 seconds has passed then...
+      if (score>=17 && timePassed<60000) {
         //the game stops
         playGame =false;
         //and the text below is drawn
@@ -504,8 +504,8 @@ void draw() {
         songWon.play();
       }
 
-      //ADDITION: if it is true that the player's score is smaller than 18 and more then 60 seconds has passed then...
-      if (score<=17 && timePassed>60000) {
+      //ADDITION: if it is true that the player's score is smaller than 17 and more then 60 seconds has passed then...
+      if (score<=16 && timePassed>60000) {
         //the game stops
         playGame =false;
         //and the text below is drawn
