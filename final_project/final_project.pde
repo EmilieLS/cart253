@@ -572,6 +572,8 @@ void draw() {
         image(heart, 1000, 200, 100, 100);
         image(heart, 1100, 300, 80, 80);
         image(heart, 120, 400, 100, 100);
+        image(heart, 220, 470, 60, 60);
+        image(heart, 250, 570, 80, 80);
       }
     }
   }
