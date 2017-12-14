@@ -29,7 +29,7 @@
  I hope you enjoy learning to become a better feminist!*/
 
 /*Game: Becoming a better feminist!
- the point is to make at least 18 points in less then 1 minute
+ the point is to make at least 17 points in less then 1 minute
  the player can make points by 1)dragging the boxes (which are negative for someone's feminist growth) into feminist hell and 2) by moving the avatar and making 
  it collide with the spheres. One point is made for each box dragged into feminist hell, and one point is made each time the avatar collides with a sphere.
  One point is lost if avatar collides with self-deprecating cubes*/
@@ -227,6 +227,27 @@ void draw() {
     //draws image of girl  avatar top center or screen.
     image(girl, width/2-50, 30, 100, 100);
 
+    pushMatrix();
+    translate(1000, 300);
+    fill(10);
+    stroke(255, 0, 0);
+    box(25);
+    popMatrix();
+
+    pushMatrix();
+    translate(1000, 360);
+    stroke(200, 0, 255);
+    fill(0);
+    sphere(20);
+    popMatrix();
+
+    pushMatrix();
+    translate(1000, 420);
+    fill(4);
+    stroke(0, 0, 255);
+    box(20);
+    popMatrix();
+
     //TEXT TO BE SHOWN ON HOME SCREEN
     textFont(courierFont);
     //fill text is purple and then turns into blue as code below show
@@ -302,6 +323,7 @@ void draw() {
       //background almost black
       background(15);
 
+
       //ADDED: text for score
       textSize(40);
       textAlign(CENTER, CENTER);
@@ -365,7 +387,6 @@ void draw() {
         textSize(14.5);
         //ADDED: put the text above the spheres
         text(feministSpheresArray[i], 0, -40);
-        ;
         popMatrix();
 
         //storing the x and y value of the ball so we can access it for the collision
