@@ -1,35 +1,38 @@
 /*Artist's statement: //<>//
-
-I decided I would be very motivated to create my game if it were to be inspired by a concept I cared and knew about a lot. Feminism is very important to me, so I chose to make a 
-game that shows people how to become better feminists. This theme gave me ample ideas for things the improving feminist player could "reject" (i.e. republicans, mainsplainers, 
-cat calling, etc., as well as self-deprecation, which every improving feminist should avoid). This theme also gave me many ideas for things the player could strive to have
-(thus the "femme friends", "Bell Hooks", and "intersectional" feminist spheres). This dualism that arose in my feminist theme allowed me to develop a game in which two actions
-are needed to win: dragging the oppressive cubes into feminist hell with a mouse, and using the arrows to make the avatar collide with feminist concepts (and avoid self-Deprecation!).
-I think this dual action is creative, especially that these actions were coded with the fact that this game should be a cooperative game in mind. Indeed, feminism is a movement 
-towards community building and anti-individualism, and I wanted my feminist game to reflect that. Therefore, two players work together to win!
-Additionally, songs by Rihanna and Beyoncé - feminist idols - play at the end of the game, making women feel warm and welcomed, whether they won or lost! 
-A webcam at the end also shows the player how wonderful they are (I was careful not to say "beautiful", because women's worth is sadly mostly placed on their beauty). 
-I was also careful to use language directed at women on the end screens, because women could use a space to feel specifically welcomed, as many spaces are unwelcoming to us.
-
-I believe a specifically interesting coding technique I used was the coding for the movement of the boxes, spheres, and self-deprecating cubes.
-It was difficult figuring out how to make them move in a flowing way with the noise function on the y axis without the speed of the cubes on the x axis influencing
-the movement of the objects on the y axis. A totally separate array needed to be created to implement the noise. It was also hard figuring out how to make elements of arrays
-disappear, as we had not really looked at this much in the exercises nor in class. A floatList was what was necessary to remove elements from the arrays.
-
-I designed my work on the programming knowledge I gained over the course almost exclusively. I used the exercises we did in class as well as the 
-midterm "Pong" as models. Thanks to the class and these coded examples, I was able to use classes, arrays, sound, the webcam, an internal timer for 
-the game, 3D rendering, how to change fonts, how to make objects collide, how to implement functions like keyPressed() and mouseDragged(), and more. 
-I tried to take something we learned from every week and implement it into my game.
-
-I hope you enjoy learning to be a better feminist!
-
-*/
+ 
+ I decided I would be very motivated to create my game if it were to be inspired by a concept I cared and knew about a lot. Feminism is very important to me, so I chose to make a 
+ game that shows people how to become better feminists. This theme gave me ample ideas for things the improving feminist player could "reject" (i.e. republicans, mainsplainers, 
+ cat calling, etc., as well as self-deprecation, which every improving feminist should avoid). This theme also gave me many ideas for things the player could strive to have
+ (thus the "femme friends", "Bell Hooks", and "intersectional" feminist spheres). This dualism that arose through my feminist theme allowed me to develop a game in which two actions
+ are needed to win: dragging oppressive cubes into feminist hell with a mouse, and using the arrows to make the avatar collide with feminist concepts (and avoid self-deprecation!).
+ I think this dual action is creative, especially that these actions were coded with the fact that this game should be a cooperative game in mind. Indeed, feminism is a movement 
+ towards community building and anti-individualism, and I wanted this feminist game to reflect that. Therefore, two players work together to win!
+ Songs by Rihanna and Beyoncé - feminist idols - play at the end of the game contributing to this feminist them by making women feel warm and welcomed, whether they won or lost! 
+ A webcam at the end also shows the player how wonderful they are (I was careful not to say "beautiful", because women's worth is mostly placed on their beauty). 
+ I was also careful to use language directed at women on the end screens, because women could use a space to feel specifically welcomed, as many spaces are unwelcoming to us.
+ 
+ Finding ways in which to make all aspects of the game relate back to the feminist theme took a lot of creative energy, but so did the visual aspect of the game! I wanted really scary-looking
+ mountains for the "feminist hell" to add an obvious comical effect, but it was also important to me as an artist that the game look awesome! The combination of the 
+ fluctuation of the colours of the spiky mountains and the use colours which complement each other (namely red, blue, and purple) for the rest of the game
+ helped give the game a visually appealing aspect. 
+ 
+ I believe a specifically interesting coding technique I used was the coding for the movement of the boxes, spheres, and self-deprecating cubes.
+ It was difficult figuring out how to make them move in a flowing way with the noise function on the y axis without the speed of the cubes on the x axis influencing
+ the movement of the objects on the y axis. A totally separate array needed to be created to implement the noise. It was also hard figuring out how to make elements of arrays
+ disappear, as we had not really looked at this much in the exercises nor in class. A floatList was what was necessary to remove elements from the arrays.
+ 
+ I designed my work on the programming knowledge I gained over the course almost exclusively. I used the exercises we did in class as well as the 
+ midterm "Pong" as models. Thanks to the class and these coded examples, I was able to use classes, arrays, sound, the webcam, an internal timer for 
+ the game, 3D rendering, how to change fonts, how to make objects collide, how to implement functions like keyPressed() and mouseDragged(), and more. 
+ I tried to take something we learned from every week and implement it into my game.
+ 
+ I hope you enjoy learning to become a better feminist!*/
 
 /*Game: Becoming a better feminist!
-the point is to make 19 points in less then 1 minute
-the player can make points by 1)dragging the boxes (which are negative for someone's feminist growth)
-into feminist hell and 2) by moving the avatr and making it collide with the spheres.
-One point is made for each box dragged into feminist hell, and one point is made each time the avatar collides with a sphere */
+ the point is to make at least 18 points in less then 1 minute
+ the player can make points by 1)dragging the boxes (which are negative for someone's feminist growth) into feminist hell and 2) by moving the avatar and making 
+ it collide with the spheres. One point is made for each box dragged into feminist hell, and one point is made each time the avatar collides with a sphere.
+ One point is lost if avatar collides with self-deprecating cubes*/
 
 //ADDED: Import the video library for webcam
 import processing.video.*;
@@ -53,7 +56,7 @@ SoundFile songMinusOne;
  www.joan.cat
  processing.joan.cat
  @jsoleradillon
-*/
+ */
 
 // array for the moutains. m is every pixel position for the mountains
 float m[] = new float[1300];
